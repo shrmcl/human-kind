@@ -1,15 +1,22 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
 
-<h1>Welcome to VolunTender!</h1>
+<div class="container">
+    <h1>Welcome to</h1>
+    
+    <img src="/assets/images/voluntender.png" class="logo" alt="Voluntender Logo">
 
+    <br>
 
-<button a href="/signup">Sign up</a>
-<button a href="/login">Login</a>
-<button a href="/orgSignup">Non Profit Sign up</a>
+    <a class="btn btn-info btn-lg" href="/signup" role="button">Start profile now!</a>
+    <a class="btn btn-info btn-lg" href="/login" role="button">I have an account</a>
+
+</div>
 
 <!-- All the above are also in the navbar -->
 
+<!-- For version 2.0 with org signup
+<a class="btn btn-primary btn-lg" href="/orgSignup" role="button">I'm a NonProfit</a> -->
 
 <!-- adds footer.ejs -->
 <%- include("partials/footer") %>
