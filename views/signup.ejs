@@ -1,66 +1,82 @@
-<!-- adds header.ejs -->
 <%- include("partials/header") %>
+  
+    <div class="container">
+      <form action="/signup" method="post">
+        <h1>Sign up</h1>
 
-<h1>Sign Up</h1>
-<p>Please fill in this form to create an account.</p>
-<hr/>
-<div>
-    <form class="modal-content" action="/signup" method="post">
-        <div class="container">
-            <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account.</p>
-            <hr>
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
-    
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-    
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-            <div>
-                <label for="psw-repeat"><b>Little Bio about yourself</b></label> <br>
-                <textarea name="biography" id="" cols="80" rows="5" placeholder="Short blurb about yourself"></textarea>
-            </div>
+        <label for="email">First name:</label>
+        <input type="text" placeholder="first" name="fname" required>
 
-            <div>
-                <label for="psw-repeat"><b>Gender</b></label> <br>
-            </div>
+        <label for="email">Last name:</label>
+        <input type="text" placeholder="last" name="lname" required>
 
-            <div>
-                <label for="psw-repeat"><b>Age Range</b></label> <br>
-            </div>
+        <label for="email">Email</label>
+        <input type="text" placeholder="email" name="email" required>
 
-            <div>
-                <label for="psw-repeat"><b>Location</b></label> <br>
-            </div>
+        <label for="password">Password:</label>
+        <input type="password" placeholder="password" name="password" required>
 
-            <div>
-                <label for="psw-repeat"><b>Interest</b></label> <br>
-                <p>Check all that apply</p>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Animals
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Housing
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Neighborhood Cleanup
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Food/Hunger
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Community Organizing
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> LGBTA+
-                </label>
-            </div>
+        <label for="email">Create a username:</label>
+        <input type="text" placeholder="username" name="username" required>
 
-            <label>
-                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-            </label>
-    
-            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-    
-            <div class="clearfix">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signup">Sign Up</button>
-            </div>
-        </div>
+        <label for="bio">Brief description of yourself:</label><br>
+        <textarea name="bio" cols="80" rows="1" placeholder="type here"></textarea><br><br>
+
+        <label for="dob">Birthday:</label>
+        <input type="date" name="dob"><br><br>
+
+        <!-- gender -->
+        <p>Gender:</p>
+        <input type="radio" name="gender" id="female" value="female">
+        <label class="padright" for="female">Female</label>
+        <input type="radio" name="gender" id="male" value="male">
+        <label class="padright" for="male">Male</label>
+        <input type="radio" name="gender" id="nonbinary" value="nonbinary">
+        <label class="padright" for="nonbinary">Nonbinary</label>
+        <input type="radio" name="gender" id="other" value="other">
+        <label class="padright" for="other">Other</label>
+        <br><br>
+
+        <!-- add avatars here -->
+
+        <p>What social issues are you interested in? <span>Select all that apply.</span></p>
+        <input type="checkbox" id="animals" name="issues" value="animals">
+        <label class="padright" for="animals">Animals</label>
+        <input type="checkbox" id="housing" name="issues" value="housing">
+        <label class="padright" for="housing">Housing</label>
+        <input type="checkbox" id="cleanup" name="issues" value="cleanup">
+        <label class="padright" for="cleanup">Neighborhood Cleanup</label>
+        <input type="checkbox" id="food" name="issues" value="food">
+        <label class="padright" for="food">Food & Hunger</label>
+        <input type="checkbox" id="organizing" name="issues" value="organizing">
+        <label class="padright" for="organizing">Community Organizing</label>
+        <input type="checkbox" id="lgbtia" name="issues" value="lgbtia">
+        <label class="padright" for="lgbtia">LGBTIA+</label>
+        <br><br>
+
+        <p>What age ranges do you want to meet? <span>Select all that apply.</span></p>
+        <input type="checkbox" id="ages1" name="ages" value="20-30">
+        <label class="padright" for="ages1">20-30</label>
+        <input type="checkbox" id="ages2" name="ages" value="30-40">
+        <label class="padright" for="ages2">30-40</label>
+        <input type="checkbox" id="ages3" name="ages" value="40-50">
+        <label class="padright" for="ages3">40-50</label>
+        <br><br>
+
+        <p>What genders do you want to meet? <span>Select all that apply.</span></p>
+        <input type="checkbox" id="seek-female" name="seek-gender" value="female">
+        <label class="padright" for="seek-female">Female</label>
+
+        <input type="checkbox" id="seek-male" name="seek-gender" value="male">
+        <label class="padright" for="seek-male">Male</label>
+
+        <input type="checkbox" id="seek-nonbinary" name="seek-gender" value="nonbinary">
+        <label class="padright" for="seek-nonbinary">Nonbinary</label>
+
+        <input type="checkbox" id="seek-other" name="seek-gender" value="other">
+        <label class="padright" for="seek-other">Other</label>
+
     </form>
-</div>
+    </div>
 
-<!-- adds footer.ejs -->
 <%- include("partials/footer") %>
