@@ -62,6 +62,8 @@ app.get("/login", function(req, res) { //brings us to user login page if already
 //post rout that handles logic for registering user & adding their info to database
 app.post("/signup", function(req, res) {
   // passport stuff:
+  console.log(req.body)
+  
   var newUser = new User({
     username: req.body.username,
     password: req.body.pw,
@@ -72,7 +74,7 @@ app.post("/signup", function(req, res) {
     gender: req.body.gender,
     ageRange: req.body.age,
     bio: req.body.bio,
-    interests: req.body.interests,
+    interests: req.body.issues,
     lookingFor: req.body.lookingFor
   });
 
