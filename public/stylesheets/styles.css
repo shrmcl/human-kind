@@ -4,13 +4,18 @@
   padding: 0;
 }
 
+h1 {
+ font-weight: bold; 
+ font-size: 4em;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: powderblue;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .logo {
-  width: 400px;
-  margin: 10px 0 100px;
+  width: 80%;
 }
 
 label{
@@ -131,9 +136,14 @@ button:hover, input[type=submit]:hover {
   width: 50%;
 }
 
-/* Add padding to container elements */
 .container {
-  padding: 16px;
+  margin: 40px auto;
+  /* text-align: center; */
+  padding: 25px auto;
+}
+
+#homepage {
+  text-align: center;
 }
 
 /* The Modal (background) */
