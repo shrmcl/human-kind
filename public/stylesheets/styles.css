@@ -20,6 +20,47 @@ label{
   margin-bottom: 5px;
 }
 
+#label-avatar1 {
+  background-image: url("../assets/images/Avatar1.png");
+}
+
+#label-avatar2 {
+  background-image: url("../assets/images/Avatar2.png");
+}
+
+#label-avatar3 {
+  background-image: url("../assets/images/Avatar3.png");
+}
+
+#label-avatar4 {
+  background-image: url("../assets/images/Avatar4.png");
+}
+
+#label-avatar5 {
+  background-image: url("../assets/images/Avatar5.png");
+}
+
+#label-avatar6 {
+  background-image: url("../assets/images/Avatar6.png");
+}
+
+#label-avatar7 {
+  background-image: url("../assets/images/Avatar7.png");
+}
+
+#label-avatar8 {
+  background-image: url("../assets/images/Avatar8.png");
+}
+
+.avatars {
+  width: 100px;
+  height: 70px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+}
+
 form p {
   color: rgb(54, 54, 54);
   font-size: 0.9rem;
@@ -63,7 +104,7 @@ input[type=radio] {
 }
 
 /* Set a style for all buttons */
-button {
+button, input[type=submit] {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -74,7 +115,7 @@ button {
   opacity: 0.9;
 }
 
-button:hover {
+button:hover, input[type=submit]:hover {
   opacity:1;
 }
 

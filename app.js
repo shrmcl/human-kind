@@ -63,8 +63,9 @@ app.get("/login", function(req, res) { //brings us to user login page if already
   res.render("login");
 });
 
-//post rout that handles logic for registering user
+//post rout that handles logic for registering user & adding their info to database
 app.post("/signup", function(req, res) {
+  // passport stuff:
   var newUser = new User({username: req.body.username});
   User.register(newUser, req.body.password, function(err, user) {
       if(err){
@@ -76,6 +77,11 @@ app.post("/signup", function(req, res) {
         });
       }
   })
+
+  // database form stuff:
+  
+
+
 });
 
 //Login route logic
