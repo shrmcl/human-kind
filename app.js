@@ -1,17 +1,13 @@
 // Foundation
 const express = require("express");
-
 const app = express();
-
 const mongoose = require("mongoose");
 const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
-
 app.use(express.static("public")); //connects express to the "public" folder where we made a css file
-
 const keys = require("./config/keys"); //links to private api key in config folder so no one has access. dev.js is added to gitignore
 
 mongoose.connect(keys.mongoURI,
@@ -66,7 +62,20 @@ app.get("/login", function(req, res) { //brings us to user login page if already
 //post rout that handles logic for registering user & adding their info to database
 app.post("/signup", function(req, res) {
   // passport stuff:
-  var newUser = new User({username: req.body.username});
+  var newUser = new User({
+    username: req.body.username,
+    password: req.body.pw,
+    firstName: req.body.fname,
+    lastName: req.body.lname,
+    email: req.body.email,
+    pic: req.body.avatar,
+    gender: req.body.gender,
+    ageRange: req.body.age,
+    bio: req.body.bio,
+    interests: req.body.interests,
+    lookingFor: req.body.lookingFor
+  });
+
   User.register(newUser, req.body.password, function(err, user) {
       if(err){
         console.log(err);
@@ -77,8 +86,7 @@ app.post("/signup", function(req, res) {
         });
       }
   })
-
-  // database form stuff:
+  
   
 
 
