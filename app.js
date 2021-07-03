@@ -10,6 +10,11 @@ app.set("view engine", "ejs");  //adding this line makes it so we don't have to 
 app.use(express.static("public")); //connects express to the "public" folder where we made a css file
 const keys = require("./config/keys"); //links to private api key in config folder so no one has access. dev.js is added to gitignore
 
+//Logger
+const logger = require("morgan");
+app.use(logger("dev") );
+
+
 mongoose.connect(keys.mongoURI,
   { //must use two lines of code below for mongoose to work
       useNewUrlParser: true,
