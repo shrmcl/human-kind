@@ -45,48 +45,6 @@ app.get("/", function(req, res) {  //links to home.ejs page
 
 
 
-
-function getInterests(uname, iArray) {
-  
-  //Coming Soon
-  let interests;
-  //let iArray = [];
-  //let iArray = new Object;
-  User.find({username: uname}, function(error, doc){
-    
-    if(error)
-    {
-      console.log("An error occurred:  ", error);
-    } 
-    else
-    { 
-      console.log("Success:  ", doc);
-      console.log(typeof doc);
-      //console.log("Interests isolated:  " + doc[0].interests);
-      interests = doc[0].interests; 
-      console.log("Interests isolated:  " + interests);
-      console.log("What type is the interests:" + typeof interests);
-      console.log("What are the keys of interests:" + Object.keys(interests) );
-        
-      Object.keys(interests).forEach((elem) => {
-      
-        iArray.push(interests[elem]);
-      });
-     
-     
-     console.log("iArray:  " + iArray);
-     console.log("What is the type of iArray:  " + typeof iArray);
-    
-  
-    }// else
-  });// end find
-  
-  //return iArray;
-}// end getInterests
-
-
-
-
 function getMatches(interestsArray) {
 
   let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 3}] ;
@@ -110,22 +68,15 @@ function getMatches(interestsArray) {
 
 
 
-
-
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
-  //this where all the magic happens
   console.log("The username in question:  " + req.user.username);
+  console.log("The user\'s interests are:" + req.user.interests);
 
-  //let interestsArray;
-  let interestsArray = [];
+  let interestsArray = req.user.interests;
   let username = req.user.username;
 
 
-  //interestsArray = getInterests(username);
-  interestsArray = ['animals', 'environment', 'community', 'housing'];
-
-  getInterests(username, interestsArray);
   console.log("What is the value of interestsArray:  " + interestsArray);
  
   let results = getMatches(interestsArray)   
