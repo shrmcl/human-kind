@@ -44,6 +44,7 @@ app.get("/", function(req, res) {  //links to home.ejs page
 });
 
 
+var matches = new Array();
 
 function getMatches(interestsArray) {
 
@@ -79,13 +80,24 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
     else
     {
       doc.forEach(function(elem){
-        console.log(elem);
+        var obj = {};
+ 
+        obj.firstName = elem.firstName; 
+        obj.lastName = elem.lastName;
+        obj.gender = elem.gender; 
+        obj.ageRange = elem.ageRange;
+        obj.pic = elem.pic;
+        obj.bio = elem.bio;
+        matches.push(obj);
+
       });
+      console.log("Matches:  " + matches);
+      console.log("First document: " + matches[0].lastName);
+      res.render("results", {matches: matches});
     }
 
   });
   
-  res.render("results");
 });// end /results
 
 
