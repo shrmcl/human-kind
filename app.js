@@ -48,22 +48,11 @@ app.get("/", function(req, res) {  //links to home.ejs page
 function getMatches(interestsArray) {
 
   let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 3}] ;
- 
-  let matches; 
-  User.aggregate(aggregateQuery, function(error, doc){
 
-    if(error)
-    {
-      console.log("An error occurred:  ", error);
-    }//end if
-    else
-    {
-      console.log("Success:  ", doc);
-      matches = doc;
-    }// end else
-  });
 
-  return matches;
+  var query = User.aggregate(aggregateQuery);
+  return query;
+
 }// end getMatches
 
 
@@ -79,7 +68,22 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 
   console.log("What is the value of interestsArray:  " + interestsArray);
  
-  let results = getMatches(interestsArray)   
+  let results = getMatches(interestsArray);
+  results.exec(function(err, doc){
+
+    if(err)
+    {
+      console.log(err);
+      return err;
+    }
+    else
+    {
+      doc.forEach(function(elem){
+        console.log(elem);
+      });
+    }
+
+  });
   
   res.render("results");
 });// end /results
