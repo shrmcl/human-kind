@@ -2,6 +2,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border: none;
+  
 }
 
 h1 {
@@ -11,8 +13,7 @@ h1 {
 
 body {
   background-color: powderblue;
-  font-family: 'Noto Sans KR', sans-serif;
-}
+  }
 
 .logo {
   width: 80%;
@@ -59,7 +60,7 @@ label{
 
 .avatars {
   width: 100px;
-  height: 70px;
+  height: 100px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

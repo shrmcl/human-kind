@@ -84,10 +84,12 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
  
         obj.firstName = elem.firstName; 
         obj.lastName = elem.lastName;
+        obj.username = elem.username;
         obj.gender = elem.gender; 
         obj.ageRange = elem.ageRange;
         obj.pic = elem.pic;
         obj.bio = elem.bio;
+        obj.interests = elem.interests;
         matches.push(obj);
 
       });
@@ -131,7 +133,7 @@ app.post("/signup", function(req, res) {
     gender: req.body.gender,
     ageRange: req.body.age,
     bio: req.body.bio,
-    interests: req.body.issues,
+    interests: req.body.interests,
     lookingFor: req.body.lookingFor
   });
 
