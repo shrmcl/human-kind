@@ -89,6 +89,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
     {
       doc.forEach(function(elem){
         var obj = {};
+        var intersection = interestsArray.filter(x => elem.interests.includes(x) );
  
         obj.firstName = elem.firstName;
         obj.lastName = elem.lastName;
@@ -97,7 +98,9 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
         obj.ageRange = elem.ageRange;
         obj.pic = elem.pic;
         obj.bio = elem.bio;
-        obj.interests = elem.interests;
+        obj.interests = intersection;
+
+
         matches.push(obj);
 
       });
