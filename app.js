@@ -48,7 +48,7 @@ var matches = new Array();
 
 function getMatches(interestsArray) {
 
-  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 3}];
+  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 4}];
 
 
   var query = User.aggregate(aggregateQuery);
@@ -88,20 +88,28 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
     else
     {
       doc.forEach(function(elem){
-        var obj = {};
-        var intersection = interestsArray.filter(x => elem.interests.includes(x) );
- 
-        obj.firstName = elem.firstName;
-        obj.lastName = elem.lastName;
-        obj.username = elem.username;
-        obj.gender = elem.gender; 
-        obj.ageRange = elem.ageRange;
-        obj.pic = elem.pic;
-        obj.bio = elem.bio;
-        obj.interests = intersection;
+
+        if(elem.username === username)
+        {
+          return;
+        }
+        else
+        {
+	  var obj = {};
+	  var intersection = interestsArray.filter( x => elem.interests.includes(x) );
+   
+	  obj.firstName = elem.firstName;
+	  obj.lastName = elem.lastName;
+	  obj.username = elem.username;
+	  obj.gender = elem.gender; 
+	  obj.ageRange = elem.ageRange;
+	  obj.pic = elem.pic;
+	  obj.bio = elem.bio;
+	  obj.interests = intersection;
 
 
-        matches.push(obj);
+	  matches.push(obj);
+        }
 
       });
       console.log("Matches:  " + matches);
