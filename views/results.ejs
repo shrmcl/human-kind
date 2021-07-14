@@ -15,10 +15,15 @@
   <% matches.forEach((elem) => { %>
     <div class="col mb-4">
       <div class="card h-100">
+        <div class="card-header">
+          
+            <h3 class="card-title"><%= elem.username %><span><i class="far fa-bookmark"></i></span></h3>
+            
+        
+        </div>
         <img src="/assets/images/<%=elem.pic%>.png" class="card-img-top" alt="avatar image">
           <div class="card-body">
-            <h3 class="card-title"><%= elem.username %></h3>
-            
+                        
             <p class="card-text">Gender: <%= elem.gender %></p>
             <p class="card-text">Age Range: <%= elem.ageRange %></p>
             <p class="card-text">About myself: <%= elem.bio %></p>

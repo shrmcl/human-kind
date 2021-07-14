@@ -26,6 +26,8 @@ app.use(express.urlencoded({extended: true}));
 
 let User = require("./models/user"); //connects to user file in models folder
 
+let Org = require("./models/org"); //connects to org file in models folder
+
 app.use(require('express-session')({
   secret: "Blah blah blah", //used to calculate the hash to protect our password from3rd party hijackers
   resave: false,
@@ -103,7 +105,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 });// end /results
 
 
-
+  
 
 
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
@@ -118,7 +120,11 @@ app.get("/login", function(req, res) { //brings us to user login page if already
   res.render("login");
 });
 
-//post rout that handles logic for registering user & adding their info to database
+app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashboard. isLoggedIn means it's only accessible when logged in
+  res.render("dashboard");
+});
+
+//post route that handles logic for registering user & adding their info to database
 app.post("/signup", function(req, res) {
   // passport stuff:
   console.log(req.body)
@@ -147,15 +153,37 @@ app.post("/signup", function(req, res) {
         });
       }
   })
-  
-  
+});
 
+//post route that handles logic for adding org info to database
+app.post("/orgSignup", function(req, res) {
+  // passport stuff:
+  console.log(req.body)
+  
+  var newOrg = new Org({
+    username: req.body.username,
+    password: req.body.password,
+    orgName: req.body.orgName,
+    mission: req.body.mission,
+    website: req.body.website,
+    interests: req.body.interests
+  });
 
+  Org.register(newOrg, req.body.password, function(err, user) {
+      if(err){
+        console.log(err);
+        return res.render("orgSignup")
+      } else {
+        passport.authenticate("local")(req, res, function() {
+          res.redirect("/logout"); // redirect might change
+        });
+      }
+  })  
 });
 
 //Login route logic
 app.post('/login', passport.authenticate('local', { //passport.authenticate is known as middleware (code that runs before callback function)
-  successRedirect: '/results', // if successful, will send to newsfeed page
+  successRedirect: '/dashboard', // if successful, will send to dashboard page
   failureRedirect: '/login' //if it doesn't work, will redirect back to login screen
 }), function(req, res) {
   //don't need anything in our callback function

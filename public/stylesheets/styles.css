@@ -191,6 +191,10 @@ hr {
   cursor: pointer;
 }
 
+span {
+  float: right;
+}
+
 /* Clear floats */
 .clearfix::after {
   content: "";

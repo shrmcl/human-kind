@@ -1,0 +1,31 @@
+<!-- adds header.ejs -->
+<%- include("partials/header") %>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-5">This is your dashboard:</h1><br>
+        </div>
+    </div>
+  
+    <div class="col">
+        <h3 class="text-left mt-5">Find matches:</h3><br>
+        <a class="btn btn-info btn-lg" href="/results" role="button">Show me matches</a>
+    </div>
+    
+    <div class="col">
+        <h3 class="text-left mt-5">Saved matches:</h3>
+
+        <!-- toggle on off icon to show if clicked -->
+        <!-- if clicked app.post saves username or id to user's profile under array: "savedMatches" -->
+        <!-- in dashboard do forEach and display profile card for each id or username in array -->
+        
+        
+        
+    </div>  
+     
+      
+</div>
+
+<!-- adds footer.ejs -->
+<%- include("partials/footer") %>

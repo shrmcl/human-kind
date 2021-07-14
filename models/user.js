@@ -12,7 +12,8 @@ let UserSchema = new mongoose.Schema({
     ageRange: String,
     bio: String,
     interests: Array,
-    lookingFor: Array
+    lookingFor: Array,
+    savedMatches: Array
 });
 
 UserSchema.plugin(passportLocalMongoose);
