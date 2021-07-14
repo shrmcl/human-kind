@@ -50,7 +50,7 @@ var matches = new Array();
 
 function getMatches(interestsArray) {
 
-  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 3}] ;
+  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 4}];
 
 
   var query = User.aggregate(aggregateQuery);
@@ -62,16 +62,24 @@ function getMatches(interestsArray) {
 
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
+  //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
   console.log("The username in question:  " + req.user.username);
   console.log("The user\'s interests are:" + req.user.interests);
 
+
+  //The interests and username of the currently logged in user are stored in local variables.
   let interestsArray = req.user.interests;
   let username = req.user.username;
 
 
   console.log("What is the value of interestsArray:  " + interestsArray);
- 
+
+  //The user's interests (interestArray) is passed to a function called getMatches, where a query object is returned and stored in local variable results.
   let results = getMatches(interestsArray);
+
+
+  //The returned query is first checked for any errors.  If there no errors, the code iterates through all the documents via a forEach loop.  For each document/record,
+  //the field values are copied to a locally-defined object, which is then pushed into the matches array.  Finally, the matches array is passed to results.ejs.
   results.exec(function(err, doc){
 
     if(err)
@@ -82,17 +90,28 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
     else
     {
       doc.forEach(function(elem){
-        var obj = {};
- 
-        obj.firstName = elem.firstName; 
-        obj.lastName = elem.lastName;
-        obj.username = elem.username;
-        obj.gender = elem.gender; 
-        obj.ageRange = elem.ageRange;
-        obj.pic = elem.pic;
-        obj.bio = elem.bio;
-        obj.interests = elem.interests;
-        matches.push(obj);
+
+        if(elem.username === username)
+        {
+          return;
+        }
+        else
+        {
+	  var obj = {};
+	  var intersection = interestsArray.filter( x => elem.interests.includes(x) );
+   
+	  obj.firstName = elem.firstName;
+	  obj.lastName = elem.lastName;
+	  obj.username = elem.username;
+	  obj.gender = elem.gender; 
+	  obj.ageRange = elem.ageRange;
+	  obj.pic = elem.pic;
+	  obj.bio = elem.bio;
+	  obj.interests = intersection;
+
+
+	  matches.push(obj);
+        }
 
       });
       console.log("Matches:  " + matches);
