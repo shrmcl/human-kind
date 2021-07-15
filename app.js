@@ -26,7 +26,7 @@ app.use(express.urlencoded({extended: true}));
 
 let User = require("./models/user"); //connects to user file in models folder
 
-let Org = require("./models/org"); //connects to org file in models folder
+let Orgs = require("./models/orgs"); //connects to org file in models folder
 
 app.use(require('express-session')({
   secret: "Blah blah blah", //used to calculate the hash to protect our password from3rd party hijackers
@@ -35,7 +35,7 @@ app.use(require('express-session')({
 }));
 
 app.use(passport.initialize()); //starts a session
-app.use(passport.session()); //allows access to sesion
+app.use(passport.session()); //allows access to session
 passport.use(new LocalStrategy(User.authenticate())); 
 passport.serializeUser(User.serializeUser()); //required to store data session
 passport.deserializeUser(User.deserializeUser()); //removes user session when they logout
@@ -131,7 +131,7 @@ app.get("/signup", function(req, res) { //brings us to sign up page and profile 
   res.render("signup");
 });
 
-app.get("/orgSignUp", function(req, res) { //brings us to dummy (for now) org signup page
+app.get("/orgSignup", function(req, res) { //brings us to dummy (for now) org signup page
   res.render("orgSignup");
 });
 
@@ -141,6 +141,10 @@ app.get("/login", function(req, res) { //brings us to user login page if already
 
 app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashboard. isLoggedIn means it's only accessible when logged in
   res.render("dashboard");
+});
+
+app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)
+  res.render("orgThanks");
 });
 
 //post route that handles logic for registering user & adding their info to database
@@ -168,7 +172,7 @@ app.post("/signup", function(req, res) {
         return res.render("signup")
       } else {
         passport.authenticate("local")(req, res, function() {
-          res.redirect("/results");
+          res.redirect("/dashboard");
         });
       }
   })
@@ -179,22 +183,23 @@ app.post("/orgSignup", function(req, res) {
   // passport stuff:
   console.log(req.body)
   
-  var newOrg = new Org({
+  var newOrgs = new Orgs({
     username: req.body.username,
-    password: req.body.password,
+    password: req.body.pw,
     orgName: req.body.orgName,
     mission: req.body.mission,
     website: req.body.website,
     interests: req.body.interests
   });
 
-  Org.register(newOrg, req.body.password, function(err, user) {
+  Orgs.register(newOrgs, req.body.password, function(err, orgs) {
       if(err){
         console.log(err);
         return res.render("orgSignup")
       } else {
         passport.authenticate("local")(req, res, function() {
-          res.redirect("/logout"); // redirect might change
+          // redirect might change
+          res.redirect("/orgThanks");
         });
       }
   })  
