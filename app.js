@@ -45,20 +45,10 @@ const multer = require('multer');
 const cloudinary = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// cloudinary.config({
-// cloud_name: process.env.CLOUD_NAME,
-// api_key: process.env.API_KEY,
-// api_secret: process.env.API_SECRET
-// });
-
-// THIS NEEDS TO BE IN .ENV to be made private
+// this requires you to have '.env' file in root folder with API info
 cloudinary.config({ 
-  cloud_name: 'dfg6bkjgg', 
-  api_key: '959531122535493', 
-  api_secret: 'yEYkSDNzl0KZmM3HnH0MKak2Ji4',
-  // secure: true 
+  API_Environment_variable: process.env.CLOUDINARY_URL
 });
-
 
 const storage =  new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -76,14 +66,11 @@ app.post('/api/images', parser.single("image"), (req, res) => {
   const image = {};
   image.url = req.file.url;
   image.id = req.file.public_id;
+  // THIS PART needs to send the img url to our mongodb to the new user's document
   Image.create(image) // save image information in database
     .then(newImage => res.json(newImage))
     .catch(err => console.log(err));
 });
-
-
-
-
 
 // Routes
 app.get("/", function(req, res) {  //links to home.ejs page
@@ -103,25 +90,20 @@ function getMatches(interestsArray) {
 
 }// end getMatches
 
-
-
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
   //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
   console.log("The username in question:  " + req.user.username);
   console.log("The user\'s interests are:" + req.user.interests);
 
-
   //The interests and username of the currently logged in user are stored in local variables.
   let interestsArray = req.user.interests;
   let username = req.user.username;
-
 
   console.log("What is the value of interestsArray:  " + interestsArray);
 
   //The user's interests (interestArray) is passed to a function called getMatches, where a query object is returned and stored in local variable results.
   let results = getMatches(interestsArray);
-
 
   //The returned query is first checked for any errors.  If there no errors, the code iterates through all the documents via a forEach loop.  For each document/record,
   //the field values are copied to a locally-defined object, which is then pushed into the matches array.  Finally, the matches array is passed to results.ejs.
@@ -154,7 +136,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
 
-
 	  matches.push(obj);
         }
 
@@ -167,10 +148,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
   });
   
 });// end /results
-
-
-  
-
 
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
   res.render("signup");
