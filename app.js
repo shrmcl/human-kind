@@ -1,6 +1,7 @@
 // Foundation
 const express = require("express");
 const app = express();
+require('dotenv').config()
 const mongoose = require("mongoose");
 const passport = require('passport');
 const LocalStrategy = require("passport-local");
@@ -13,7 +14,6 @@ const keys = require("./config/keys"); //links to private api key in config fold
 //Logger
 const logger = require("morgan");
 app.use(logger("dev") );
-
 
 mongoose.connect(keys.mongoURI,
   { //must use two lines of code below for mongoose to work
@@ -39,6 +39,51 @@ app.use(passport.session()); //allows access to session
 passport.use(new LocalStrategy(User.authenticate())); 
 passport.serializeUser(User.serializeUser()); //required to store data session
 passport.deserializeUser(User.deserializeUser()); //removes user session when they logout
+
+// image uploading packages:
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+// cloudinary.config({
+// cloud_name: process.env.CLOUD_NAME,
+// api_key: process.env.API_KEY,
+// api_secret: process.env.API_SECRET
+// });
+
+// THIS NEEDS TO BE IN .ENV to be made private
+cloudinary.config({ 
+  cloud_name: 'dfg6bkjgg', 
+  api_key: '959531122535493', 
+  api_secret: 'yEYkSDNzl0KZmM3HnH0MKak2Ji4',
+  // secure: true 
+});
+
+
+const storage =  new CloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "demo",
+  allowedFormats: ["jpg", "png", "jpeg", "gif"],
+  transformation: [{ width: 500, height: 500, crop: "limit" }],
+});
+
+const parser = multer({ storage: storage });
+
+// TEMP route for temp "/api/images" form
+// NOTE: *Image is an example placeholder for your database collection. Substitute it for your own.
+app.post('/api/images', parser.single("image"), (req, res) => {
+  console.log(req.file) // to see what is returned to you
+  const image = {};
+  image.url = req.file.url;
+  image.id = req.file.public_id;
+  Image.create(image) // save image information in database
+    .then(newImage => res.json(newImage))
+    .catch(err => console.log(err));
+});
+
+
+
+
 
 // Routes
 app.get("/", function(req, res) {  //links to home.ejs page
