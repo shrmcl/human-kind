@@ -64,6 +64,7 @@ const parser = multer({ storage: storage });
 // NOTE: *Image is an example placeholder for your database collection. Substitute it for your own.
 app.post('/api/images', parser.single("image"), (req, res) => {
   // console.log(req.file) // to see what is returned to you
+  console.log("path to image: ", req.file.path) // this is the http address to the image
   const image = {};
   image.url = req.file.url;
   image.id = req.file.public_id;
