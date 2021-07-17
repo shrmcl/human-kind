@@ -42,7 +42,7 @@ passport.deserializeUser(User.deserializeUser()); //removes user session when th
 
 // image uploading packages:
 const multer = require('multer');
-const cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 // this requires you to have '.env' file in root folder with API info
@@ -52,9 +52,10 @@ cloudinary.config({
 
 const storage =  new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: "demo",
-  allowedFormats: ["jpg", "png", "jpeg", "gif"],
-  transformation: [{ width: 500, height: 500, crop: "limit" }],
+  params: {
+    // name of folder images will be stored in our Cloudinary account
+    folder: 'demo',
+  },
 });
 
 const parser = multer({ storage: storage });
@@ -62,14 +63,19 @@ const parser = multer({ storage: storage });
 // TEMP route for temp "/api/images" form
 // NOTE: *Image is an example placeholder for your database collection. Substitute it for your own.
 app.post('/api/images', parser.single("image"), (req, res) => {
-  console.log(req.file) // to see what is returned to you
+  // console.log(req.file) // to see what is returned to you
   const image = {};
   image.url = req.file.url;
   image.id = req.file.public_id;
-  // THIS PART needs to send the img url to our mongodb to the new user's document
-  Image.create(image) // save image information in database
-    .then(newImage => res.json(newImage))
-    .catch(err => console.log(err));
+
+  // THIS PART needs to send the img url to our mongodb to the new user's document:
+  // ("Image" is placeholder for our db)
+
+  // Image.create(image) // save image information in database
+  //   .then(newImage => res.json(newImage))
+  //   .catch(err => console.log(err));
+
+  res.redirect('/')
 });
 
 // Routes
