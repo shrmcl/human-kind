@@ -62,22 +62,22 @@ const parser = multer({ storage: storage });
 
 // TEMP route for temp "/api/images" form
 // NOTE: *Image is an example placeholder for your database collection. Substitute it for your own.
-app.post('/api/images', parser.single("image"), (req, res) => {
-  // console.log(req.file) // to see what is returned to you
-  console.log("path to image: ", req.file.path) // this is the http address to the image
-  const image = {};
-  image.url = req.file.url;
-  image.id = req.file.public_id;
+// app.post('/api/images', parser.single("image"), (req, res) => {
+//   // console.log(req.file) // to see what is returned to you
+//   console.log("path to image: ", req.file.path) // this is the http address to the image
+//   const image = {};
+//   image.url = req.file.url;
+//   image.id = req.file.public_id;
 
-  // THIS PART needs to send the img url to our mongodb to the new user's document:
-  // ("Image" is placeholder for our db)
+//   // THIS PART needs to send the img url to our mongodb to the new user's document:
+//   // ("Image" is placeholder for our db)
 
-  // Image.create(image) // save image information in database
-  //   .then(newImage => res.json(newImage))
-  //   .catch(err => console.log(err));
+//   // Image.create(image) // save image information in database
+//   //   .then(newImage => res.json(newImage))
+//   //   .catch(err => console.log(err));
 
-  res.redirect('/')
-});
+//   res.redirect('/')
+// });
 
 // Routes
 app.get("/", function(req, res) {  //links to home.ejs page
@@ -176,8 +176,9 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
   res.render("orgThanks");
 });
 
-//post route that handles logic for registering user & adding their info to database
-app.post("/signup", function(req, res) {
+// post route that handles logic for registering user & adding their info to database
+// parser handles image upload to Cloudinary
+app.post("/signup", parser.single("image"), function(req, res) {
   // passport stuff:
   console.log(req.body)
   
@@ -203,6 +204,18 @@ app.post("/signup", function(req, res) {
         passport.authenticate("local")(req, res, function() {
           res.redirect("/dashboard");
         });
+
+        // upload image to cloudinary *after* user added to db:
+        console.log("path to image: ", req.file.path) // this is the http address to the image
+        // const image = {};
+        // add these to user db to store image url and id 
+        // first have defaults for these in the db document; then we will update with this info:
+        // image.url = req.file.url;
+        // image.id = req.file.public_id;'
+
+        // // this is not working:
+        // User.updateOne({ firstName: `"${newUser.firstName}"` }, { pic: `"${req.file.path}"`});
+        
       }
   })
 });
