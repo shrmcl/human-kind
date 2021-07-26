@@ -188,7 +188,10 @@ app.post("/signup", parser.single("image"), function(req, res) {
     firstName: req.body.fname,
     lastName: req.body.lname,
     email: req.body.email,
-    pic: req.body.avatar,
+    // pic: req.body.avatar,        // we don't need avatars anymore.
+    // PLACEHOLDER IMAGE as default:
+    // pic: 'https://res.cloudinary.com/dfg6bkjgg/image/upload/v1626496428/demo/i7cup02wozwmiytpwur9.jpg', 
+    pic: req.file.path, 
     gender: req.body.gender,
     ageRange: req.body.age,
     bio: req.body.bio,
@@ -202,11 +205,12 @@ app.post("/signup", parser.single("image"), function(req, res) {
         return res.render("signup")
       } else {
         passport.authenticate("local")(req, res, function() {
+          console.log("new user info: ", newUser) // to see if image upload address is included correctly
           res.redirect("/dashboard");
         });
 
         // upload image to cloudinary *after* user added to db:
-        console.log("path to image: ", req.file.path) // this is the http address to the image
+        // console.log("path to image: ", req.file.path) // this is the http address to the image
         // const image = {};
         // add these to user db to store image url and id 
         // first have defaults for these in the db document; then we will update with this info:

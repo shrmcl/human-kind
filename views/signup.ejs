@@ -12,8 +12,9 @@
       <form action="/signup" method="post" enctype="multipart/form-data">
         <h1>Sign up</h1>
         <br><br>
-
-        <input type='file' name='image' />
+        <label for="fname">Add a profile image:</label><br>
+        <input type='file' name='image' id='pic'/>
+        <br><br>
 
         <label for="fname">First name:</label>
         <input type="text" placeholder="first" id="fname" name="fname" required>
@@ -56,7 +57,7 @@
         <label class="padright" for="other">Other</label>
         <br><br>
 
-        <p>Select a profile image:</p>
+        <!-- <p>Select a profile image:</p>
         <label for="avatar1" id="label-avatar1" class="avatars">
           <input type="radio" name="avatar" id="avatar1" value="Avatar1">
         </label>
@@ -81,7 +82,7 @@
         <label for="avatar8" id="label-avatar8" class="avatars">
           <input type="radio" name="avatar" id="avatar8" value="Avatar8">
         </label>
-        <br><br>
+        <br><br> -->
 
         <p>What social issues are you interested in? <span>Select all that apply.</span></p>
         <input type="checkbox" id="animals" name="interests" value="animals">
