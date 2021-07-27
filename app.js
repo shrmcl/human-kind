@@ -178,6 +178,39 @@ app.post("/signup", function(req, res) {
   })
 });
 
+
+//adds saved matches to user's profile in db 
+app.post("/results", isLoggedIn, function(req, res) {
+  User.updateOne
+  ({username: req.user.username},
+    { $addToSet: {savedMatches: req.body.username
+  }},
+  function(error, data) {
+    if (error) {
+      console.log("savedMatches Error: ", error);
+    } else {
+      res.redirect("/dashboard");
+    }
+  })
+});
+
+//shows savedMatches results in dashboard !!!NOT WORKING!!!
+
+app.get("/dashboard", isLoggedIn, function(req, res) {
+  let user1 = req.user.username;
+  let savedMatches = req.user.savedMatches;
+  User.find({username: user1, savedMatches: savedMatches}, (error, results) => {
+    if (error) {
+      console.log("Error getting savedMatches Array from db: ", error);
+      res.json("Error reading savedMatches from db");
+    } else {
+      console.log("savedMatches Results: ", savedMatches);
+      res.json(savedMatches);
+    }
+  });
+});
+
+
 //post route that handles logic for adding org info to database
 app.post("/orgSignup", function(req, res) {
   // passport stuff:
