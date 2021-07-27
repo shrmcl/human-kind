@@ -10,7 +10,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
 app.use(express.static("public")); //connects express to the "public" folder where we made a css file
 const keys = require("./config/keys"); //links to private api key in config folder so no one has access. dev.js is added to gitignore
-               
+
 //Logger
 const logger = require("morgan");
 app.use(logger("dev") );
@@ -25,7 +25,6 @@ mongoose.connect(keys.mongoURI,
 app.use(express.urlencoded({extended: true}));
 
 let User = require("./models/user"); //connects to user file in models folder
-let Org = require("./models/orgs"); //connects to user file in models folder
 
 let Orgs = require("./models/orgs"); //connects to org file in models folder
 
@@ -98,6 +97,44 @@ function getMatches(interestsArray) {
 
 }// end getMatches
 
+// ADDING DELETING STUFF:
+
+//async function getOrganizations(commonInterests) {
+  function getOrganizations(commonInterests) {
+
+    //var commonInterestsQuery = {"interests":{$in: commonInterests}};
+    //return await Org.find(commonInterestsQuery);
+  
+  
+    return Org.find({"interests":{$in: commonInterests}});
+    //return await Org.find({"interests":{$in: commonInterests}});
+    //return await Org.find({"interests":{$in: commonInterests}}).exec();
+  
+    /*
+    await Org.find({"interests":{$in: commonInterests}}).exec((error, doc) => {
+      if(error)
+      {
+        console.log(error);
+        return error;
+      }
+      else 
+      {
+        var results = new Array();
+        doc.forEach((elem) =>{
+          results.push(elem.orgName);
+        });
+        console.log("Organizations:  " + results);
+        return results;
+      }
+    })// end find
+    */
+  
+  
+  
+  }// end getOrganizations 
+
+// END DELETED STUFF.
+
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
   //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
@@ -134,8 +171,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
         {
 	  var obj = {};
 	  var intersection = interestsArray.filter( x => elem.interests.includes(x) );
-
-
    
 	  obj.firstName = elem.firstName;
 	  obj.lastName = elem.lastName;
@@ -145,94 +180,18 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.pic = elem.pic;
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
-	  matches.push(obj);
 
+	  matches.push(obj);
         }
 
-      }); // end forEach
-
-
-
-
-
-
-
-
-      //matches.forEach((elem) =>{
-      matches.forEach((elem, key, arr) =>{
-
-        console.log("\n\nFor the given match:  " + elem);
-
-        console.log("Declaring an empty array...");
-        var organizations = new Array();
-
-        //For each record, match up organizations to candidates based on interests.
-        console.log("Common interests...  " + elem.interests);
-
-
-
-        /*
-        getOrganizations(elem.interests) 
-        .then((element) =>{
-
-          element.forEach((org) =>{
-            console.log("Result of calling getOrganizations from the result route...  " + org.orgName);
-            organizations.push(org.orgName);
-          })// end forEach
-
-          console.log("Organizations Array...  " + organizations);
-	  elem.organizations = organizations;
-
-        })// end then
-        */
-
-
-
-
-
-
-
-        var results2 = getOrganizations(elem.interests);
-        results2.exec(function(err, doc){
-
-          if(err)
-          {
-            console.log(err);
-          }// end if
-          else
-          {
-            doc.forEach((org)=>{
-
-              organizations.push(org.orgName);
-            });// doc.forEach
-
-            elem.organizations = organizations;
-            console.log("The array of organizations..." + elem.organizations);
-             
-          }// end else
-
-
-	  if (Object.is(arr.length - 1, key)) {
-	    // execute last item logic
-	    //console.log(`Last callback call at index ${key} with value ${val}` ); 
-            res.render("results", {matches: matches});
-	  }
-        
-
-        });// end results2.exec
-
-
-      });// end matches.forEach
-
-
-
-      //res.render("results", {matches: matches});
-
-    }// end else
+      });
+      console.log("Matches:  " + matches);
+      console.log("First document: " + matches[0].lastName);
+      res.render("results", {matches: matches});
+    }
 
   });
   
-
 });// end /results
 
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
