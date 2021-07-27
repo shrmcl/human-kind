@@ -1,14 +1,20 @@
 // Foundation
+const path = require('path');
+const http = require('http');
 const express = require("express");
-const app = express();
-require('dotenv').config()
+const socketio = require('socket.io');
 const mongoose = require("mongoose");
 const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
+const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/user.js');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
-app.use(express.static("public")); //connects express to the "public" folder where we made a css file
+app.use(express.static(path.join(__dirname, 'public'))); //connects express to the "public" folder where we made a css file
 const keys = require("./config/keys"); //links to private api key in config folder so no one has access. dev.js is added to gitignore
 
 //Logger
@@ -25,6 +31,8 @@ mongoose.connect(keys.mongoURI,
 app.use(express.urlencoded({extended: true}));
 
 let User = require("./models/user"); //connects to user file in models folder
+
+let formatMessage = require("./utils/messages"); //connects to user file in models folder
 
 let Orgs = require("./models/orgs"); //connects to org file in models folder
 
@@ -214,6 +222,14 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
   res.render("orgThanks");
 });
 
+app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+  res.render("matchroom");
+});
+
+app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+  res.render("chat");
+});
+
 // post route that handles logic for registering user & adding their info to database
 // parser handles image upload to Cloudinary
 app.post("/signup", parser.single("image"), function(req, res) {
@@ -262,6 +278,39 @@ app.post("/signup", parser.single("image"), function(req, res) {
   })
 });
 
+
+//adds saved matches to user's profile in db 
+app.post("/results", isLoggedIn, function(req, res) {
+  User.updateOne
+  ({username: req.user.username},
+    { $addToSet: {savedMatches: req.body.username
+  }},
+  function(error, data) {
+    if (error) {
+      console.log("savedMatches Error: ", error);
+    } else {
+      res.redirect("/dashboard");
+    }
+  })
+});
+
+//shows savedMatches results in dashboard !!!NOT WORKING!!!
+
+app.get("/dashboard", isLoggedIn, function(req, res) {
+  let user1 = req.user.username;
+  let savedMatches = req.user.savedMatches;
+  User.find({username: user1, savedMatches: savedMatches}, (error, results) => {
+    if (error) {
+      console.log("Error getting savedMatches Array from db: ", error);
+      res.json("Error reading savedMatches from db");
+    } else {
+      console.log("savedMatches Results: ", savedMatches);
+      res.json(savedMatches);
+    }
+  });
+});
+
+
 //post route that handles logic for adding org info to database
 app.post("/orgSignup", function(req, res) {
   // passport stuff:
@@ -309,6 +358,52 @@ function isLoggedIn(req, res, next) {
   }
   res.redirect('/login');
 }// idAuthenticated is a built in passport method, checks to see if user is logged in, next( ) tells it to move to next piece of code
+
+const botName = 'ChatCord Bot';
+
+// Run when client connects
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room}) => {
+      const user = userJoin(socket.id, username, room);
+
+      socket.join(user.room);
+
+      // Welcome current user
+      socket.emit('message', formatMessage(botName, 'Welcome the ChatCord!'));
+
+      // Broadcast when a user connnects
+      socket.broadcast
+      .to(user.room)
+      .emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+
+      // Send users and room info
+      io.to(user.room).emit('roomUser', {
+          room: user.room,
+          users: getRoomUsers(user.room)
+      });
+  });
+
+      // Listen to chatMessage
+      socket.on('chatMessage', msg => {
+      const user = getCurrentUser(socket.id);
+
+      io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+      const user = userLeave(socket.id);
+
+      io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+
+      // Send users and room info
+      io.to(user.room).emit('roomUser', {
+          room: user.room,
+          users: getRoomUsers(user.room)
+      });
+  });
+});
+
 
 // Listener
 const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
