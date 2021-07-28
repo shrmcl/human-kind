@@ -303,7 +303,15 @@ app.get("/login", function(req, res) { //brings us to user login page if already
 });
 
 app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashboard. isLoggedIn means it's only accessible when logged in
-  res.render("dashboard");
+  // send pic if it's been uploaded; else send Avatar1.png
+  const userPic = req.user.pic ? req.user.pic : "/assets/images/Avatar1.png";
+  const userName = req.user.firstName;
+  const userDetails = {
+    displayImg: userPic,
+    displayName: userName
+  }
+  console.log('userpic and username: ', userPic, userName)
+  res.render("dashboard", {data: userDetails});
 });
 
 app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)

@@ -4,10 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <!-- (TEMP IMG) grab the user's profile image to go here: -->
-            <img width="100px" height="100px" style="border-radius: 50px" src="https://res.cloudinary.com/dfg6bkjgg/image/upload/v1626496428/demo/i7cup02wozwmiytpwur9.jpg" alt="">
-            
-            <h1 class="text-center mt-5">Hello, {insert first name}</h1><br>
+            <img width="100px" height="100px" style="border-radius: 50px" src=<%= data.displayImg %> alt=""> 
+            <h1 class="text-center mt-5">Hello, <%= data.displayName %></h1><br>
         </div>
     </div>
   
@@ -19,11 +17,7 @@
     
     <div class="col">
         <h3 class="text-left mt-5">Saved matches:</h3>
-
-       
-        
     </div>  
-
 </div>
 
 <!-- adds footer.ejs -->
