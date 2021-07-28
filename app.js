@@ -10,6 +10,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/user.js');
 
 const app = express();
+require('dotenv').config()
 const server = http.createServer(app);
 const io = socketio(server);
 
