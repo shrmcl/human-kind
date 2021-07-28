@@ -95,7 +95,7 @@ app.get("/", function(req, res) {  //links to home.ejs page
 });
 
 
-var matches = new Array();
+//var matches = new Array();
 
 function getMatches(interestsArray) {
 
@@ -146,6 +146,7 @@ function getMatches(interestsArray) {
 
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
+   var matches = new Array();
   //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
   console.log("The username in question:  " + req.user.username);
   console.log("The user\'s interests are:" + req.user.interests);
