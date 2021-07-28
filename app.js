@@ -13,6 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
 app.use(express.static(path.join(__dirname, 'public'))); //connects express to the "public" folder where we made a css file
 const keys = require("./config/keys"); //links to private api key in config folder so no one has access. dev.js is added to gitignore
@@ -35,6 +36,7 @@ let User = require("./models/user"); //connects to user file in models folder
 let formatMessage = require("./utils/messages"); //connects to user file in models folder
 
 let Orgs = require("./models/orgs"); //connects to org file in models folder
+let Org = require("./models/orgs"); //connects to org file in models folder
 
 app.use(require('express-session')({
   secret: "Blah blah blah", //used to calculate the hash to protect our password from3rd party hijackers
@@ -141,7 +143,6 @@ function getMatches(interestsArray) {
   
   }// end getOrganizations 
 
-// END DELETED STUFF.
 
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
@@ -149,14 +150,17 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
   console.log("The username in question:  " + req.user.username);
   console.log("The user\'s interests are:" + req.user.interests);
 
+
   //The interests and username of the currently logged in user are stored in local variables.
   let interestsArray = req.user.interests;
   let username = req.user.username;
+
 
   console.log("What is the value of interestsArray:  " + interestsArray);
 
   //The user's interests (interestArray) is passed to a function called getMatches, where a query object is returned and stored in local variable results.
   let results = getMatches(interestsArray);
+
 
   //The returned query is first checked for any errors.  If there no errors, the code iterates through all the documents via a forEach loop.  For each document/record,
   //the field values are copied to a locally-defined object, which is then pushed into the matches array.  Finally, the matches array is passed to results.ejs.
@@ -179,6 +183,8 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
         {
 	  var obj = {};
 	  var intersection = interestsArray.filter( x => elem.interests.includes(x) );
+
+
    
 	  obj.firstName = elem.firstName;
 	  obj.lastName = elem.lastName;
@@ -188,19 +194,99 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.pic = elem.pic;
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
-
 	  matches.push(obj);
+
         }
 
-      });
-      console.log("Matches:  " + matches);
-      console.log("First document: " + matches[0].lastName);
-      res.render("results", {matches: matches});
-    }
+      }); // end forEach
+
+
+
+
+
+
+
+
+      //matches.forEach((elem) =>{
+      matches.forEach((elem, key, arr) =>{
+
+        console.log("\n\nFor the given match:  " + elem);
+
+        console.log("Declaring an empty array...");
+        var organizations = new Array();
+
+        //For each record, match up organizations to candidates based on interests.
+        console.log("Common interests...  " + elem.interests);
+
+
+
+        /*
+        getOrganizations(elem.interests) 
+        .then((element) =>{
+
+          element.forEach((org) =>{
+            console.log("Result of calling getOrganizations from the result route...  " + org.orgName);
+            organizations.push(org.orgName);
+          })// end forEach
+
+          console.log("Organizations Array...  " + organizations);
+	  elem.organizations = organizations;
+
+        })// end then
+        */
+
+
+
+
+
+
+
+        var results2 = getOrganizations(elem.interests);
+        results2.exec(function(err, doc){
+
+          if(err)
+          {
+            console.log(err);
+          }// end if
+          else
+          {
+            doc.forEach((org)=>{
+
+              organizations.push(org.orgName);
+            });// doc.forEach
+
+            elem.organizations = organizations;
+            console.log("The array of organizations..." + elem.organizations);
+             
+          }// end else
+
+
+	  if (Object.is(arr.length - 1, key)) {
+	    // execute last item logic
+	    //console.log(`Last callback call at index ${key} with value ${val}` ); 
+            res.render("results", {matches: matches});
+	  }
+        
+
+        });// end results2.exec
+
+
+      });// end matches.forEach
+
+
+
+      //res.render("results", {matches: matches});
+
+    }// end else
 
   });
   
+
 });// end /results
+
+
+
+
 
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
   res.render("signup");
