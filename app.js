@@ -1,4 +1,5 @@
 // Foundation
+require('dotenv').config()
 const path = require('path');
 const http = require('http');
 const express = require("express");
@@ -10,10 +11,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/user.js');
 
 const app = express();
-require('dotenv').config()
 const server = http.createServer(app);
 const io = socketio(server);
-
 
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
 app.use(express.static(path.join(__dirname, 'public'))); //connects express to the "public" folder where we made a css file
@@ -71,25 +70,6 @@ const storage =  new CloudinaryStorage({
 
 const parser = multer({ storage: storage });
 
-// TEMP route for temp "/api/images" form
-// NOTE: *Image is an example placeholder for your database collection. Substitute it for your own.
-// app.post('/api/images', parser.single("image"), (req, res) => {
-//   // console.log(req.file) // to see what is returned to you
-//   console.log("path to image: ", req.file.path) // this is the http address to the image
-//   const image = {};
-//   image.url = req.file.url;
-//   image.id = req.file.public_id;
-
-//   // THIS PART needs to send the img url to our mongodb to the new user's document:
-//   // ("Image" is placeholder for our db)
-
-//   // Image.create(image) // save image information in database
-//   //   .then(newImage => res.json(newImage))
-//   //   .catch(err => console.log(err));
-
-//   res.redirect('/')
-// });
-
 // Routes
 app.get("/", function(req, res) {  //links to home.ejs page
     res.render("home"); //displays home.ejs file
@@ -107,8 +87,6 @@ function getMatches(interestsArray) {
   return query;
 
 }// end getMatches
-
-// ADDING DELETING STUFF:
 
 //async function getOrganizations(commonInterests) {
   function getOrganizations(commonInterests) {
@@ -303,14 +281,13 @@ app.get("/login", function(req, res) { //brings us to user login page if already
 });
 
 app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashboard. isLoggedIn means it's only accessible when logged in
-  // send pic if it's been uploaded; else send Avatar1.png
-  const userPic = req.user.pic ? req.user.pic : "/assets/images/Avatar1.png";
+  // function to determine if img has been uploaded; else use Avatar1.png
+  const userPic = req.user.pic.length > 10 ? req.user.pic : "/assets/images/Avatar1.png";
   const userName = req.user.firstName;
   const userDetails = {
     displayImg: userPic,
     displayName: userName
   }
-  console.log('userpic and username: ', userPic, userName)
   res.render("dashboard", {data: userDetails});
 });
 
@@ -338,9 +315,6 @@ app.post("/signup", parser.single("image"), function(req, res) {
     firstName: req.body.fname,
     lastName: req.body.lname,
     email: req.body.email,
-    // pic: req.body.avatar,        // we don't need avatars anymore.
-    // PLACEHOLDER IMAGE as default:
-    // pic: 'https://res.cloudinary.com/dfg6bkjgg/image/upload/v1626496428/demo/i7cup02wozwmiytpwur9.jpg', 
     pic: req.file.path, 
     gender: req.body.gender,
     ageRange: req.body.age,
@@ -359,17 +333,7 @@ app.post("/signup", parser.single("image"), function(req, res) {
           res.redirect("/dashboard");
         });
 
-        // upload image to cloudinary *after* user added to db:
-        // console.log("path to image: ", req.file.path) // this is the http address to the image
-        // const image = {};
-        // add these to user db to store image url and id 
-        // first have defaults for these in the db document; then we will update with this info:
-        // image.url = req.file.url;
-        // image.id = req.file.public_id;'
-
-        // // this is not working:
-        // User.updateOne({ firstName: `"${newUser.firstName}"` }, { pic: `"${req.file.path}"`});
-        
+      // TO DO: Only update MongoDb after img is successfully uploaded to Cloudinary        
       }
   })
 });

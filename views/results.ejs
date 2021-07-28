@@ -22,12 +22,11 @@
            <span><h3 class="card-title"><%= elem.username %></h3></span>
           
         </div>
-       
-        <!-- <img src="/assets/images/< %=elem.pic%>.png" class="card-img-top" alt="avatar image"> -->
-        <!-- For using uploaded pic instead of avater: -->
-        <img src="<%=elem.pic%>" class="card-img-top" alt="avatar image">
+        <!-- old path to avatars: -->
+          <!-- <img src="/assets/images/< %=elem.pic%>.png" class="card-img-top" alt="avatar image"> -->
+        <!-- new path for user-uploaded pic: -->
+        <img src=<% elem.pic %> class="card-img-top" alt="avatar image">
           <div class="card-body">
-                        
             <p class="card-text">Gender: <%= elem.gender %></p>
             <p class="card-text">Age Range: <%= elem.ageRange %></p>
             <p class="card-text">About myself: <%= elem.bio %></p>
@@ -50,9 +49,6 @@
 </form>
 
 <!-- <a class="btn btn-info btn-lg" href='/logout' role="button">Logout</a> -->
-
-
-
 
 <!-- adds footer.ejs -->
 <%- include("partials/footer") %>
