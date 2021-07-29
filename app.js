@@ -175,6 +175,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.pic = elem.pic.length > 10 ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
+    obj._id = elem._id; // adding access to unique id
 	  matches.push(obj);
 
         }

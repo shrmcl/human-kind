@@ -18,7 +18,7 @@
       <div class="card h-100">
         <div class="card-header" onclick="savedMatches.click()">
           <form action="/results" method="POST" id="save">
-           <input type="checkbox" id="savedMatches" name="username" value=<%=elem.username %>>
+           <input type="checkbox" id="savedMatches" name="username" value=<%=elem._id %>>
            <span><h3 class="card-title"><%= elem.username %></h3></span>
           
         </div>
@@ -31,9 +31,9 @@
             <p class="card-text">Age Range: <%= elem.ageRange %></p>
             <p class="card-text">About myself: <%= elem.bio %></p>
             <p class="card-text">Interests in common: <%= elem.interests %></p>
-            <form action="/matchroom">
+            <!-- <form action="/matchroom">
               <button type="submit" >ChatCord</button>
-            </form>
+            </form> -->
             <p class="card-text">Relevant Organizations: <%= elem.organizations %></p>
           </div>
           <!-- <a class="btn btn-warning btn-lg" href="/matchroom" role="button"></a> -->
