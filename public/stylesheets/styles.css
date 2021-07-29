@@ -97,6 +97,22 @@ input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
 }
+/* img upload button input container */
+input#pic {
+  background-color: rgba(255, 255, 255, 0.233);
+  padding: 20px;
+  border-radius: 8px;
+}
+/* img upload button */
+input[type=file]::file-selector-button {
+  border: 1px solid #198754;
+  color: #198754;
+  border-radius: .2em;
+  padding: .4em .8em;
+  margin: 0 20px 0 0;
+  background-color: white;
+  cursor: pointer;
+}
 
 textarea {
   padding: 15px;
