@@ -15,10 +15,17 @@
         <a class="btn btn-outline-info btn-lg" href="#" role="button">Update search preferences</a>
     </div>
     
-    <div class="col">
-        <h3 class="text-left mt-5">Saved matches:</h3>
-    </div>  
+    <div class="p-2 m-1">
+        <h3 class="text-left mt-5">Your Saved Matches:</h2>
+        <!-- show each saved match -->
+        <!-- we need to update savedMatches to hold a user's _id so we can query specific users details -->
+        <% data.savedMatches.forEach((el) => { %>
+            <% console.log('saved match:  ', el) %>
+            <p><%= el %></p>
+        <% }) %>
+    </div>
+   
 </div>
-
+    
 <!-- adds footer.ejs -->
 <%- include("partials/footer") %>

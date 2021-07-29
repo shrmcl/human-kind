@@ -171,7 +171,8 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.username = elem.username;
 	  obj.gender = elem.gender; 
 	  obj.ageRange = elem.ageRange;
-	  obj.pic = elem.pic;
+	  // obj.pic = elem.pic;
+	  obj.pic = elem.pic.length > 10 ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
 	  matches.push(obj);
@@ -286,8 +287,10 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   const userName = req.user.firstName;
   const userDetails = {
     displayImg: userPic,
-    displayName: userName
+    displayName: userName,
+    savedMatches: req.user.savedMatches
   }
+  console.log('saved: ', userDetails.savedMatches)
   res.render("dashboard", {data: userDetails});
 });
 
