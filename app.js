@@ -94,39 +94,11 @@ function getMatches(interestsArray) {
 
 }// end getMatches
 
-//async function getOrganizations(commonInterests) {
-  function getOrganizations(commonInterests) {
+function getOrganizations(commonInterests) {
 
-    //var commonInterestsQuery = {"interests":{$in: commonInterests}};
-    //return await Org.find(commonInterestsQuery);
-  
-  
     return Org.find({"interests":{$in: commonInterests}});
-    //return await Org.find({"interests":{$in: commonInterests}});
-    //return await Org.find({"interests":{$in: commonInterests}}).exec();
   
-    /*
-    await Org.find({"interests":{$in: commonInterests}}).exec((error, doc) => {
-      if(error)
-      {
-        console.log(error);
-        return error;
-      }
-      else 
-      {
-        var results = new Array();
-        doc.forEach((elem) =>{
-          results.push(elem.orgName);
-        });
-        console.log("Organizations:  " + results);
-        return results;
-      }
-    })// end find
-    */
-  
-  
-  
-  }// end getOrganizations 
+}// end getOrganizations 
 
 
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
@@ -177,7 +149,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.username = elem.username;
 	  obj.gender = elem.gender; 
 	  obj.ageRange = elem.ageRange;
-	  // obj.pic = elem.pic;
 	  obj.pic = elem.pic.length > 10 ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
@@ -195,7 +166,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 
 
 
-      //matches.forEach((elem) =>{
       matches.forEach((elem, key, arr) =>{
 
         console.log("\n\nFor the given match:  " + elem);
@@ -205,26 +175,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 
         //For each record, match up organizations to candidates based on interests.
         console.log("Common interests...  " + elem.interests);
-
-
-
-        /*
-        getOrganizations(elem.interests) 
-        .then((element) =>{
-
-          element.forEach((org) =>{
-            console.log("Result of calling getOrganizations from the result route...  " + org.orgName);
-            organizations.push(org.orgName);
-          })// end forEach
-
-          console.log("Organizations Array...  " + organizations);
-	  elem.organizations = organizations;
-
-        })// end then
-        */
-
-
-
 
 
 
@@ -263,7 +213,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 
 
 
-      //res.render("results", {matches: matches});
 
     }// end else
 
