@@ -12,27 +12,27 @@
   </div>
 
   <div class="row row-cols-1 row-cols-md-3">
-    
-  <% matches.forEach((elem) => { %>
-    <div class="col mb-4">
-      <div class="card h-100">
-        <div class="card-header" onclick="savedMatches.click()">
-          <form action="/results" method="POST" id="save">
-           <input type="checkbox" id="savedMatches" name="username" value=<%=elem.username %>>
-           <span><h3 class="card-title"><%= elem.username %></h3></span>
-          
-        </div>
+      
+      <% matches.forEach((elem) => { %>
+        <div class="col mb-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <form action="/results" method="POST" id="save"> 
+              <input type="checkbox" id="savedMatches" name="username" value=<%=elem.username %>>
+              <span><h3 class="card-title"><%= elem.username %></h3></span>
+      
+            </div>
        
-        <img src="/assets/images/<%=elem.pic%>.png" class="card-img-top" alt="avatar image">
+              <img src="/assets/images/<%=elem.pic%>.png" class="card-img-top" alt="avatar image">
           <div class="card-body">
                         
             <p class="card-text">Gender: <%= elem.gender %></p>
             <p class="card-text">Age Range: <%= elem.ageRange %></p>
             <p class="card-text">About myself: <%= elem.bio %></p>
             <p class="card-text">Interests in common: <%= elem.interests %></p>
-            <form action="/matchroom">
-              <button type="submit" >ChatCord</button>
-            </form>
+            <!-- <form action="/matchroom">
+              <button type="submit">ChatCord</button>
+            </form> -->
             <p class="card-text">Relevant Organizations: <%= elem.organizations %></p>
           </div>
           <!-- <a class="btn btn-warning btn-lg" href="/matchroom" role="button"></a> -->
@@ -42,7 +42,7 @@
   <% }) %>             
 
   </div> 
-<button type="submit" class="btn btn-primary btn-lg" >Save matches</i></button> 
+<button type="submit" class="btn btn-primary btn-lg" form="save" >Save matches</i></button> 
 <a class="btn btn-info btn-lg" href="/dashboard" role="button">Back to my Dashboard</a>
 <a class="btn btn-warning btn-lg" href="/logout" role="button">Logout</a>
 </form>

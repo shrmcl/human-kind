@@ -2,6 +2,8 @@
 const path = require('path');
 const http = require('http');
 const express = require("express");
+require('dotenv').config();
+const methodOverride = require("method-override"); //for updating and deleting profile
 const socketio = require('socket.io');
 const mongoose = require("mongoose");
 const passport = require('passport');
@@ -15,7 +17,10 @@ const io = socketio(server);
 
 
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
+app.use(methodOverride("_method")); //for use with method-override
 app.use(express.static(path.join(__dirname, 'public'))); //connects express to the "public" folder where we made a css file
+app.use(express.urlencoded({extended: true})); //lets us read data from req.body
+app.use(express.json());
 const keys = require("./config/keys"); //links to private api key in config folder so no one has access. dev.js is added to gitignore
 
 //Logger
@@ -29,7 +34,7 @@ mongoose.connect(keys.mongoURI,
   })
   .then(()=> console.log("Connected to VolunTender database")) //console logs to make sure it's connected
   .catch((error) => console.log(error));//otherwise console logs error
-app.use(express.urlencoded({extended: true}));
+  
 
 let User = require("./models/user"); //connects to user file in models folder
 
@@ -372,7 +377,7 @@ app.post("/results", isLoggedIn, function(req, res) {
   ({username: req.user.username},
     { $addToSet: {savedMatches: req.body.username
   }},
-  function(error, data) {
+  function(error) {
     if (error) {
       console.log("savedMatches Error: ", error);
     } else {
@@ -381,22 +386,41 @@ app.post("/results", isLoggedIn, function(req, res) {
   })
 });
 
-//shows savedMatches results in dashboard !!!NOT WORKING!!!
-
-app.get("/dashboard", isLoggedIn, function(req, res) {
-  let user1 = req.user.username;
-  let savedMatches = req.user.savedMatches;
-  User.find({username: user1, savedMatches: savedMatches}, (error, results) => {
-    if (error) {
-      console.log("Error getting savedMatches Array from db: ", error);
-      res.json("Error reading savedMatches from db");
+//edits user profile
+app.get("/edit", isLoggedIn, function(req, res) {
+  User.findById(req.user._id, (err, user) => {
+    if(err) {
+      console.log("Issue updating profile: ",err);
+      res.redirect("/dashboard");
     } else {
-      console.log("savedMatches Results: ", savedMatches);
-      res.json(savedMatches);
+      res.render("edit", {user: user});
     }
   });
 });
 
+//put route for updating profile
+app.post("/edit", 
+isLoggedIn, 
+// parser.single("image"), 
+(req, res) => {
+  console.log("--req.body is: ", req.body)
+  User.findByIdAndUpdate(req.params._id, {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    pic: req.body.pic,
+    bio: req.body.bio,
+    ageRange: req.body.ageRange,
+    gender: req.body.gender,
+    interests: req.body.interests
+  }, (error) => {
+      if(error) {
+          console.log("Issue saving updated profile to db: ", error);
+      } else {
+          res.redirect("/dashboard");
+      }
+  });
+});
 
 //post route that handles logic for adding org info to database
 app.post("/orgSignup", function(req, res) {
