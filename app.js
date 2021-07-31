@@ -15,7 +15,6 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
 app.use(methodOverride("_method")); //for use with method-override
 app.use(express.static(path.join(__dirname, 'public'))); //connects express to the "public" folder where we made a css file
@@ -25,14 +24,16 @@ const keys = require("./config/keys"); //links to private api key in config fold
 
 //Logger
 const logger = require("morgan");
-app.use(logger("dev") );
+// app.use(logger("dev") );
 
 mongoose.connect(keys.mongoURI,
   { //must use two lines of code below for mongoose to work
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useFindAndModify: false
   })
-  .then(()=> console.log("Connected to VolunTender database")) //console logs to make sure it's connected
+  .then(()=> console.log(`Connected to VolunTender at 
+        ${keys.mongoURI}`)) //console logs to make sure it's connected
   .catch((error) => console.log(error));//otherwise console logs error
   
 
@@ -103,13 +104,9 @@ app.get("/", function(req, res) {  //links to home.ejs page
 //var matches = new Array();
 
 function getMatches(interestsArray) {
-
   let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 4}];
-
-
   var query = User.aggregate(aggregateQuery);
   return query;
-
 }// end getMatches
 
 // ADDING DELETING STUFF:
@@ -143,11 +140,8 @@ function getMatches(interestsArray) {
       }
     })// end find
     */
-  
-  
-  
+    
   }// end getOrganizations 
-
 
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
 
@@ -290,10 +284,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 
 });// end /results
 
-
-
-
-
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
   res.render("signup");
 });
@@ -346,30 +336,29 @@ app.post("/signup", parser.single("image"), function(req, res) {
   });
 
   User.register(newUser, req.body.password, function(err, user) {
-      if(err){
-        console.log(err);
-        return res.render("signup")
-      } else {
-        passport.authenticate("local")(req, res, function() {
-          console.log("new user info: ", newUser) // to see if image upload address is included correctly
-          res.redirect("/dashboard");
-        });
+    if(err){
+      console.log(err);
+      return res.render("signup")
+    } else {
+      passport.authenticate("local")(req, res, function() {
+        console.log("new user info: ", newUser) // to see if image upload address is included correctly
+        res.redirect("/dashboard");
+      });
 
-        // upload image to cloudinary *after* user added to db:
-        // console.log("path to image: ", req.file.path) // this is the http address to the image
-        // const image = {};
-        // add these to user db to store image url and id 
-        // first have defaults for these in the db document; then we will update with this info:
-        // image.url = req.file.url;
-        // image.id = req.file.public_id;'
+      // upload image to cloudinary *after* user added to db:
+      // console.log("path to image: ", req.file.path) // this is the http address to the image
+      // const image = {};
+      // add these to user db to store image url and id 
+      // first have defaults for these in the db document; then we will update with this info:
+      // image.url = req.file.url;
+      // image.id = req.file.public_id;'
 
-        // // this is not working:
-        // User.updateOne({ firstName: `"${newUser.firstName}"` }, { pic: `"${req.file.path}"`});
-        
-      }
+      // // this is not working:
+      // User.updateOne({ firstName: `"${newUser.firstName}"` }, { pic: `"${req.file.path}"`});
+      
+    }
   })
 });
-
 
 //adds saved matches to user's profile in db 
 app.post("/results", isLoggedIn, function(req, res) {
@@ -393,33 +382,34 @@ app.get("/edit", isLoggedIn, function(req, res) {
       console.log("Issue updating profile: ",err);
       res.redirect("/dashboard");
     } else {
-      res.render("edit", {user: user});
+      console.log('user is ', user)
+      res.render("edit", {user});
     }
   });
 });
 
 //put route for updating profile
 app.post("/edit", 
-isLoggedIn, 
-// parser.single("image"), 
-(req, res) => {
-  console.log("--req.body is: ", req.body)
-  User.findByIdAndUpdate(req.params._id, {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    pic: req.body.pic,
-    bio: req.body.bio,
-    ageRange: req.body.ageRange,
-    gender: req.body.gender,
-    interests: req.body.interests
-  }, (error) => {
-      if(error) {
-          console.log("Issue saving updated profile to db: ", error);
-      } else {
-          res.redirect("/dashboard");
-      }
-  });
+  isLoggedIn, 
+  // parser.single("image"), 
+  (req, res) => {
+    console.log('req.body is ', req.body)
+    User.findByIdAndUpdate(req.query.id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      pic: req.body.pic,
+      bio: req.body.bio,
+      ageRange: req.body.age,
+      gender: req.body.gender,
+      interests: req.body.interests
+    }, (error) => {
+        if(error) {
+            console.log("Issue saving updated profile to db: ", error);
+        } else {
+            res.redirect("/dashboard");
+        }
+    });
 });
 
 //post route that handles logic for adding org info to database
