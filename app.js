@@ -3,7 +3,7 @@ const path = require('path');
 const http = require('http');
 const express = require("express");
 require('dotenv').config();
-const methodOverride = require("method-override"); //for updating and deleting profile
+
 const socketio = require('socket.io');
 const mongoose = require("mongoose");
 const passport = require('passport');
@@ -15,9 +15,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
-app.use(methodOverride("_method")); //for use with method-override
+
 app.use(express.static(path.join(__dirname, 'public'))); //connects express to the "public" folder where we made a css file
 app.use(express.urlencoded({extended: true})); //lets us read data from req.body
 app.use(express.json());
@@ -30,12 +29,13 @@ app.use(logger("dev") );
 mongoose.connect(keys.mongoURI,
   { //must use two lines of code below for mongoose to work
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useFindAndModify: false
   })
-  .then(()=> console.log("Connected to VolunTender database")) //console logs to make sure it's connected
+  .then(()=> console.log(`Connected to VolunTender at
+      ${keys.mongoURI}`)) //console logs to make sure it's connected
   .catch((error) => console.log(error));//otherwise console logs error
   
-
 let User = require("./models/user"); //connects to user file in models folder
 
 let formatMessage = require("./utils/messages"); //connects to user file in models folder
@@ -370,7 +370,6 @@ app.post("/signup", parser.single("image"), function(req, res) {
   })
 });
 
-
 //adds saved matches to user's profile in db 
 app.post("/results", isLoggedIn, function(req, res) {
   User.updateOne
@@ -393,33 +392,35 @@ app.get("/edit", isLoggedIn, function(req, res) {
       console.log("Issue updating profile: ",err);
       res.redirect("/dashboard");
     } else {
-      res.render("edit", {user: user});
+      console.log('user is: ', user)
+      res.render("edit", {user});
     }
   });
 });
 
 //put route for updating profile
 app.post("/edit", 
-isLoggedIn, 
-// parser.single("image"), 
-(req, res) => {
-  console.log("--req.body is: ", req.body)
-  User.findByIdAndUpdate(req.params._id, {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    pic: req.body.pic,
-    bio: req.body.bio,
-    ageRange: req.body.ageRange,
-    gender: req.body.gender,
-    interests: req.body.interests
-  }, (error) => {
-      if(error) {
+  isLoggedIn, 
+  parser.single("image"), 
+  (req, res) => {
+    console.log('req.body is: ', req.body)
+    User.findByIdAndUpdate(req.query.id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      username: req.body.username,
+      bio: req.body.bio,
+      ageRange: req.body.age,
+      gender: req.body.gender,
+      interests: req.body.interests,
+      pic: req.file.path
+    }, (error) => {
+        if(error) {
           console.log("Issue saving updated profile to db: ", error);
-      } else {
+        } else {
           res.redirect("/dashboard");
-      }
-  });
+        }
+    });
 });
 
 //post route that handles logic for adding org info to database
