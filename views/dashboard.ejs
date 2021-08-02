@@ -21,6 +21,7 @@
         <!-- we need to update savedMatches to hold a user's _id so we can query specific users details -->
         <% data.savedMatches.forEach((el) => { %>
             <% console.log('saved match:  ', el) %>
+             <!-- currently displaying saved user name OR _id depending on if user was saved before/after _id incorporated -->
             <p><%= el %></p>
         <% }) %>
     </div>
