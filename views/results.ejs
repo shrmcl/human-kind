@@ -12,35 +12,34 @@
   </div>
 
   <div class="row row-cols-1 row-cols-md-3">
-    
-  <% matches.forEach((elem) => { %>
+  <% for(let i = 0;  i < 3; i++) { %>
+    <% let ran = Math.floor((Math.random() * matches.length) + 1); %>
     <div class="col mb-4">
       <div class="card h-100">
         <div class="card-header" onclick="savedMatches.click()">
           <form action="/results" method="POST" id="save">
-           <input type="checkbox" id="savedMatches" name="username" value=<%=elem._id %>>
-           <span><h3 class="card-title"><%= elem.username %></h3></span>
+           <input type="checkbox" id="savedMatches" name="username" value=<%=matches[ran].username %>>
+           <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
           
         </div>
         <!-- old path to avatars: -->
-          <!-- <img src="/assets/images/< %=elem.pic%>.png" class="card-img-top" alt="avatar image"> -->
         <!-- new path for user-uploaded pic: -->
-        <img src=<%= elem.pic %> class="card-img-top" alt="avatar image">
+        <img src=<%= matches[ran].pic %> class="card-img-top" alt="avatar image">
           <div class="card-body">
-            <p class="card-text">Gender: <%= elem.gender %></p>
-            <p class="card-text">Age Range: <%= elem.ageRange %></p>
-            <p class="card-text">About myself: <%= elem.bio %></p>
-            <p class="card-text">Interests in common: <%= elem.interests %></p>
-            <!-- <form action="/matchroom">
+            <p class="card-text">Gender: <%= matches[ran].gender %></p>
+            <p class="card-text">Age Range: <%= matches[ran].ageRange %></p>
+            <p class="card-text">About myself: <%= matches[ran].bio %></p>
+            <p class="card-text">Interests in common: <%= matches[ran].interests %></p>
+            <form action="/matchroom">
               <button type="submit" >ChatCord</button>
-            </form> -->
-            <p class="card-text">Relevant Organizations: <%= elem.organizations %></p>
+            </form>
+            <p class="card-text">Relevant Organizations: <%= matches[ran].organizations %></p>
           </div>
           <!-- <a class="btn btn-warning btn-lg" href="/matchroom" role="button"></a> -->
       </div>
     </div>
     
-  <% }) %>             
+  <% } %>
 
   </div> 
 <button type="submit" class="btn btn-primary btn-lg" form="save" >Save matches</i></button> 
