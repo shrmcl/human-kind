@@ -86,7 +86,7 @@ app.get("/", function(req, res) {  //links to home.ejs page
 
 function getMatches(interestsArray) {
 
-  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}, {$limit: 4}];
+  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}];
 
 
   var query = User.aggregate(aggregateQuery);
@@ -141,7 +141,9 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
         {
 	  var obj = {};
 	  var intersection = interestsArray.filter( x => elem.interests.includes(x) );
-
+          if(intersection.length === 0)
+            return;
+          console.log("Intersection array:  ", intersection);
 
    
 	  obj.firstName = elem.firstName;
@@ -149,7 +151,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 	  obj.username = elem.username;
 	  obj.gender = elem.gender; 
 	  obj.ageRange = elem.ageRange;
-	  obj.pic = elem.pic.length > 10 ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
+	  obj.pic = (elem.pic.length > 10) ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
 	  obj.bio = elem.bio;
 	  obj.interests = intersection;
     obj._id = elem._id; // adding access to unique id
