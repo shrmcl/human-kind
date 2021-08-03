@@ -1,7 +1,7 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
-    
-        <form action="/edit?id=<%= user._id %>" method="POST" enctype="multipart/form-data">
+        <!-- capture this user's _id and current pic to be used on back-end -->
+        <form action="/edit?id=<%= user._id %>&pic=<%= user.pic %>" method="POST" enctype="multipart/form-data">
             <div class="container">
             <h1>Edit your profile</h1>
     
@@ -69,6 +69,8 @@
                 <!-- when choosing new image, there's nothing to confirm success except new file name. is there a different way? -->
                 <img width="100px" height="100px" style="border-radius: 50px" src=<%= user.pic %> alt="">
                 <input type='file' name='image' id='pic' />
+                <!-- demo on how to reset preview: -->
+                <!-- <input type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"> -->
             <br><br>
     
             <input type="submit" class="btn btn-info btn-lg" value="Submit Changes">

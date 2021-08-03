@@ -133,8 +133,8 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
 
    var matches = new Array();
   //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
-  console.log("The username in question:  " + req.user.username);
-  console.log("The user\'s interests are:" + req.user.interests);
+  // console.log("The username in question:  " + req.user.username);
+  // console.log("The user\'s interests are:" + req.user.interests);
 
 
   //The interests and username of the currently logged in user are stored in local variables.
@@ -142,7 +142,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
   let username = req.user.username;
 
 
-  console.log("What is the value of interestsArray:  " + interestsArray);
+  // console.log("What is the value of interestsArray:  " + interestsArray);
 
   //The user's interests (interestArray) is passed to a function called getMatches, where a query object is returned and stored in local variable results.
   let results = getMatches(interestsArray);
@@ -304,7 +304,7 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
     if (err) { 
       console.log('query error: ', err) }
     else {
-      console.log('query results: ', coolResults)
+      // console.log('query results: ', coolResults)
     }}
   );
 
@@ -313,7 +313,7 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
     displayName: userName,
     savedMatches: req.user.savedMatches // temp for display until we create above query for savedContacts
   }
-  console.log('saved: ', userDetails.savedMatches)
+  // console.log('saved: ', userDetails.savedMatches)
   res.render("dashboard", {data: userDetails});
 });
 
@@ -333,7 +333,7 @@ app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user
 // parser handles image upload to Cloudinary
 app.post("/signup", parser.single("image"), function(req, res) {
   // passport stuff:
-  console.log(req.body)
+  // console.log(req.body)
   
   var newUser = new User({
     username: req.body.username,
@@ -355,7 +355,7 @@ app.post("/signup", parser.single("image"), function(req, res) {
         return res.render("signup")
       } else {
         passport.authenticate("local")(req, res, function() {
-          console.log("new user info: ", newUser) // to see if image upload address is included correctly
+          // console.log("new user info: ", newUser) // to see if image upload address is included correctly
           res.redirect("/dashboard");
         });
 
@@ -386,7 +386,7 @@ app.get("/edit", isLoggedIn, function(req, res) {
       console.log("Issue updating profile: ",err);
       res.redirect("/dashboard");
     } else {
-      console.log('user is: ', user)
+      // console.log('user is: ', user)
       res.render("edit", {user});
     }
   });
@@ -397,7 +397,14 @@ app.post("/edit",
   isLoggedIn, 
   parser.single("image"), 
   (req, res) => {
-    console.log('req.body is: ', req.body)
+    
+    let picToUse = req.query.pic;
+    // determing if new img being uploaded. if 'file' is in the req, upload new file
+    // else, keep existing img path
+    if ('file' in req) {
+      picToUse = req.file.path
+    }console.log('pic to use ', picToUse)
+
     User.findByIdAndUpdate(req.query.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -407,11 +414,12 @@ app.post("/edit",
       ageRange: req.body.age,
       gender: req.body.gender,
       interests: req.body.interests,
-      pic: req.file.path
+      pic: picToUse // use existing pic if no new pic uploaded
     }, (error) => {
         if(error) {
           console.log("Issue saving updated profile to db: ", error);
         } else {
+          // console.log('req user id: ', req.query.id);
           res.redirect("/dashboard");
         }
     });
@@ -420,7 +428,7 @@ app.post("/edit",
 //post route that handles logic for adding org info to database
 app.post("/orgSignup", function(req, res) {
   // passport stuff:
-  console.log(req.body)
+  // console.log(req.body)
   
   var newOrgs = new Orgs({
     username: req.body.username,
