@@ -66,14 +66,13 @@
             <br><br>
 
             <label for="pic">Add a profile image:</label><br>
-                <!-- when choosing new image, there's nothing to confirm success except new file name. is there a different way? -->
                 <img id="preview" width="100px" height="100px" style="border-radius: 50px" src=<%= user.pic %> alt="">
+                <!--instantly update preview of uploaded image file: -->
                 <input type='file' 
-                name='image' 
-                id='pic' 
-                onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"/>
-                <!-- demo on how to reset preview: -->
-                <!-- <input type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"> -->
+                    name='image' 
+                    id='pic' 
+                    onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"
+                />
             <br><br>
     
             <input type="submit" class="btn btn-info btn-lg" value="Submit Changes">

@@ -2,6 +2,7 @@
 <%- include("partials/header") %>
 
 <div class="container">
+    
     <div class="row">
         <div class="col">
             <img width="100px" height="100px" style="border-radius: 50px" src=<%= data.displayImg %> alt=""> 
@@ -15,15 +16,16 @@
         <a class="btn btn-info btn-lg" href="/edit" role="button">Update search preferences</a>
     </div>
     
-    <div class="p-2 m-1">
+    <div class="col">
         <h3 class="text-left mt-5">Your Saved Matches:</h2>
+        <!-- check contents of data to see if there are saved matches working -->
+        <% console.log('DATA STUFF on front end:  ', data) %>
         <!-- show each saved match -->
-        <!-- we need to update savedMatches to hold a user's _id so we can query specific users details -->
-        <% data.savedMatches.forEach((el) => { %>
-            <% console.log('saved match:  ', el) %>
+        <!-- < % data.savedMatches.forEach((el) => { %> -->
              <!-- currently displaying saved user name OR _id depending on if user was saved before/after _id incorporated -->
-            <p><%= el %></p>
-        <% }) %>
+            <!-- <p>< %= el.username %></p> -->
+            <!-- <p>< %= el.bio %></p> -->
+        <!-- < % }) %> -->
     </div>
    
 </div>

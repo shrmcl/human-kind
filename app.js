@@ -292,28 +292,33 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   // function to determine if img has been uploaded; else use Avatar1.png
   const userPic = req.user.pic.length > 10 ? req.user.pic : "/assets/images/Avatar1.png";
   const userName = req.user.firstName;
-
-  // TO DO: query each of the saved users by their _id (stored in 'req.user.savedMatches')
-  // save those users to savedContacts:
-  const savedContacts = {} ; 
-  // this works to find a specific _id. 
-  // note: id of 24 chars needs to be extrated from provided _id
-  // i.e. change 'ObjectId("610052c21b21a783f5446eea")' to '610052c21b21a783f5446eea'
-  const tempId = "610052c21b21a783f5446eea";
-  User.findById(tempId, function (err, coolResults) {
-    if (err) { 
-      console.log('query error: ', err) }
-    else {
-      // console.log('query results: ', coolResults)
-    }}
-  );
-
+  const savedContacts = req.user.savedMatches; 
+  
+  function something() {
+    let someResult = [{hi: "bye"}];
+    // iterate through 'savedContacts' to find users by id 
+    savedContacts.forEach((el) => {
+      User.findById(el, (err, savedUser) => {
+        if (err) { 
+          console.log('error finding saved user: ', err) }
+        else {
+           // then push each user's info to 'userDetails.savedMatches'
+          someResult.push(savedUser)
+          console.log('some result in forEach ', someResult)
+          // console.log('saved users currently: ', userDetails.savedMatches)
+        }}
+      );
+    })
+    console.log('some result after forEach', someResult)
+    return someResult
+  }
+  
+  // the info that will be sent to front-end for display
   const userDetails = {
     displayImg: userPic,
     displayName: userName,
-    savedMatches: req.user.savedMatches // temp for display until we create above query for savedContacts
+    savedMatches: savedContacts.length > 1 ? something() : "no no no" // temp for display until we create above query for savedContacts
   }
-  // console.log('saved: ', userDetails.savedMatches)
   res.render("dashboard", {data: userDetails});
 });
 
@@ -403,7 +408,7 @@ app.post("/edit",
     // else, keep existing img path
     if ('file' in req) {
       picToUse = req.file.path
-    }console.log('pic to use ', picToUse)
+    }
 
     User.findByIdAndUpdate(req.query.id, {
       firstName: req.body.firstName,
