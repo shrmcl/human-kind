@@ -294,30 +294,30 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   const userName = req.user.firstName;
   const savedContacts = req.user.savedMatches; 
   
-  function something() {
-    let someResult = [{hi: "bye"}];
+  pullUsers = async () => {
+    let storeUsers = [{hi: "temporary object for testing only"}];
     // iterate through 'savedContacts' to find users by id 
-    savedContacts.forEach((el) => {
+    await savedContacts.forEach((el) => {
       User.findById(el, (err, savedUser) => {
         if (err) { 
           console.log('error finding saved user: ', err) }
         else {
            // then push each user's info to 'userDetails.savedMatches'
-          someResult.push(savedUser)
-          console.log('some result in forEach ', someResult)
+           storeUsers.push(savedUser)
+          console.log('some result in forEach ', storeUsers)
           // console.log('saved users currently: ', userDetails.savedMatches)
         }}
       );
     })
-    console.log('some result after forEach', someResult)
-    return someResult
+    console.log('some result after forEach', storeUsers)
+    return storeUsers
   }
   
   // the info that will be sent to front-end for display
   const userDetails = {
     displayImg: userPic,
     displayName: userName,
-    savedMatches: savedContacts.length > 1 ? something() : "no no no" // temp for display until we create above query for savedContacts
+    savedMatches: savedContacts.length > 1 ? pullUsers() : "no users to pull!" // temp for display until we create above query for savedContacts
   }
   res.render("dashboard", {data: userDetails});
 });
