@@ -16,7 +16,7 @@
     <% let ran = Math.floor((Math.random() * matches.length) + 1); %>
     <div class="col mb-4">
       <div class="card h-100">
-        <div class="card-header" onclick="savedMatches.click()">
+        <div class="card-header">
           <form action="/results" method="POST" id="save">
            <input type="checkbox" id="savedMatches" name="username" value=<%=matches[ran].username %>>
            <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
