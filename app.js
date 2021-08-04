@@ -42,8 +42,7 @@ mongoose.connect(keys.mongoURI,
       useUnifiedTopology: true,
       useFindAndModify: false
   })
-  .then(()=> console.log(`Connected to VolunTender at
-      ${keys.mongoURI}`)) //console logs to make sure it's connected
+  .then(()=> console.log(`Connected to VolunTender MongoDB`)) //console logs to make sure it's connected
   .catch((error) => console.log(error));//otherwise console logs error
   
 let User = require("./models/user"); //connects to user file in models folder
@@ -94,24 +93,32 @@ app.get("/", function(req, res) {  //links to home.ejs page
 //var matches = new Array();
 
 function getMatches(interestsArray) {
-
-  let aggregateQuery = [{$addFields:{"Most_Matched":{$size:{$setIntersection: ["$interests", interestsArray ]} } } }, {$sort: {"Most_Matched": -1}}];
-
-
+  let aggregateQuery = [
+    {
+      $addFields: {
+        "Most_Matched": {
+          $size:{
+            $setIntersection: [
+              "$interests", 
+              interestsArray 
+            ]
+          } 
+        } 
+      } 
+    }, 
+    {
+      $sort: {"Most_Matched": -1}
+    }
+  ];
   var query = User.aggregate(aggregateQuery);
   return query;
-
 }// end getMatches
 
 function getOrganizations(commonInterests) {
-
     return Org.find({"interests":{$in: commonInterests}});
-  
 }// end getOrganizations 
 
-
 app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware that only allows results page to show if you're logged in
-
    var matches = new Array();
   //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
   // console.log("The username in question:  " + req.user.username);
@@ -122,118 +129,68 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
   let interestsArray = req.user.interests;
   let username = req.user.username;
 
-
   // console.log("What is the value of interestsArray:  " + interestsArray);
 
   //The user's interests (interestArray) is passed to a function called getMatches, where a query object is returned and stored in local variable results.
   let results = getMatches(interestsArray);
 
-
   //The returned query is first checked for any errors.  If there no errors, the code iterates through all the documents via a forEach loop.  For each document/record,
   //the field values are copied to a locally-defined object, which is then pushed into the matches array.  Finally, the matches array is passed to results.ejs.
   results.exec(function(err, doc){
-
-    if(err)
-    {
+    if(err) {
       console.log(err);
       return err;
-    }
-    else
-    {
+    } else {
       doc.forEach(function(elem){
-
-        if(elem.username === username)
-        {
+        if(elem.username === username) {
           return;
-        }
-        else
-        {
-	  var obj = {};
-	  var intersection = interestsArray.filter( x => elem.interests.includes(x) );
-          if(intersection.length === 0)
+        } else {
+          var obj = {};
+          var intersection = interestsArray.filter(x => elem.interests.includes(x));
+          if (intersection.length === 0)
             return;
           console.log("Intersection array:  ", intersection);
-
-   
-	  obj.firstName = elem.firstName;
-	  obj.lastName = elem.lastName;
-	  obj.username = elem.username;
-	  obj.gender = elem.gender; 
-	  obj.ageRange = elem.ageRange;
-	  obj.pic = (elem.pic.length > 10) ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
-	  obj.bio = elem.bio;
-	  obj.interests = intersection;
-    obj._id = elem._id; // adding access to unique id
-	  matches.push(obj);
-
+          obj.firstName = elem.firstName;
+          obj.lastName = elem.lastName;
+          obj.username = elem.username;
+          obj.gender = elem.gender;
+          obj.ageRange = elem.ageRange;
+          obj.pic = (elem.pic.length > 10) ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
+          obj.bio = elem.bio;
+          obj.interests = intersection;
+          obj._id = elem._id; // adding access to unique id
+          matches.push(obj);
         }
-
       }); // end forEach
 
-
-
-
-
-
-
-
-      matches.forEach((elem, key, arr) =>{
-
+      matches.forEach((elem, key, arr) => {
         console.log("\n\nFor the given match:  " + elem);
-
         console.log("Declaring an empty array...");
         var organizations = new Array();
-
         //For each record, match up organizations to candidates based on interests.
         console.log("Common interests...  " + elem.interests);
-
-
-
-
         var results2 = getOrganizations(elem.interests);
-        results2.exec(function(err, doc){
-
-          if(err)
-          {
+        results2.exec(function (err, doc) {
+          if (err) {
             console.log(err);
-          }// end if
-          else
-          {
-            doc.forEach((org)=>{
-
+          } else {
+            doc.forEach(org => {
               organizations.push(org.orgName);
             });// doc.forEach
-
             elem.organizations = organizations;
             console.log("The array of organizations..." + elem.organizations);
-             
           }// end else
 
-
-	  if (Object.is(arr.length - 1, key)) {
-	    // execute last item logic
-	    //console.log(`Last callback call at index ${key} with value ${val}` ); 
-            res.render("results", {matches: matches});
-	  }
-        
-
+          if (Object.is(arr.length - 1, key)) {
+            // execute last item logic
+            //console.log(`Last callback call at index ${key} with value ${val}` ); 
+            res.render("results", { matches: matches });
+          }
         });// end results2.exec
-
-
       });// end matches.forEach
-
-
-
-
     }// end else
-
   });
-  
-
 });// end /results
-
-
-
 
 
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
