@@ -253,17 +253,17 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   const userPic = req.user.pic.length > 10 ? req.user.pic : "/assets/images/Avatar1.png";
   const userName = req.user.firstName;
   const savedContacts = req.user.savedMatches; 
-  
-  pullUsers = async () => {
+  console.log('---- savedContacts:', savedContacts);
+  pullUsers = () => {
     let storeUsers = [{hi: "temporary object for testing only"}];
     // iterate through 'savedContacts' to find users by id 
-    await savedContacts.forEach((el) => {
-      User.findById(el, (err, savedUser) => {
+    savedContacts.forEach(async (el) => {
+      await User.findById(el, (err, savedUser) => {
         if (err) { 
           console.log('error finding saved user: ', err) }
         else {
-           // then push each user's info to 'userDetails.savedMatches'
-           storeUsers.push(savedUser)
+          // then push each user's info to 'userDetails.savedMatches'
+          storeUsers.push(savedUser)
           console.log('some result in forEach ', storeUsers)
           // console.log('saved users currently: ', userDetails.savedMatches)
         }}
