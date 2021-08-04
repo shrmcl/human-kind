@@ -14,7 +14,16 @@ const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/use
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+
+// Declare a port variable
+const port = process.env.PORT || 3000
+
+// Require socket.io and pass the server object to it
+const io = require('socket.io')(
+  app.listen(port, function(){
+      console.log('App is running on ' + port)
+  })
+)
 
 app.set("view engine", "ejs");  //adding this line makes it so we don't have to specify .ejs for file names
 
@@ -281,9 +290,9 @@ app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as
   res.render("matchroom");
 });
 
-app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-  res.render("chat");
-});
+// app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+//   res.render("chat");
+// });
 
 // post route that handles logic for registering user & adding their info to database
 // parser handles image upload to Cloudinary
@@ -476,5 +485,5 @@ io.on('connection', socket => {
 
 
 // Listener
-const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
-app.listen(port, ()=> console.log(`VolunTender App is Listening on port ${port}`));  // when running app we want you to listen for requests port and console log the port #
+// const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
+// app.listen(port, ()=> console.log(`VolunTender App is Listening on port ${port}`));  // when running app we want you to listen for requests port and console log the port #
