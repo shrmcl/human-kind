@@ -21,11 +21,10 @@
         <!-- check contents of data to see if there are saved matches working -->
         <% console.log('DATA STUFF on front end:  ', data) %>
         <!-- show each saved match -->
-        <!-- < % data.savedMatches.forEach((el) => { %> -->
-             <!-- currently displaying saved user name OR _id depending on if user was saved before/after _id incorporated -->
-            <!-- <p>< %= el.username %></p> -->
-            <!-- <p>< %= el.bio %></p> -->
-        <!-- < % }) %> -->
+        <% data.savedMatches.forEach((el) => { %>
+            <!-- currently displaying saved user name OR _id depending on if user was saved before/after _id incorporated -->
+            <p><%= el.firstName %> <%= el.lastName %>, <%= el.bio %></p>
+        <% }) %>
     </div>
    
 </div>
