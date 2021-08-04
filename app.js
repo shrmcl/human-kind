@@ -89,9 +89,7 @@ app.get("/", function(req, res) {  //links to home.ejs page
     res.render("home"); //displays home.ejs file
 });
 
-
 //var matches = new Array();
-
 function getMatches(interestsArray) {
   let aggregateQuery = [
     {
@@ -123,7 +121,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
   //The following console.log lines are to check/verify that the correct username and interests array are accessible via the request body.
   // console.log("The username in question:  " + req.user.username);
   // console.log("The user\'s interests are:" + req.user.interests);
-
 
   //The interests and username of the currently logged in user are stored in local variables.
   let interestsArray = req.user.interests;
@@ -192,7 +189,6 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
   });
 });// end /results
 
-
 app.get("/signup", function(req, res) { //brings us to sign up page and profile questions
   res.render("signup");
 });
@@ -209,34 +205,15 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   // function to determine if img has been uploaded; else use Avatar1.png
   const userPic = req.user.pic.length > 10 ? req.user.pic : "/assets/images/Avatar1.png";
   const userName = req.user.firstName;
-  const savedContacts = req.user.savedMatches; 
-  console.log('---- savedContacts:', savedContacts);
-  pullUsers = () => {
-    let storeUsers = [{hi: "temporary object for testing only"}];
-    // iterate through 'savedContacts' to find users by id 
-    savedContacts.forEach(async (el) => {
-      await User.findById(el, (err, savedUser) => {
-        if (err) { 
-          console.log('error finding saved user: ', err) }
-        else {
-          // then push each user's info to 'userDetails.savedMatches'
-          storeUsers.push(savedUser)
-          console.log('some result in forEach ', storeUsers)
-          // console.log('saved users currently: ', userDetails.savedMatches)
-        }}
-      );
-    })
-    console.log('some result after forEach', storeUsers)
-    return storeUsers
-  }
-  
-  // the info that will be sent to front-end for display
-  const userDetails = {
-    displayImg: userPic,
-    displayName: userName,
-    savedMatches: savedContacts.length > 1 ? pullUsers() : "no users to pull!" // temp for display until we create above query for savedContacts
-  }
-  res.render("dashboard", {data: userDetails});
+  const savedContacts = req.user.savedMatches.map(el => mongoose.Types.ObjectId(el));
+  User.find({_id: {$in : savedContacts}})
+  .then(results => {
+    res.render("dashboard", { data: {
+      displayImg: userPic,
+      displayName: userName,
+      savedMatches: results
+    }})
+  })
 });
 
 app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)
@@ -280,7 +257,6 @@ app.post("/signup", parser.single("image"), function(req, res) {
           // console.log("new user info: ", newUser) // to see if image upload address is included correctly
           res.redirect("/dashboard");
         });
-
       // TO DO: Only update MongoDb after img is successfully uploaded to Cloudinary        
       }
   })
@@ -439,7 +415,6 @@ io.on('connection', socket => {
       });
   });
 });
-
 
 // Listener
 // const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
