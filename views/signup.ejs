@@ -5,32 +5,33 @@
       <form action="/signup" method="post" enctype="multipart/form-data">
         <h1>Sign up</h1>
         <br><br>
-
         <label for="fname">First name:</label>
         <input type="text" placeholder="first" id="fname" name="fname" required>
-
         <label for="lname">Last name:</label>
         <input type="text" placeholder="last" id="lname" name="lname" required>
-
         <label for="email">Email</label>
         <input type="text" placeholder="email" id="email" name="email" required>
-
         <label for="pw">Password:</label>
         <input type="password" placeholder="password" id="pw" name="password" required>
-
         <label for="uname">Create a username:</label>
         <input type="text" placeholder="username" id="uname" name="username" required>
-
+        
         <label for="bio">Brief description of yourself:</label><br>
         <textarea id="bio" name="bio" cols="80" rows="1" placeholder="type here"></textarea><br><br>
 
         <p>Age:</p>
+        <input type="radio" name="age" id="0-20" value="0-20">
+        <label for="0-20">Under 20</label>
         <input type="radio" name="age" id="20-30" value="20-30">
         <label for="20-30">20-30</label>
         <input type="radio" name="age" id="30-40" value="30-40">
         <label for="30-40">30-40</label>
         <input type="radio" name="age" id="40-50" value="40-50">
         <label for="40-50">40-50</label>
+        <input type="radio" name="age" id="60-70" value="60-70">
+        <label for="60-70">60-70</label>
+        <input type="radio" name="age" id="70+" value="70+">
+        <label for="70+">70+</label>
         <br><br>
         
         <p>Gender:</p>
@@ -66,93 +67,6 @@
         <label for="fname">Add a profile image:</label><br>
         <input type='file' name='image' id='pic'/>
         <br><br>
-
-        <!-- <p>Select a profile image:</p>
-        <label for="avatar1" id="label-avatar1" class="avatars">
-          <input type="radio" name="avatar" id="avatar1" value="Avatar1">
-        </label>
-        <label for="avatar2" id="label-avatar2" class="avatars">
-          <input type="radio" name="avatar" id="avatar2" value="Avatar2">
-        </label>
-        <label for="avatar3" id="label-avatar3" class="avatars">
-          <input type="radio" name="avatar" id="avatar3" value="Avatar3">
-        </label>
-        <label for="avatar4" id="label-avatar4" class="avatars">
-          <input type="radio" name="avatar" id="avatar4" value="Avatar4">
-        </label>
-        <label for="avatar5" id="label-avatar5" class="avatars">
-          <input type="radio" name="avatar" id="avatar5" value="Avatar5">
-        </label>
-        <label for="avatar6" id="label-avatar6" class="avatars">
-          <input type="radio" name="avatar" id="avatar6" value="Avatar6">
-        </label>
-        <label for="avatar7" id="label-avatar7" class="avatars">
-          <input type="radio" name="avatar" id="avatar7" value="Avatar7">
-        </label>
-        <label for="avatar8" id="label-avatar8" class="avatars">
-          <input type="radio" name="avatar" id="avatar8" value="Avatar8">
-        </label>
-        <br><br> -->
-
-        <!-- V2.0 -->
-        <!-- <p>What age ranges do you want to meet? <span>Select all that apply.</span></p>
-        <input type="checkbox" id="ages1" name="ages" value="20-30">
-        <label class="padright" for="ages1">20-30</label>
-        <input type="checkbox" id="ages2" name="ages" value="30-40">
-        <label class="padright" for="ages2">30-40</label>
-        <input type="checkbox" id="ages3" name="ages" value="40-50">
-        <label class="padright" for="ages3">40-50</label>
-        <br><br>
-
-        <p>What genders do you want to meet? <span>Select all that apply.</span></p>
-        <input type="checkbox" id="seek-female" name="seek-gender" value="female">
-        <label class="padright" for="seek-female">Female</label>
-
-        <input type="checkbox" id="seek-male" name="seek-gender" value="male">
-        <label class="padright" for="seek-male">Male</label>
-
-        <input type="checkbox" id="seek-nonbinary" name="seek-gender" value="nonbinary">
-        <label class="padright" for="seek-nonbinary">Nonbinary</label>
-
-        <input type="checkbox" id="seek-other" name="seek-gender" value="other">
-        <label class="padright" for="seek-other">Other</label> -->
-
-        <!-- <p>What interests/genders/ages do you want to meet? <span>Select all that apply.</span></p> -->
-        <!-- <p><span>(v2 will separate gender and age questions in the schema & 'looking for interests' will not be needed)</span></p> -->
-        
-        <!-- <input type="checkbox" id="ages1" name="lookingFor" value="20-30">
-        <label class="padright" for="ages1">20-30</label>
-        <input type="checkbox" id="ages2" name="lookingFor" value="30-40">
-        <label class="padright" for="ages2">30-40</label>
-        <input type="checkbox" id="ages3" name="lookingFor" value="40-50">
-        <label class="padright" for="ages3">40-50</label><br><br>
-
-        <input type="checkbox" id="females" name="lookingFor" value="female">
-        <label class="padright" for="females">Female</label>
-        <input type="checkbox" id="males" name="lookingFor" value="male">
-        <label class="padright" for="males">Male</label>
-        <input type="checkbox" id="nonbinaries" name="lookingFor" value="nonbinary">
-        <label class="padright" for="nonbinaries">Nonbinary</label>
-        <input type="checkbox" id="others" name="lookingFor" value="other">
-        <label class="padright" for="others">Other</label><br><br>
-
-        <input type="checkbox" id="animals" name="lookingFor" value="animals">
-        <label class="padright" for="animals">Animals</label>
-        <input type="checkbox" id="housing" name="lookingFor" value="housing">
-        <label class="padright" for="housing">Housing</label>
-        <input type="checkbox" id="cleanup" name="lookingFor" value="environment">
-        <label class="padright" for="cleanup">Neighborhood Cleanup</label>
-        <input type="checkbox" id="food" name="lookingFor" value="hunger">
-        <label class="padright" for="food">Food & Hunger</label>
-        <input type="checkbox" id="organizing" name="lookingFor" value="community">
-        <label class="padright" for="organizing">Community Organizing</label>
-        <input type="checkbox" id="lgbtq" name="lookingFor" value="LGBTQ+">
-        <label class="padright" for="lgbtq">LGBTQ+</label>
-        <input type="checkbox" id="elderly" name="lookingFor" value="elderly">
-        <label class="padright" for="elderly">Elderly</label>
-        <input type="checkbox" id="incarceration" name="lookingFor" value="incarceration">
-        <label class="padright" for="incarceration">Incarceration</label>
-        <br><br> -->
 
         <input type="submit" class="btn btn-info btn-lg" value="Submit Profile">
 

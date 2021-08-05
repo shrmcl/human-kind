@@ -79,8 +79,9 @@ form p {
 }
 
 p span {
-  color: rgb(185, 185, 185);
-  font-style: italic;
+  font-size: 0.8rem;
+  font-weight: 600;
+  float: none;
 }
 
 input[type=text], input[type=password] {
