@@ -33,9 +33,8 @@ mongoose.connect(keys.mongoURI,
       useUnifiedTopology: true,
       useFindAndModify: false
   })
-  .then(()=> console.log(`Connected to VolunTender at
-      ${keys.mongoURI}`)) //console logs to make sure it's connected
-  .catch((error) => console.log(error));//otherwise console logs error
+  .then(()=> console.log('Connected to VolunTender db')) //console logs to make sure it's connected
+  .catch((error) => console.log('problems connecting to db: ', error));//otherwise console logs error
   
 let User = require("./models/user"); //connects to user file in models folder
 
