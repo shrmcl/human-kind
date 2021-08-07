@@ -13,6 +13,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/user.js');
 
 const app = express();
+require('dotenv').config();
 const server = http.createServer(app);
 const io = socketio(server);
 
@@ -476,4 +477,4 @@ io.on('connection', socket => {
 
 // Listener
 const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
-app.listen(port, ()=> console.log(`VolunTender App is Listening on port ${port}`));  // when running app we want you to listen for requests port and console log the port #
+server.listen(port, ()=> console.log(`VolunTender App is Listening on port ${port}`));  // when running app we want you to listen for requests port and console log the port #
