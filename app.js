@@ -276,9 +276,9 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
   res.render("orgThanks");
 });
 
-app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-  res.render("matchroom");
-});
+// app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+//   res.render("matchroom");
+// });
 
 app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
   res.render("chat");
