@@ -67,6 +67,21 @@ label{
   margin-right: 10px;
 }
 
+/* dashboard profile pic */
+.profile-big {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+/* preview of profile image on Edit.ejs */
+#preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
 form p {
   color: rgb(54, 54, 54);
   font-size: 0.9rem;

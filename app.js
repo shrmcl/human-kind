@@ -205,9 +205,12 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   // function to determine if img has been uploaded; else use Avatar1.png
   const userPic = req.user.pic.length > 10 ? req.user.pic : "/assets/images/Avatar1.png";
   const userName = req.user.firstName;
+  // find saved contacts and conver user id to Mongo ObjectID
   const savedContacts = req.user.savedMatches.map(el => mongoose.Types.ObjectId(el));
+  // pass those Mongo ObjectId's to this query
   User.find({_id: {$in : savedContacts}})
   .then(results => {
+    // render queried contacts to display each contacts' details
     res.render("dashboard", { data: {
       displayImg: userPic,
       displayName: userName,
@@ -402,18 +405,18 @@ io.on('connection', socket => {
       io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
-  // Runs when client disconnects
-  socket.on('disconnect', () => {
-      const user = userLeave(socket.id);
+  // // Runs when client disconnects
+  // socket.on('disconnect', () => {
+  //     const user = userLeave(socket.id);
 
-      io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+  //     io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
 
-      // Send users and room info
-      io.to(user.room).emit('roomUser', {
-          room: user.room,
-          users: getRoomUsers(user.room)
-      });
-  });
+  //     // Send users and room info
+  //     io.to(user.room).emit('roomUser', {
+  //         room: user.room,
+  //         users: getRoomUsers(user.room)
+  //     });
+  // });
 });
 
 // Listener
