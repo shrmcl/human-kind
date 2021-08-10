@@ -13,6 +13,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/user.js');
 
 const app = express();
+require('dotenv').config();
 const server = http.createServer(app);
 
 // Declare a port variable
@@ -42,8 +43,8 @@ mongoose.connect(keys.mongoURI,
       useUnifiedTopology: true,
       useFindAndModify: false
   })
-  .then(()=> console.log(`Connected to VolunTender MongoDB`)) //console logs to make sure it's connected
-  .catch((error) => console.log(error));//otherwise console logs error
+  .then(()=> console.log('Connected to VolunTender db')) //console logs to make sure it's connected
+  .catch((error) => console.log('problems connecting to db: ', error));//otherwise console logs error
   
 let User = require("./models/user"); //connects to user file in models folder
 
@@ -223,9 +224,9 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
   res.render("orgThanks");
 });
 
-app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-  res.render("matchroom");
-});
+// app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+//   res.render("matchroom");
+// });
 
 // app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
 //   res.render("chat");

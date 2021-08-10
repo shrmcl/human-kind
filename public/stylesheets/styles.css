@@ -241,32 +241,33 @@ span {
   }
 }
 
-#savedMatches {
+/* below was when checkbox had id - it won't currently accept a classname (?) */
+/* #savedMatches {
   -webkit-appearance: none;
 	background-color: #f3f7f7;
-	border: 1px solid #504b4b;
+	border: 1px solid #504b4b; */
 	/* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); */
-	padding: 15px;
+	/* padding: 15px;
 	border-radius: 3px;
 	display: inline-block;
 	position: relative;
-}
+} */
 
 /* #savedMatches:active, #savedMatches:checked:active {
 	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 } */
 
-#savedMatches:checked {
+/* #savedMatches:checked {
 	background-color: #cecdce;
 	border: 1px solid #1a547e;
 	color: #99a1a7;
-}
+} */
 
-#savedMatches:checked:after {
+/* #savedMatches:checked:after {
 	content: '\2714';
 	font-size: 28px;
 	position: absolute;
 	top: -7px;
 	left: -2px;
 	color: #2e82c2;
-}
+} */
