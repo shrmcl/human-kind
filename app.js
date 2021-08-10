@@ -147,7 +147,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
           var intersection = interestsArray.filter(x => elem.interests.includes(x));
           if (intersection.length === 0)
             return;
-          console.log("Intersection array:  ", intersection);
+          // console.log("Intersection array:  ", intersection);
           obj.firstName = elem.firstName;
           obj.lastName = elem.lastName;
           obj.username = elem.username;
@@ -162,11 +162,11 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
       }); // end forEach
 
       matches.forEach((elem, key, arr) => {
-        console.log("\n\nFor the given match:  " + elem);
-        console.log("Declaring an empty array...");
+        // console.log("\n\nFor the given match:  " + elem);
+        // console.log("Declaring an empty array...");
         var organizations = new Array();
         //For each record, match up organizations to candidates based on interests.
-        console.log("Common interests...  " + elem.interests);
+        // console.log("Common interests...  " + elem.interests);
         var results2 = getOrganizations(elem.interests);
         results2.exec(function (err, doc) {
           if (err) {
@@ -176,7 +176,7 @@ app.get("/results", isLoggedIn, function(req, res) { //isLoggedIn is middleware 
               organizations.push(org.orgName);
             });// doc.forEach
             elem.organizations = organizations;
-            console.log("The array of organizations..." + elem.organizations);
+            // console.log("The array of organizations..." + elem.organizations);
           }// end else
 
           if (Object.is(arr.length - 1, key)) {
@@ -228,9 +228,9 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
 //   res.render("matchroom");
 // });
 
-// app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-//   res.render("chat");
-// });
+app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+  res.render("chat");
+});
 
 // post route that handles logic for registering user & adding their info to database
 // parser handles image upload to Cloudinary

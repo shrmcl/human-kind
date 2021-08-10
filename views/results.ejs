@@ -3,23 +3,23 @@
 
 <!-- list of top 5 showing name, age, gender, pic, bio, and org matches in common with events available -->
 
-<div class="container" style="border: blue 3px solid">
+<div class="container">
   
-    <div class="col" style="border: pink 3px solid">
+    <div class="col">
         <h1 class="text-center mt-5">These are your matches!</h1><br>
     </div>
   
     <form action="/results" method="POST" id="savedMatches">
-      <div class="row row-cols-1 row-cols-md-3" style="border: purple 3px solid">
+      <div class="row row-cols-1 row-cols-md-3">
 
         <% for(let i = 0;  i < 3; i++) { %>
         <% let ran = Math.floor((Math.random() * matches.length) + 1); %>
 
-          <div class="col mb-4" style="border: green 3px solid">
+          <div class="col mb-4">
             <div class="card h-100">
               <div class="card-header">
           
-              <input type="checkbox" name="username" value=<%=matches[ran].username %>>
+              <input type="checkbox" name="username" value=<%=matches[ran]._id %>>
               <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
           
               </div>
