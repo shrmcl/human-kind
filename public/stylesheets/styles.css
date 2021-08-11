@@ -13,7 +13,13 @@ h1 {
 
 body {
   background-color: powderblue;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   }
+
+.p-sm {
+  font-size: 0.9em;
+}
 
 .logo {
   width: 80%;
@@ -234,40 +240,50 @@ span {
   display: table;
 }
 
-/* Change styles for cancel button and signup button on extra small screens */
+/* DASHBOARD */
+#dashboard-welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.welcome-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.welcome-left img {
+  margin: 0 10px 0 0;
+}
+.dashcard {
+  font-size: 0.8rem;
+}
+.dashcard img {
+  width: calc(100vw / 16);
+  height: calc(100vw / 16);
+  object-fit: cover;
+  border-radius: 100%;
+  margin: 1.25rem auto 0;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* small screens */
+@media screen and (max-width: 750px) {
+  .dashcard img {
+    width: calc(100vw / 6);
+    height: calc(100vw / 6);
+    object-fit: cover;
+    margin: 6px auto;
+  }
+}
+
+/* extra small screens */
 @media screen and (max-width: 300px) {
   .cancelbtn, .signupbtn {
      width: 100%;
   }
 }
 
-/* below was when checkbox had id - it won't currently accept a classname (?) */
-/* #savedMatches {
-  -webkit-appearance: none;
-	background-color: #f3f7f7;
-	border: 1px solid #504b4b; */
-	/* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); */
-	/* padding: 15px;
-	border-radius: 3px;
-	display: inline-block;
-	position: relative;
-} */
-
-/* #savedMatches:active, #savedMatches:checked:active {
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-} */
-
-/* #savedMatches:checked {
-	background-color: #cecdce;
-	border: 1px solid #1a547e;
-	color: #99a1a7;
-} */
-
-/* #savedMatches:checked:after {
-	content: '\2714';
-	font-size: 28px;
-	position: absolute;
-	top: -7px;
-	left: -2px;
-	color: #2e82c2;
-} */
