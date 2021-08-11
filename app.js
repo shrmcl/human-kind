@@ -381,37 +381,29 @@ const botName = 'ChatCord Bot';
 io.on('connection', socket => {
   socket.on('joinRoom', ({ username, room}) => {
       const user = userJoin(socket.id, username, room);
-
       socket.join(user.room);
-
       // Welcome current user
       socket.emit('message', formatMessage(botName, 'Welcome the ChatCord!'));
-
       // Broadcast when a user connnects
       socket.broadcast
       .to(user.room)
       .emit('message', formatMessage(botName, `${user.username} has joined the chat`));
-
       // Send users and room info
       io.to(user.room).emit('roomUser', {
           room: user.room,
           users: getRoomUsers(user.room)
       });
   });
-
       // Listen to chatMessage
       socket.on('chatMessage', msg => {
       const user = getCurrentUser(socket.id);
 
       io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
-
-  // // Runs when client disconnects
+  // Runs when client disconnects
   // socket.on('disconnect', () => {
   //     const user = userLeave(socket.id);
-
   //     io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
-
   //     // Send users and room info
   //     io.to(user.room).emit('roomUser', {
   //         room: user.room,
@@ -419,7 +411,3 @@ io.on('connection', socket => {
   //     });
   // });
 });
-
-// Listener
-// const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
-// app.listen(port, ()=> console.log(`VolunTender App is Listening on port ${port}`));  // when running app we want you to listen for requests port and console log the port #

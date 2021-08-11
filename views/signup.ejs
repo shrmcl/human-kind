@@ -16,8 +16,8 @@
         <label for="uname">Create a username:</label>
         <input type="text" placeholder="username" id="uname" name="username" required>
         
-        <label for="bio">Brief description of yourself:</label><br>
-        <textarea id="bio" name="bio" cols="80" rows="1" placeholder="type here"></textarea><br><br>
+        <label for="bio">Brief description of yourself: <span>60 character max</span></label><br>
+        <textarea id="bio" name="bio" cols="80" rows="1" maxlength="60" placeholder="type here"></textarea><br><br>
 
         <p>Age:</p>
         <input type="radio" name="age" id="0-20" value="0-20">
@@ -65,7 +65,7 @@
         <br><br>
 
         <label for="fname">Add a profile image:</label><br>
-        <input type='file' name='image' id='pic'/>
+        <input type='file' name='image' id='pic' required/>
         <br><br>
 
         <input type="submit" class="btn btn-info btn-lg" value="Submit Profile">
