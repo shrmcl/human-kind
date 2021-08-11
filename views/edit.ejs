@@ -1,85 +1,120 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
-        <!-- capture this user's _id and current pic to be used on back-end -->
-        <form action="/edit?id=<%= user._id %>&pic=<%= user.pic %>" method="POST" enctype="multipart/form-data">
-            <div class="container">
-            <h1>Edit your profile</h1>
-    
-            <label for="fname">First name:</label>
-                <input type="text" id="fname" name="firstName" required value="<%= user.firstName %>"/>
-    
-            <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="lastName" required value="<%= user.lastName %>"/>
-    
-            <label for="email">Email</label>
-                <input type="text" id="email" name="email" required value="<%= user.email %>"/>
-    
-            <!-- <label for="pw">Password:</label>
-                <input type="password" placeholder="password" id="pw" name="password" required> -->
-    
-            <label for="uname">Username:</label>
-                <input type="text" placeholder="username" id="uname" name="username" required value="<%= user.username %>"/>
-    
-            <label for="bio">Brief description of yourself:</label><br>
-                <textarea id="bio" name="bio" cols="80" rows="1"><%= user.bio %></textarea><br><br>
-    
-            <!-- V2.0: -->
-            <!-- <label for="dob">Birthday:</label>
-            <input type="date" name="dob"><br><br> -->
-            <p>Age:</p>
-                <input type="radio" name="age" id="20-30" value="20-30" <%= user.ageRange && user.ageRange.includes("20-30") ? "checked" : "" %>/>
-            <label for="20-30">20-30</label>
-                <input type="radio" name="age" id="30-40" value="30-40" <%= user.ageRange && user.ageRange.includes("30-40") ? "checked" : "" %>/>
-            <label for="30-40">30-40</label>
-                <input type="radio" name="age" id="40-50" value="40-50" <%= user.ageRange && user.ageRange.includes("40-50") ? "checked" : "" %>/>
-            <label for="40-50">40-50</label>
-            <br><br>
-            <!-- gender -->
-            <p>Gender:</p>
-                <input type="radio" name="gender" id="female" value="female" <%= user.gender && user.gender.includes("female") ? "checked" : "" %>/>
-            <label class="padright" for="female">Female</label>
-                <input type="radio" name="gender" id="male" value="male" <%= user.gender && user.gender.includes("male") ? "checked" : "" %>/>
-            <label class="padright" for="male">Male</label>
-                <input type="radio" name="gender" id="nonbinary" value="nonbinary" <%= user.gender && user.gender.includes("nonbinary") ? "checked" : "" %>/>
-            <label class="padright" for="nonbinary">Nonbinary</label>
-                <input type="radio" name="gender" id="other" value="other" <%= user.gender && user.gender.includes("other") ? "checked" : "" %>/>
-            <label class="padright" for="other">Other</label>
-            <br><br>
-    
-            <p>What social issues are you interested in? <span>Select all that apply.</span></p>
-                <input type="checkbox" id="animals" name="interests" value="animals" <%= user.interests && user.interests.includes("animals") ? "checked" : "" %>/>
-            <label class="padright" for="animals">Animals</label>
-                <input type="checkbox" id="housing" name="interests" value="housing" <%= user.interests && user.interests.includes("housing") ? "checked" : "" %>/>
-            <label class="padright" for="housing">Housing</label>
-                <input type="checkbox" id="cleanup" name="interests" value="environment" <%= user.interests && user.interests.includes("environment") ? "checked" : "" %>/>
-            <label class="padright" for="cleanup">Neighborhood Cleanup</label>
-                <input type="checkbox" id="food" name="interests" value="hunger" <%= user.interests && user.interests.includes("hunger") ? "checked" : "" %>/>
-            <label class="padright" for="food">Food & Hunger</label>
-                <input type="checkbox" id="organizing" name="interests" value="community" <%= user.interests && user.interests.includes("community") ? "checked" : "" %>/>
-            <label class="padright" for="organizing">Community Organizing</label>
-                <input type="checkbox" id="lgbtq" name="interests" value="LGBTQ+" <%= user.interests && user.interests.includes("LGBTQ+") ? "checked" : "" %>/>
-            <label class="padright" for="lgbtq">LGBTQ+</label>
-                <input type="checkbox" id="elderly" name="interests" value="elderly" <%= user.interests && user.interests.includes("elderly") ? "checked" : "" %>/>
-            <label class="padright" for="elderly">Elderly</label>
-                <input type="checkbox" id="incarceration" name="interests" value="incarceration" <%= user.interests && user.interests.includes("incarceration") ? "checked" : "" %>/>
-            <label class="padright" for="incarceration">Incarceration</label>
-            <br><br>
+<!-- capture this user's _id and current pic to be used on back-end -->
+<form
+  action="/edit?id=<%= user._id %>&pic=<%= user.pic %>"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <div class="container">
+    <h1>Edit your profile</h1>
 
-            <label for="pic">Add a profile image:</label><br>
-                <img id="preview" src=<%= user.pic %> alt="">
-                <!--instantly update preview of uploaded image file: -->
-                <input type='file' 
-                    name='image' 
-                    id='pic' 
-                    onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"
-                />
-            <br><br>
-    
-            <input type="submit" class="btn btn-info btn-lg" value="Submit Changes">
-    
-    </div>
+    <label for="fname">First name:</label>
+    <input
+      type="text"
+      id="fname"
+      name="firstName"
+      required
+      value="<%= user.firstName %>"
+    />
 
+    <label for="lname">Last name:</label>
+    <input
+      type="text"
+      id="lname"
+      name="lastName"
+      required
+      value="<%= user.lastName %>"
+    />
+
+    <label for="email">Email</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      required
+      value="<%= user.email %>"
+    />
+
+    <label for="uname">Username:</label>
+    <input
+      type="text"
+      placeholder="username"
+      id="uname"
+      name="username"
+      required
+      value="<%= user.username %>"
+    />
+
+    <label for="bio">Brief description of yourself:</label><br />
+    <textarea id="bio" name="bio" cols="80" rows="1"><%= user.bio %></textarea
+    ><br /><br />
+
+    <p>Age:</p>
+    <input type="radio" name="age" id="0-20" value="0-20" <%= user.ageRange && user.ageRange.includes("0-20") ? "checked" : "" %>/>
+    <label for="0-20">0-20</label>
+
+    <input type="radio" name="age" id="20-30" value="20-30" <%= user.ageRange && user.ageRange.includes("20-30") ? "checked" : "" %>/>
+    <label for="20-30">20-30</label>
+
+    <input type="radio" name="age" id="30-40" value="30-40" <%= user.ageRange && user.ageRange.includes("30-40") ? "checked" : "" %>/>
+    <label for="30-40">30-40</label>
+
+    <input type="radio" name="age" id="40-50" value="40-50" <%= user.ageRange && user.ageRange.includes("40-50") ? "checked" : "" %>/>
+    <label for="40-50">40-50</label>
+
+    <input type="radio" name="age" id="50-60" value="50-60" <%= user.ageRange && user.ageRange.includes("50-60") ? "checked" : "" %>/>
+    <label for="50-60">50-60</label>
+
+    <input type="radio" name="age" id="70+" value="70+" <%= user.ageRange && user.ageRange.includes("70+") ? "checked" : "" %>/>
+    <label for="70+">70+</label>
+
+    <br /><br />
+
+    <p>Gender:</p>
+    <input type="radio" name="gender" id="female" value="female" <%= user.gender && user.gender.includes("female") ? "checked" : "" %>/>
+    <label class="padright" for="female">Female</label>
+    <input type="radio" name="gender" id="male" value="male" <%= user.gender && user.gender.includes("male") ? "checked" : "" %>/>
+    <label class="padright" for="male">Male</label>
+    <input type="radio" name="gender" id="nonbinary" value="nonbinary" <%= user.gender && user.gender.includes("nonbinary") ? "checked" : "" %>/>
+    <label class="padright" for="nonbinary">Nonbinary</label>
+    <input type="radio" name="gender" id="other" value="other" <%= user.gender && user.gender.includes("other") ? "checked" : "" %>/>
+    <label class="padright" for="other">Other</label>
+    <br /><br />
+
+    <p>What social issues are you interested in?<span>Select all that apply.</span></p>
+    <input type="checkbox" id="animals" name="interests" value="animals" <%= user.interests && user.interests.includes("animals") ? "checked" : "" %>/>
+    <label class="padright" for="animals">Animals</label>
+    <input type="checkbox" id="housing" name="interests" value="housing" <%= user.interests && user.interests.includes("housing") ? "checked" : "" %>/>
+    <label class="padright" for="housing">Housing</label>
+    <input type="checkbox" id="cleanup" name="interests" value="environment" <%= user.interests && user.interests.includes("environment") ? "checked" : "" %>/>
+    <label class="padright" for="cleanup">Neighborhood Cleanup</label>
+    <input type="checkbox" id="food" name="interests" value="hunger" <%= user.interests && user.interests.includes("hunger") ? "checked" : "" %>/>
+    <label class="padright" for="food">Food & Hunger</label>
+    <input type="checkbox" id="organizing" name="interests" value="community" <%= user.interests && user.interests.includes("community") ? "checked" : "" %>/>
+    <label class="padright" for="organizing">Community Organizing</label>
+    <input type="checkbox" id="lgbtq" name="interests" value="LGBTQ+" <%= user.interests && user.interests.includes("LGBTQ+") ? "checked" : "" %>/>
+    <label class="padright" for="lgbtq">LGBTQ+</label>
+    <input type="checkbox" id="elderly" name="interests" value="elderly" <%= user.interests && user.interests.includes("elderly") ? "checked" : "" %>/>
+    <label class="padright" for="elderly">Elderly</label>
+    <input type="checkbox" id="incarceration" name="interests"
+    value="incarceration" <%= user.interests && user.interests.includes("incarceration") ? "checked" : "" %>/>
+    <label class="padright" for="incarceration">Incarceration</label>
+    <br /><br />
+
+    <label for="pic">Add a profile image:</label><br />
+    <%# instant photo preview %>
+    <img id="preview" src=<%= user.pic %> alt="">
+    <input
+      type="file"
+      name="image"
+      id="pic"
+      onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"
+    />
+    <br /><br />
+
+    <input type="submit" class="btn btn-info btn-lg" value="Submit Changes" />
+  </div>
 </form>
 
-<!-- adds footer.ejs -->
 <%- include("partials/footer") %>
