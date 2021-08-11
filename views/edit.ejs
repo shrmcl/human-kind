@@ -46,8 +46,8 @@
       value="<%= user.username %>"
     />
 
-    <label for="bio">Brief description of yourself:</label><br />
-    <textarea id="bio" name="bio" cols="80" rows="1"><%= user.bio %></textarea
+    <label for="bio">Brief description of yourself: <span>60 character max</span></label><br />
+    <textarea id="bio" name="bio" cols="80" rows="1" maxlength="60"><%= user.bio %></textarea
     ><br /><br />
 
     <p>Age:</p>
@@ -74,7 +74,7 @@
     <p>Gender:</p>
     <input type="radio" name="gender" id="female" value="female" <%= user.gender && user.gender.includes("female") ? "checked" : "" %>/>
     <label class="padright" for="female">Female</label>
-    <input type="radio" name="gender" id="male" value="male" <%= user.gender && user.gender.includes("male") ? "checked" : "" %>/>
+    <input type="radio" name="gender" id="male" value="male" <%= user.gender && (user.gender.length === 4) ? "checked" : "" %>/>
     <label class="padright" for="male">Male</label>
     <input type="radio" name="gender" id="nonbinary" value="nonbinary" <%= user.gender && user.gender.includes("nonbinary") ? "checked" : "" %>/>
     <label class="padright" for="nonbinary">Nonbinary</label>
