@@ -20,26 +20,21 @@
         <h5 class="text-left mt-5">Your Saved Matches</h5>
     </div>
 
-    <div class="row row-cols-3 row-cols-md-6">
+    <div class="row row-cols-3 row-cols-md-3">
             <!-- show each saved match -->
             <% data.savedMatches.forEach((el) => { %>
-                <div class="col mb-4 px-1">
+                <div class="col px-0">
                     <div class="card text-dark bg-light dashcard">
-                        <!-- <div class="card-header"> -->
-                            <!-- <input type="checkbox" name="username" value=< %= el._id %>> -->
-                            <!-- <span><h6>< %= el.username %></h6></span> -->
-                        <!-- </div> -->
-                        <img src=<%= el.pic %> class="card-img-top" alt="user photo">
-                        
-                        <div class="card-body">
-                            <h6><%= el.username %></h6>
-                            <p><%= el.bio %></p>
-                            <p><%= el.interests.join(', ') %></p>      
-                        </div> 
-                        <div class="card-footer">
-                            <a class="" href="/chat" role="button">Msg</a>  
-                            <a class="" href="#" role="button">Trash</a>    
-                        </div>   
+                        <div class="contents">
+                            <img src=<%= el.pic %> class="card-img-top" alt="user photo">
+                            <div class="info">
+                                <h6><%= el.username %></h6>
+                                <p><%= el.bio %></p>
+                                <p><%= el.interests.join(', ') %></p> 
+                                <a class="" href="#" role="button">Remove</a>     
+                                <a class="" href="/chat" role="button">Message</a>  
+                            </div> 
+                        </div>
                     </div>
                 </div>
             <% }) %>
