@@ -10,15 +10,18 @@ h1 {
  font-weight: bold; 
  font-size: 4em;
 }
-
+h6 {
+  margin-bottom: 0.2rem;
+}
 body {
   background-color: powderblue;
   line-height: 1.4;
   letter-spacing: -0.01em;
   }
 
-.p-sm {
-  font-size: 0.9em;
+.smalltext {
+  font-size: 0.7rem;
+  color: #888;
 }
 
 .logo {
@@ -276,17 +279,35 @@ span {
   height: 115px;
   object-fit: cover;
   border-radius: 6px;
-  float: left;
-  clear: both;
   margin-right: 10px;
 }
 .dashcard .info {
   padding: 10px 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.card-footer {
+
+.dashcard .links {
+  position: absolute;
+  bottom: 10px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
+.btn-tiny {
+  font-size: 0.7rem;
+  color: rgb(49, 49, 49);
+  line-height: 1;
+  padding: 4px 8px;
+  margin-right: 10px;
+  border-radius: 2px;
+  background-color: rgb(228, 228, 228);
+  /* margin: 0 20px 0 0; */
+}
+
 
 /* small screens */
 @media screen and (max-width: 750px) {

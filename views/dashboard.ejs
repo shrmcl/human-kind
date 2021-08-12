@@ -24,15 +24,17 @@
             <!-- show each saved match -->
             <% data.savedMatches.forEach((el) => { %>
                 <div class="col px-0">
-                    <div class="card text-dark bg-light dashcard">
+                    <div class="card text-dark dashcard">
                         <div class="contents">
                             <img src=<%= el.pic %> class="card-img-top" alt="user photo">
                             <div class="info">
-                                <h6><%= el.username %></h6>
-                                <p><%= el.bio %></p>
-                                <p><%= el.interests.join(', ') %></p> 
-                                <a class="" href="#" role="button">Remove</a>     
-                                <a class="" href="/chat" role="button">Message</a>  
+                                <h6><%= el.firstName %> <%= el.lastName %></h6>
+                                <p class="smalltext"><%= el.interests.join(', ') %></p> 
+                                <div class="links">
+                                  <a class="btn-tiny" href="#" role="button">Remove</a>     
+                                  <a class="btn-tiny" href="/chat" role="button">Message</a>  
+                                </div>
+                                
                             </div> 
                         </div>
                     </div>
