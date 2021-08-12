@@ -308,6 +308,9 @@ span {
   /* margin: 0 20px 0 0; */
 }
 
+.orgs-list {
+  list-style: none;
+}
 
 /* small screens */
 @media screen and (max-width: 750px) {

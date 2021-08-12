@@ -220,6 +220,10 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   })
 });
 
+app.get("/orgIndex", function(req, res) { //brings us to sign up page and profile questions
+  res.render("orgIndex");
+});
+
 app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)
   res.render("orgThanks");
 });

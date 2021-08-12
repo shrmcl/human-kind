@@ -32,8 +32,10 @@
                     <p class="card-text">Age Range: <%= matches[ran].ageRange %></p>
                     <p class="card-text">About myself: <%= matches[ran].bio %></p>
                     <p class="card-text">Interests in common: <%= matches[ran].interests %></p>
-                    <p class="card-text">Relevant Organizations: <%= matches[ran].organizations %></p>
-
+                    <!-- let linkTo = matches[ran].interests.forEach(el => {
+                      return `./orgIndex.ejs`
+                    }) -->
+                    <a href="/orgIndex">LINK?</a>
                     <a class="btn btn-success btn-lg btn-block" href="/chat" role="button">Chatcord</a>                    
                   
                   </div> 
