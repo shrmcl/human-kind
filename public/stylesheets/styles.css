@@ -307,7 +307,12 @@ span {
   background-color: rgb(228, 228, 228);
   /* margin: 0 20px 0 0; */
 }
-
+.orgIndex li {
+  font-size: 2rem;
+}
+.orgIndex li:last-child {
+  margin-bottom: 100px;
+}
 .orgs-list {
   list-style: none;
 }
