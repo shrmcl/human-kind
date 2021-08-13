@@ -2,17 +2,16 @@
 <%- include("partials/header") %>
 <%- include("partials/inNavbar") %>
 
-<div class="container">
+<div class="container-md">
     
-    <div class="row mb-5">
+    <div class="row mb-md-5 mb-0">
         <div id="dashboard-welcome" class="col">
             <div class="welcome-left">
-                <img class="profile-big" src=<%= data.displayImg %> alt=""> 
+                <img src=<%= data.displayImg %> alt=""> 
                 <h4 class="text-start">Hello, <%= data.displayName %></h4>
             </div>
             <div class="welcome-right">
                 <a class="btn btn-info btn-md" href="/results" role="button">Show me matches</a>
-                <a class="btn btn-outline-info" href="/edit" role="button">Update preferences</a>
             </div>
         </div>
     </div>
@@ -21,16 +20,17 @@
         <h5 class="text-left mt-5">Your Saved Matches</h5>
     </div>
 
-    <div class="row row-cols-3 row-cols-md-3">
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-sm-2">
             <!-- show each saved match -->
             <% data.savedMatches.forEach((el) => { %>
                 <div class="col px-0">
                     <div class="card text-dark dashcard">
                         <div class="contents">
-                            <img src=<%= el.pic %> class="card-img-top" alt="user photo">
+                            <img src=<%= el.pic %> alt="user photo">
                             <div class="info">
-                                <h6><%= el.firstName %> <%= el.lastName %></h6>
-                                <p class="smalltext"><%= el.interests.join(', ') %></p> 
+                                <h6><%= el.username %></h6>
+                                <p><%= el.bio %></p> 
+                                <!-- <p>< %= el.interests.join(', ') %></p>  -->
                                 <div class="links">
                                   <a class="btn-tiny" href="#" role="button">Remove</a>     
                                   <a class="btn-tiny" href="/chat" role="button">Message</a>  
