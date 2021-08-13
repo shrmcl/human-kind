@@ -379,45 +379,43 @@ const botName = 'ChatCord Bot';
 
 // Run when client connects
 io.on('connection', socket => {
-  socket.on('joinRoom', ({ username, room}) => {
-      const user = userJoin(socket.id, username, room);
+  socket.on('joinRoom', ({ username}) => {
+      const user = userJoin(socket.id, username );
 
-      socket.join(user.room);
+      // socket.join(user.room);
 
       // Welcome current user
       socket.emit('message', formatMessage(botName, 'Welcome the ChatCord!'));
 
       // Broadcast when a user connnects
-      socket.broadcast
-      .to(user.room)
-      .emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+      socket.broadcast.emit('message', formatMessage(botName, `${user.username} has joined the chat`));
 
       // Send users and room info
-      io.to(user.room).emit('roomUser', {
-          room: user.room,
-          users: getRoomUsers(user.room)
-      });
+      // io.to(user.room).emit('roomUser', {
+      //     room: user.room,
+      //     users: getRoomUsers(user.room)
+      // });
   });
 
       // Listen to chatMessage
       socket.on('chatMessage', msg => {
       const user = getCurrentUser(socket.id);
 
-      io.to(user.room).emit('message', formatMessage(user.username, msg));
+      socket.emit('message', formatMessage(user.username, msg));
   });
 
-  // // Runs when client disconnects
-  // socket.on('disconnect', () => {
-  //     const user = userLeave(socket.id);
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+      const user = userLeave(socket.id);
 
-  //     io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+      socket.emit('message', formatMessage(botName, `${user.username} has left the chat`));
 
-  //     // Send users and room info
-  //     io.to(user.room).emit('roomUser', {
-  //         room: user.room,
-  //         users: getRoomUsers(user.room)
-  //     });
-  // });
+      // Send users and room info
+      // socket.emit('roomUser', {
+      //     room: user.room,
+      //     users: getRoomUsers(user.room)
+      // });
+  });
 });
 
 // Listener
