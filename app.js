@@ -69,6 +69,7 @@ passport.deserializeUser(User.deserializeUser()); //removes user session when th
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { Z_DEFAULT_STRATEGY } = require('zlib');
 
 // this requires you to have '.env' file in root folder with API info
 cloudinary.config({ 
@@ -219,6 +220,8 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
     }})
   })
 });
+
+
 
 app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)
   res.render("orgThanks");
