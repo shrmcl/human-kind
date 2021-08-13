@@ -1,5 +1,7 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
+<%- include("partials/inNavbar") %>
+
         <!-- capture this user's _id and current pic to be used on back-end -->
         <form action="/edit?id=<%= user._id %>&pic=<%= user.pic %>" method="POST" enctype="multipart/form-data">
             <div class="container">

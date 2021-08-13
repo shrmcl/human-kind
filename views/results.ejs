@@ -1,5 +1,6 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
+<%- include("partials/inNavbar") %>
 
 <!-- list of top 5 showing name, age, gender, pic, bio, and org matches in common with events available -->
 
@@ -23,9 +24,10 @@
               <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
           
               </div>
+                  
                   <!-- old path to avatars: -->
                   <!-- new path for user-uploaded pic: -->
-                  <img src=<%= matches[ran].pic %> class="card-img-top" alt="avatar image">
+                  <img src=<%= matches[ran].pic %> class="card-img-top" alt="user image">
 
                   <div class="card-body">
                     <p class="card-text">Gender: <%= matches[ran].gender %></p>
@@ -37,6 +39,7 @@
                     <a class="btn btn-success btn-lg btn-block" href="/chat" role="button">Chatcord</a>                    
                   
                   </div> 
+                  
             </div>
           </div>    
         <% } %>
