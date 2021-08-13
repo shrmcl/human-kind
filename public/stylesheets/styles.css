@@ -48,6 +48,15 @@ h6 {  /* username on dashboard saved matches cards */
 .logo {
   width: 80%;
 }
+.profile-icon {
+  width: 30px;
+  height: auto;
+  margin-left: 20px;
+}
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
 
 /* ------------------------------------------------------------- FORM & INPUT ELEMENTS */
 
