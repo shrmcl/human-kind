@@ -17,6 +17,7 @@
           <% ran = Math.floor((Math.random() * (matches.length -1)) + 1); %>
         <% } %>
       <% ranNumbers.push(ran) %>
+      <% console.log('ran ', ran, 'match length  ', matches.length) %>
         <div class="col mb-4">
           <div class="card h-100">
             <div class="card-header">
@@ -28,11 +29,15 @@
                 <p class="card-text">Gender: <%= matches[ran].gender %></p>
                 <p class="card-text">Age: <%= matches[ran].ageRange %></p>
                 <p class="card-text">About: <%= matches[ran].bio %></p>
-                <p class="card-text">Common Interests: <%= matches[ran].interests %></p>
-                <!-- let linkTo = matches[ran].interests.forEach(el => {
-                  return `./orgIndex.ejs`
-                }) -->
-                <a href="/orgIndex#environment">LINK to</a>
+                <!-- <p class="card-text">Common Interests: <%= matches[ran].interests %></p> -->
+                <p class="card-text">Common Interests:</p>
+                
+                <% matches[ran].interests.forEach(el => { %>
+                  <%# console.log('match int ', el) %>
+                  <a href="/orgIndex#<%= el %>"><%= el %></a> 
+                <% }) %>
+                
+                <%# <a href="/orgIndex#environment">LINK to</a> %>
                 <a class="btn btn-success btn-lg btn-block" href="/chat" role="button">Chatcord</a>                    
               </div> 
           </div>
