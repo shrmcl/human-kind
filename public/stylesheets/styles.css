@@ -19,11 +19,6 @@ body {
   letter-spacing: -0.01em;
   }
 
-.smalltext {
-  font-size: 0.7rem;
-  color: #888;
-}
-
 .logo {
   width: 80%;
 }
@@ -76,13 +71,7 @@ label{
   margin-right: 10px;
 }
 
-/* dashboard profile pic */
-.profile-big {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  object-fit: cover;
-}
+
 /* preview of profile image on Edit.ejs */
 #preview {
   width: 100px;
@@ -178,7 +167,7 @@ button:hover, input[type=submit]:hover {
   width: 50%;
 }
 
-.container {
+.container, .container-md {
   margin: 40px auto;
   /* text-align: center; */
   padding: 25px auto;
@@ -256,6 +245,10 @@ span {
   align-items: center;
 }
 .welcome-left img {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  object-fit: cover;
   margin: 0 10px 0 0;
 }
 .dashcard {
@@ -267,9 +260,7 @@ span {
 }
 .dashcard .contents {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0;
+  flex-direction: row;
 }
 .dashcard p {
   margin-bottom: 0;
@@ -282,31 +273,27 @@ span {
   margin-right: 10px;
 }
 .dashcard .info {
-  padding: 10px 0;
-  width: 100%;
-  height: auto;
   display: flex;
+  /* calculate width of card minus width/margin of img */
+  width: calc(100% - 125px);
   flex-direction: column;
   justify-content: space-between;
 }
-
 .dashcard .links {
-  position: absolute;
-  bottom: 10px;
-  margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .btn-tiny {
   font-size: 0.7rem;
   color: rgb(49, 49, 49);
   line-height: 1;
   padding: 4px 8px;
-  margin-right: 10px;
+  margin-left: 10px;
   border-radius: 2px;
   background-color: rgb(228, 228, 228);
-  /* margin: 0 20px 0 0; */
 }
+
+/* INDEX OF ORGANIZATIONS */
 .orgIndex li {
   font-size: 2rem;
 }
@@ -319,12 +306,39 @@ span {
 
 /* small screens */
 @media screen and (max-width: 750px) {
-  .dashcard img {
-    width: calc(100vw / 6);
-    height: calc(100vw / 6);
-    object-fit: cover;
-    margin: 6px auto;
+
+  .container, .container-md {
+    margin: 20px auto;
+    padding: 0 auto;
   }
+
+  #dashboard-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .welcome-left {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .welcome-left img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+  .welcome-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .welcome-right .btn {
+    width: 50%;
+    margin: 40px auto 0;
+  }
+ 
+
 }
 
 /* extra small screens */
