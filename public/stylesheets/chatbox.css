@@ -21,6 +21,31 @@ body {
 	margin: 20px;
 }
 
+.navLogo {
+	width: 120px;
+	height: 40px;
+  }
+  
+  .navbar-brand {
+	padding: 0;
+  }
+
+  .navbar-nav {
+	display: flex;
+	align-items: center;
+  }
+  
+  .navbar-nav .nav-link {
+	padding: 0;
+	height: 40px;
+	line-height: 40px;
+  }
+  
+  .profile-icon {
+	width: 35px;
+	height: 35px;
+  }
+
 ul {
 	list-style: none;
 }
