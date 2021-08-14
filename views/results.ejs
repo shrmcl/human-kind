@@ -26,7 +26,7 @@
             <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
             </div>
               <img src=<%= matches[ran].pic %> class="card-img-top" alt="avatar image">
-              <div class="card-body">
+              <div class="card-body d-flex flex-column">
                 <p class="card-text">Gender: <%= matches[ran].gender %></p>
                 <p class="card-text">Age: <%= matches[ran].ageRange %></p>
                 <p class="card-text">About: <%= matches[ran].bio %></p>
@@ -35,7 +35,7 @@
                 <% matches[ran].interests.forEach(el => { %>
                   <a href="/orgIndex#<%= el %>"><%= el %></a> 
                 <% }) %>
-                <a class="btn btn-success btn-lg btn-block" href="/chat" role="button">Chatcord</a>                    
+                <a class="align-self-end btn btn-lg btn-block btn-success mt-auto" href="/chat" role="button">Chatcord</a>                    
               </div> 
           </div>
         </div>    

@@ -221,6 +221,7 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
   })
 });
 
+
 app.get("/orgIndex", function(req, res) { //brings us to sign up page and profile questions
   res.render("orgIndex");
 });
