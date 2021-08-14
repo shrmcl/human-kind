@@ -1,12 +1,6 @@
 <!-- navbar with image and links -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/dashboard">
-    <img
-      src="/assets/images/voluntender.png"
-      width="120"
-      height="40"
-      alt="Voluntender logo"
-  /></a>
+  <a class="navbar-brand" href="/dashboard">Voluntender</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -26,11 +20,13 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/edit">
-          <img
+          <!-- <img
             class="profile-icon"
             src="/assets/images/userIcon.png"
             alt="user image"
-        /></a>
+        /> -->
+        <img class="profile-icon" src=<%= data.displayImg %> alt=""> 
+      </a>
       </li>
     </ul>
   </div>

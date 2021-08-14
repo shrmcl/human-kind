@@ -1,58 +1,85 @@
 <!-- adds header.ejs -->
-<%- include("partials/header") %>
-<%- include("partials/outNavbar") %>
+<%- include("partials/header") %> <%- include("partials/outNavbar") %>
 
 <div class="container">
-    <form action="/orgSignup" method="post">
-      <h1>Sign up for Nonprofit Organizations</h1>
-      <br><br>
+  <form action="/orgSignup" method="post">
+    <h1>Sign up for Nonprofit Organizations</h1>
+    <br /><br />
 
-      <label for="uname">Create a username:</label>
-      <input type="text" placeholder="username" id="uname" name="username" required>
+    <label for="uname">Create a username:</label>
+    <input
+      type="text"
+      placeholder="username"
+      id="uname"
+      name="username"
+      required
+    />
 
-      <label for="pw">Password:</label>
-      <input type="password" placeholder="password" id="pw" name="password" required>
+    <label for="pw">Password:</label>
+    <input
+      type="password"
+      placeholder="password"
+      id="pw"
+      name="password"
+      required
+    />
 
-      <label for="orgName">Name of Organizatin:</label>
-      <input type="text" placeholder="Organization Name" id="orgName" name="orgName" required>
+    <label for="orgName">Name of Organizatin:</label>
+    <input
+      type="text"
+      placeholder="Organization Name"
+      id="orgName"
+      name="orgName"
+      required
+    />
 
-      <label for="mission">Your mission statement:</label><br>
-      <textarea id="mission" name="mission" cols="80" rows="1" placeholder="type here"></textarea><br><br>
+    <label for="mission">Your mission statement:</label><br />
+    <textarea
+      id="mission"
+      name="mission"
+      cols="80"
+      rows="1"
+      placeholder="type here"
+    ></textarea
+    ><br /><br />
 
-      <label for="website">Organization Website:</label><br>
-      <input type="text" placeholder="website" id="website" name="website" required>
+    <label for="website">Organization Website:</label><br />
+    <input
+      type="text"
+      placeholder="website"
+      id="website"
+      name="website"
+      required
+    />
 
-      <br><br>
+    <br /><br />
 
-      <p>What social issues apply to your Organization? <span>Select all that apply.</span></p>
-        <input type="checkbox" id="animals" name="interests" value="animals">
-        <label class="padright" for="animals">Animals</label>
-        <input type="checkbox" id="housing" name="interests" value="housing">
-        <label class="padright" for="housing">Housing</label>
-        <input type="checkbox" id="cleanup" name="interests" value="environment">
-        <label class="padright" for="cleanup">Environment</label>
-        <input type="checkbox" id="food" name="interests" value="hunger">
-        <label class="padright" for="food">Food & Hunger</label>
-        <input type="checkbox" id="organizing" name="interests" value="community">
-        <label class="padright" for="organizing">Community Organizing</label>
-        <input type="checkbox" id="lgbtq" name="interests" value="LGBTQ+">
-        <label class="padright" for="lgbtq">LGBTQ+</label>
-        <input type="checkbox" id="elderly" name="interests" value="elderly">
-        <label class="padright" for="elderly">Elderly</label>
-        <input type="checkbox" id="incarceration" name="interests" value="incarceration">
-        <label class="padright" for="incarceration">Incarceration</label>
-        
-        <br><br>
+    <p>
+      What social issues apply to your Organization?
+      <span>Select all that apply.</span>
+    </p>
+    <div class="bubbles">
+      <input type="checkbox" id="animals" name="interests" value="animals" />
+      <label class="padright" for="animals">Animals</label>
+      <input type="checkbox" id="housing" name="interests" value="housing" />
+      <label class="padright" for="housing">Housing</label>
+      <input type="checkbox" id="cleanup" name="interests" value="environment" />
+      <label class="padright" for="cleanup">Environment</label>
+      <input type="checkbox" id="food" name="interests" value="hunger" />
+      <label class="padright" for="food">Food & Hunger</label>
+      <input type="checkbox" id="organizing" name="interests" value="community" />
+      <label class="padright" for="organizing">Community Organizing</label>
+      <input type="checkbox" id="lgbtq" name="interests" value="LGBTQ+" />
+      <label class="padright" for="lgbtq">LGBTQ+</label>
+      <input type="checkbox" id="elderly" name="interests" value="elderly" />
+      <label class="padright" for="elderly">Elderly</label>
+      <input type="checkbox" id="incarceration" name="interests" value="incarceration" />
+      <label class="padright" for="incarceration">Incarceration</label>
+    </div>
+    <br /><br /><br /><br />
 
-            
-
-     <br><br>
-
-
-
-     <input type="submit" class="btn btn-info btn-lg" value="Submit">
-     
-</form>
+    <input type="submit" class="btn btn-info btn-lg" value="Submit" />
+  </form>
 </div>
 
 <!-- adds footer.ejs -->
