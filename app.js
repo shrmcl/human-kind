@@ -235,7 +235,15 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
 // });
 
 app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-  res.render("chat");
+  const userPic = req.user.pic;
+  const userName = req.user.firstName;
+  User.find()
+  .then(chatMessages => {
+    res.render("chat", {data:{
+      displayImg: userPic,
+      displayName: userName,
+    }})
+  })
 });
 
 // post route that handles logic for registering user & adding their info to database
@@ -385,35 +393,43 @@ const botName = 'ChatCord Bot';
 
 // Run when client connects
 io.on('connection', socket => {
-  socket.on('joinRoom', ({ username, room}) => {
-      const user = userJoin(socket.id, username, room);
-      socket.join(user.room);
+  socket.on('joinRoom', ({ username}) => {
+      const user = userJoin(socket.id, username );
+
+      // socket.join(user.room);
+
       // Welcome current user
       socket.emit('message', formatMessage(botName, 'Welcome the ChatCord!'));
       // Broadcast when a user connnects
-      socket.broadcast
-      .to(user.room)
-      .emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+      socket.broadcast.emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+
       // Send users and room info
-      io.to(user.room).emit('roomUser', {
-          room: user.room,
-          users: getRoomUsers(user.room)
-      });
+      // io.to(user.room).emit('roomUser', {
+      //     room: user.room,
+      //     users: getRoomUsers(user.room)
+      // });
   });
       // Listen to chatMessage
       socket.on('chatMessage', msg => {
       const user = getCurrentUser(socket.id);
 
-      io.to(user.room).emit('message', formatMessage(user.username, msg));
+      socket.emit('message', formatMessage(user.username, msg));
   });
+
   // Runs when client disconnects
-  // socket.on('disconnect', () => {
-  //     const user = userLeave(socket.id);
-  //     io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
-  //     // Send users and room info
-  //     io.to(user.room).emit('roomUser', {
-  //         room: user.room,
-  //         users: getRoomUsers(user.room)
-  //     });
-  // });
+  socket.on('disconnect', () => {
+      const user = userLeave(socket.id);
+
+      // socket.emit('message', formatMessage(botName, `${user.username} has left the chat`));
+
+      // Send users and room info
+      // socket.emit('roomUser', {
+      //     room: user.room,
+      //     users: getRoomUsers(user.room)
+      // });
+  });
 });
+
+// Listener
+// const port = process.env.PORT || 3000; // this says run whatever port if 3000 is not available
+// app.listen(port, ()=> console.log(`VolunTender App is Listening on port ${port}`));  // when running app we want you to listen for requests port and console log the port #
