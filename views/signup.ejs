@@ -1,4 +1,5 @@
 <%- include("partials/header") %>
+<%- include("partials/outNavbar") %>
   
     <div class="container">
       
@@ -16,8 +17,8 @@
         <label for="uname">Create a username:</label>
         <input type="text" placeholder="username" id="uname" name="username" required>
         
-        <label for="bio">Brief description of yourself:</label><br>
-        <textarea id="bio" name="bio" cols="80" rows="1" placeholder="type here"></textarea><br><br>
+        <label for="bio">Brief description of yourself: <span>60 character max</span></label><br>
+        <textarea id="bio" name="bio" cols="80" rows="1" maxlength="60" placeholder="type here"></textarea><br><br>
 
         <p>Age:</p>
         <input type="radio" name="age" id="0-20" value="0-20">
@@ -29,6 +30,8 @@
         <input type="radio" name="age" id="40-50" value="40-50">
         <label for="40-50">40-50</label>
         <input type="radio" name="age" id="60-70" value="60-70">
+        <label for="50-60">50-60</label>
+        <input type="radio" name="age" id="50-60" value="50-60">
         <label for="60-70">60-70</label>
         <input type="radio" name="age" id="70+" value="70+">
         <label for="70+">70+</label>
@@ -51,7 +54,7 @@
         <input type="checkbox" id="housing" name="interests" value="housing">
         <label class="padright" for="housing">Housing</label>
         <input type="checkbox" id="cleanup" name="interests" value="environment">
-        <label class="padright" for="cleanup">Neighborhood Cleanup</label>
+        <label class="padright" for="cleanup">Environment</label>
         <input type="checkbox" id="food" name="interests" value="hunger">
         <label class="padright" for="food">Food & Hunger</label>
         <input type="checkbox" id="organizing" name="interests" value="community">
@@ -65,7 +68,7 @@
         <br><br>
 
         <label for="fname">Add a profile image:</label><br>
-        <input type='file' name='image' id='pic'/>
+        <input type='file' name='image' id='pic' required/>
         <br><br>
 
         <input type="submit" class="btn btn-info btn-lg" value="Submit Profile">

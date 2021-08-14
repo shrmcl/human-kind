@@ -1,30 +1,47 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
+<%- include("partials/inNavbar") %>
 
-<div class="container">
+<div class="container-md">
     
-    <div class="row">
-        <div class="col">
-            <img class="profile-big" src=<%= data.displayImg %> alt=""> 
-            <h1 class="text-center mt-5">Hello, <%= data.displayName %></h1><br>
+    <div class="row mb-md-5 mb-0">
+        <div id="dashboard-welcome" class="col">
+            <div class="welcome-left">
+                <img src=<%= data.displayImg %> alt=""> 
+                <h4 class="text-start">Hello, <%= data.displayName %></h4>
+            </div>
+            <div class="welcome-right">
+                <a class="btn btn-info btn-md" href="/results" role="button">Show me matches</a>
+            </div>
         </div>
     </div>
   
-    <div class="col">
-        <h3 class="text-left mt-5">Find matches:</h3><br>
-        <a class="btn btn-info btn-lg" href="/results" role="button">Show me matches</a>
-        <a class="btn btn-info btn-lg" href="/edit" role="button">Update search preferences</a>
+    <div class="row">
+        <h5 class="text-left mt-5">Your Saved Matches</h5>
     </div>
-    
-    <div class="col">
-        <h3 class="text-left mt-5">Your Saved Matches:</h2>
-        <!-- show each saved match -->
-        <% data.savedMatches.forEach((el) => { %>
-            <!-- currently displaying saved user name OR _id depending on if user was saved before/after _id incorporated -->
-            <p><%= el.firstName %> <%= el.lastName %>, <%= el.bio %></p>
-        <% }) %>
+
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-sm-2">
+            <!-- show each saved match -->
+            <% data.savedMatches.forEach((el) => { %>
+                <div class="col px-0">
+                    <div class="card text-dark dashcard">
+                        <div class="contents">
+                            <img src=<%= el.pic %> alt="user photo">
+                            <div class="info">
+                                <h6><%= el.username %></h6>
+                                <p><%= el.bio %></p> 
+                                <!-- <p>< %= el.interests.join(', ') %></p>  -->
+                                <div class="links">
+                                  <a class="btn-tiny" href="#" role="button">Remove</a>     
+                                  <a class="btn-tiny" href="/chat" role="button">Message</a>  
+                                </div>
+                                
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
     </div>
-   
 </div>
     
 <!-- adds footer.ejs -->

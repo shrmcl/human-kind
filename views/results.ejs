@@ -1,53 +1,51 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
-
-<!-- list of top 5 showing name, age, gender, pic, bio, and org matches in common with events available -->
+<%- include("partials/inNavbar") %>
 
 <div class="container">
-  
-    <div class="col">
-        <h1 class="text-center mt-5">These are your matches!</h1><br>
-    </div>
-  
-    <form action="/results" method="POST" id="savedMatches">
-      <div class="row row-cols-1 row-cols-md-3">
-
-        <% for(let i = 0;  i < 3; i++) { %>
-        <% let ran = Math.floor((Math.random() * matches.length) + 1); %>
-
-          <div class="col mb-4">
-            <div class="card h-100">
-              <div class="card-header">
-          
-              <input type="checkbox" name="username" value=<%=matches[ran]._id %>>
-              <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
-          
-              </div>
-                  <!-- old path to avatars: -->
-                  <!-- new path for user-uploaded pic: -->
-                  <img src=<%= matches[ran].pic %> class="card-img-top" alt="avatar image">
-
-                  <div class="card-body">
-                    <p class="card-text">Gender: <%= matches[ran].gender %></p>
-                    <p class="card-text">Age Range: <%= matches[ran].ageRange %></p>
-                    <p class="card-text">About myself: <%= matches[ran].bio %></p>
-                    <p class="card-text">Interests in common: <%= matches[ran].interests %></p>
-                    <p class="card-text">Relevant Organizations: <%= matches[ran].organizations %></p>
-
-                    <a class="btn btn-success btn-lg btn-block" href="/chat" role="button">Chatcord</a>                    
-                  
-                  </div> 
-            </div>
-          </div>    
+  <div class="col">
+    <a class="btn btn-info btn-md" href="/results" role="button">See More</a>
+    <h1 class="text-center mt-5">These are your matches!</h1><br>
+  </div>
+  <form action="/results" method="POST" id="savedMatches">
+    <div class="row row-cols-1 row-cols-md-3">
+      <%# store random numbers to prevent duplicates %>
+      <% let ranNumbers = []; %>
+      <% for(let i = 0;  i < 3; i++) { %>
+        <% let ran = Math.floor((Math.random() * matches.length -1) + 1); %>
+        <% if (ranNumbers.includes(ran)) { %>
+          <%# "-1" to match array indexes %>
+          <% ran = Math.floor((Math.random() * (matches.length -1)) + 1); %>
         <% } %>
-      </div>
-        <!-- formaction="" only works with button type="submit" -->
-        <button type="submit" class="btn btn-primary btn-lg" formaction="/results">Save matches</button> 
-        <a class="btn btn-info btn-lg" href="/dashboard" role="button">Back to my Dashboard</a>
-        <a class="btn btn-warning btn-lg" href="/logout" role="button">Logout</a>
-
-    </form>
+      <% ranNumbers.push(ran) %>
+      <% console.log('ran ', ran, 'match length  ', matches.length) %>
+        <div class="col mb-4">
+          <div class="card h-100">
+            <div class="card-header">
+            <input type="checkbox" name="username" value=<%=matches[ran]._id %>>
+            <span><h3 class="card-title"><%= matches[ran].username %></h3></span>
+            </div>
+              <img src=<%= matches[ran].pic %> class="card-img-top" alt="avatar image">
+              <div class="card-body">
+                <p class="card-text">Gender: <%= matches[ran].gender %></p>
+                <p class="card-text">Age: <%= matches[ran].ageRange %></p>
+                <p class="card-text">About: <%= matches[ran].bio %></p>
+                <!-- <p class="card-text">Common Interests: <%= matches[ran].interests %></p> -->
+                <p class="card-text">Common Interests:</p>
+                <% matches[ran].interests.forEach(el => { %>
+                  <a href="/orgIndex#<%= el %>"><%= el %></a> 
+                <% }) %>
+                <a class="btn btn-success btn-lg btn-block" href="/chat" role="button">Chatcord</a>                    
+              </div> 
+          </div>
+        </div>    
+      <% } %>
+    </div>
+    <!-- formaction="" only works with button type="submit" -->
+    <button type="submit" class="btn btn-primary btn-lg" formaction="/results">Save matches</button> 
+    <a class="btn btn-info btn-lg" href="/dashboard" role="button">Back to my Dashboard</a>
+    <a class="btn btn-warning btn-lg" href="/logout" role="button">Logout</a>
+  </form>
 </div> 
 
-<!-- adds footer.ejs -->
 <%- include("partials/footer") %>

@@ -6,99 +6,68 @@
   
 }
 
-h1 {
- font-weight: bold; 
- font-size: 4em;
-}
+/* ------------------------------------------------------------- GENERAL CONTAINERS, DIVS, SPACING  */
 
 body {
   background-color: powderblue;
-  }
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;  /* base font size */
+}
+.container, .container-md {
+  margin: 40px auto;
+  /* text-align: center; */
+  padding: 25px auto;
+}
+.padright {   /* for radio buttons and checkboxes */
+    margin-right: 10px;
+}
+.centered {
+  text-align: center;
+}
+
+/* ------------------------------------------------------------- GENERAL TYPOGRAPHY */
+
+p {
+  font-family: 'Recursive', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01rem;
+  line-height: 1.1rem;
+  margin-bottom: 15px;
+}
+h1 {
+  font-size: 2em;
+  font-weight: 600;
+}
+h6 {  /* username on dashboard saved matches cards */
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------- UNIQUE ELEMENTS */
 
 .logo {
   width: 80%;
 }
-
-label{
-  color: rgb(54, 54, 54);
-  font-size: 0.9rem;
-  letter-spacing: 0.01em;
-  margin-bottom: 5px;
+.profile-icon {
+  width: 30px;
+  height: auto;
+  margin-left: 20px;
+}
+.navbar-nav {
+  display: flex;
+  align-items: center;
 }
 
-#label-avatar1 {
-  background-image: url("../assets/images/Avatar1.png");
-}
+/* ------------------------------------------------------------- FORM & INPUT ELEMENTS */
 
-#label-avatar2 {
-  background-image: url("../assets/images/Avatar2.png");
-}
-
-#label-avatar3 {
-  background-image: url("../assets/images/Avatar3.png");
-}
-
-#label-avatar4 {
-  background-image: url("../assets/images/Avatar4.png");
-}
-
-#label-avatar5 {
-  background-image: url("../assets/images/Avatar5.png");
-}
-
-#label-avatar6 {
-  background-image: url("../assets/images/Avatar6.png");
-}
-
-#label-avatar7 {
-  background-image: url("../assets/images/Avatar7.png");
-}
-
-#label-avatar8 {
-  background-image: url("../assets/images/Avatar8.png");
-}
-
-.avatars {
-  width: 100px;
-  height: 100px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin-right: 10px;
-}
-
-/* dashboard profile pic */
-.profile-big {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  object-fit: cover;
-}
-/* preview of profile image on Edit.ejs */
-#preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  object-fit: cover;
-}
-
-form p {
-  color: rgb(54, 54, 54);
-  font-size: 0.9rem;
-  letter-spacing: 0.01em;
-  margin-bottom: 5px;
-}
-
-.padright {
-  margin-right: 10px;
-}
-
-p span {
+span {
+  text-transform: uppercase;
   font-size: 0.8rem;
-  font-weight: 600;
-  float: none;
 }
-
+label {
+  color: rgb(7, 7, 7);
+  margin-bottom: 5px;
+}
 input[type=text], input[type=password] {
   width: 100%;
   padding: 8px 15px;
@@ -108,7 +77,6 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
   border-radius: 2px;
 }
-
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
@@ -129,19 +97,18 @@ input[type=file]::file-selector-button {
   background-color: white;
   cursor: pointer;
 }
-
-textarea {
-  padding: 15px;
-  border-radius: 3px;
-}
-
 input[type=radio] {
   background-color: yellow;
   padding: 10px;
   margin: 5px;
 }
+textarea {
+  padding: 15px;
+  border-radius: 3px;
+}
 
-/* Set a style for all buttons */
+/* ------------------------------------------------------------- BUTTONS */
+
 button, input[type=submit] {
   background-color: #04AA6D;
   color: white;
@@ -152,122 +119,157 @@ button, input[type=submit] {
   width: 100%;
   opacity: 0.9;
 }
-
 button:hover, input[type=submit]:hover {
   opacity:1;
 }
-
-/* Extra styles for the cancel button */
-.cancelbtn {
+.btn-tiny {
+  font-size: 0.7rem;
+  color: rgb(49, 49, 49);
+  line-height: 1;
+  padding: 4px 8px;
+  margin-left: 10px;
+  border-radius: 2px;
+  background-color: rgb(228, 228, 228);
+}
+.cancelbtn {  /* is this being used? */
   padding: 14px 20px;
   background-color: #f44336;
 }
 
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
-  float: left;
-  width: 50%;
+/* ------------------------------------------------------------- EDIT.EJS  */
+
+#preview { /* preview of profile image upldoad  */
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  object-fit: cover;
 }
 
-.container {
-  margin: 40px auto;
-  /* text-align: center; */
-  padding: 25px auto;
+/* ------------------------------------------------------------- DASHBOARD.EJS  */
+
+#dashboard-welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.welcome-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.welcome-left img {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin: 0 10px 0 0;
+}
+.dashcard {
+  font-size: 0.8rem;
+  height: auto;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 0 3px 3px 0;
+}
+.dashcard .contents {
+  display: flex;
+  flex-direction: row;
+}
+.dashcard p {
+  margin-bottom: 0;
+}
+.dashcard img {
+  width: 115px;
+  height: 115px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.dashcard .info {
+  display: flex;
+  width: calc(100% - 125px);  /* calculate width of card minus width/margin of img */
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dashcard .links {
+  display: flex;
+  justify-content: flex-end;
 }
 
-#homepage {
-  text-align: center;
+/* ------------------------------------------------------------- ORGINDEX.EJS  */
+
+.orgs-list {
+  list-style: none;
+}
+.orgIndex li {
+  font-size: 2rem;
+}
+.orgIndex li:last-child {
+  margin-bottom: 100px;
 }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
-  padding-top: 50px;
-}
 
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
+/* ------------------------------------------------------------- MEDIA QUERY: SMALL SCREENS  */
 
-/* Style the horizontal ruler */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
- 
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
+@media screen and (max-width: 750px) {
 
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
-
-span {
-  float: right;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
-     width: 100%;
+  .container, .container-md {
+    margin: 20px auto;
+    padding: 0 auto;
   }
+
+.card-img-top {  
+  width: 100%;
+  height: 35vh;
+  object-fit: cover;
 }
 
-/* below was when checkbox had id - it won't currently accept a classname (?) */
-/* #savedMatches {
-  -webkit-appearance: none;
-	background-color: #f3f7f7;
-	border: 1px solid #504b4b; */
-	/* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); */
-	/* padding: 15px;
-	border-radius: 3px;
-	display: inline-block;
-	position: relative;
-} */
+.img-thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
 
-/* #savedMatches:active, #savedMatches:checked:active {
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-} */
+.navbar-brand {
+  padding: 0;
+}
 
-/* #savedMatches:checked {
-	background-color: #cecdce;
-	border: 1px solid #1a547e;
-	color: #99a1a7;
-} */
+.navbar-nav .nav-link {
+  padding: 0;
+  height: 40px;
+  line-height: 40px;
+}
 
-/* #savedMatches:checked:after {
-	content: '\2714';
-	font-size: 28px;
-	position: absolute;
-	top: -7px;
-	left: -2px;
-	color: #2e82c2;
-} */
+.far fa-user-circle {
+  width: 50px;
+  height: 50px;
+}
+
+  #dashboard-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .welcome-left {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .welcome-left img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+  .welcome-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .welcome-right .btn {
+    width: 50%;
+    margin: 40px auto 0;
+  }
+ 
+}

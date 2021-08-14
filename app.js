@@ -69,6 +69,7 @@ passport.deserializeUser(User.deserializeUser()); //removes user session when th
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { Z_DEFAULT_STRATEGY } = require('zlib');
 
 // this requires you to have '.env' file in root folder with API info
 cloudinary.config({ 
@@ -218,6 +219,10 @@ app.get("/dashboard", isLoggedIn, function(req, res) { //brings us to user dashb
       savedMatches: results
     }})
   })
+});
+
+app.get("/orgIndex", function(req, res) { //brings us to sign up page and profile questions
+  res.render("orgIndex");
 });
 
 app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)
@@ -386,7 +391,6 @@ io.on('connection', socket => {
 
       // Welcome current user
       socket.emit('message', formatMessage(botName, 'Welcome the ChatCord!'));
-
       // Broadcast when a user connnects
       socket.broadcast.emit('message', formatMessage(botName, `${user.username} has joined the chat`));
 
@@ -396,7 +400,6 @@ io.on('connection', socket => {
       //     users: getRoomUsers(user.room)
       // });
   });
-
       // Listen to chatMessage
       socket.on('chatMessage', msg => {
       const user = getCurrentUser(socket.id);
