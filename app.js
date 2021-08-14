@@ -233,17 +233,32 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
 //   res.render("matchroom");
 // });
 
-app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-  const userPic = req.user.pic;
-  const userName = req.user.firstName;
-  User.find()
-  .then(chatMessages => {
-    res.render("chat", {data:{
+// app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+//   const userPic = req.user.pic;
+//   const userName = req.user.firstName;
+//   User.find()
+//   .then(chatMessages => {
+//     res.render("chat", {data:{
+//       displayImg: userPic,
+//       displayName: userName,
+//     }})
+//   })
+// });
+
+app.post("/message", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
+    console.log('req query: ', req.query)
+    const userPic = req.user.pic;
+    const userName = req.user.username;
+    res.render("chat" ,
+    {data:{
+      friend: req.query.friend,
+      friendpic: req.query.friendpic,
       displayImg: userPic,
-      displayName: userName,
-    }})
+      displayName: userName
+    }}
+    )
   })
-});
+
 
 // post route that handles logic for registering user & adding their info to database
 // parser handles image upload to Cloudinary

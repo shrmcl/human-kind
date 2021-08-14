@@ -169,7 +169,7 @@ textarea {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: all 0.2s;
-  padding: 8px 16px 6px 16px;
+  padding: 12px 16px 10px 16px;
   cursor: pointer;
 }
 .bubbles input[type='radio'] {
@@ -194,6 +194,7 @@ textarea {
 }
 
 /* ------------------------------------------------------------- BUTTONS */
+
 .btn:active, .btn:focus, .btn-md:focus, btn-sm:active, .btn.md:active, .btn-primary:active, .btn-info:active, button:active, input[type='submit']:active {
   background-color: #38605D !important;
   border: none !important;
@@ -202,10 +203,10 @@ textarea {
 }
 button,
 input[type='submit'] {
-  color: #38605D;
+  background-color: #38605D;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin:  0;
   border: none;
   cursor: pointer;
   width: 100%;
@@ -215,15 +216,7 @@ button:hover,
 input[type='submit']:hover {
   opacity: 1;
 }
-.btn-tiny {
-  font-size: 0.7rem;
-  color: #38605D;
-  line-height: 1;
-  padding: 4px 8px;
-  margin-left: 10px;
-  border-radius: 2px;
-  background-color: rgb(228, 228, 228);
-}
+
 .btn-msg-medium {
   font-size: 0.8rem;
   color: #38605D;
@@ -233,6 +226,31 @@ input[type='submit']:hover {
   border-radius: 2px;
   background-color: rgb(228, 228, 228);
 }
+.btn-tiny, .btn-to-chat {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+  padding: 8px 16px;
+  margin: 0 0 0 5px;
+  width: auto;
+  border-radius: 2px;
+  background-color: #38605D;
+  text-transform: capitalize;
+  opacity: 0.9;
+}
+.btn-tiny {
+  background-color: #e6e6e6;
+  color: #38605D;
+  opacity: 0.9;
+}
+.btn-tiny:hover {
+opacity: 1;
+text-decoration: none;
+color: #212121;
+}
+
 .results-save {
   width: auto;
   margin-left: 50%;
@@ -240,18 +258,21 @@ input[type='submit']:hover {
   padding-right: 40px;
   transform: translateX(-50%);
 }
-.btn-primary, .btn-info, .btn-md {
+.btn-primary, .btn-info, .btn-md, .btn {
   background-color: #38605D;
   border: none;
   opacity: 0.9;
+  color: white;
 }
 .btn-alt {
   background-color: #B6CBC9;
 }
-.btn-primary:hover, .btn-info:hover, .btn-md:hover, button:hover, input[type='submit']:hover {
+.btn-primary:hover, .btn-info:hover, .btn-md:hover, button:hover, input[type='submit']:hover, .btn:hover {
   background-color: #38605D;
   border: none;
+  color: white;
   opacity: 1;
+  text-decoration: none;
 }
 /* .cancelbtn {  /* is this being used? */
 /* padding: 14px 20px; */
@@ -390,6 +411,7 @@ input[type='submit']:hover {
 .dashcard .links {
   display: flex;
   justify-content: flex-end;
+  padding: 0 5px 0 0 ;
 }
 
 /* ------------------------------------------------------------- ORGINDEX.EJS  */
@@ -405,6 +427,36 @@ input[type='submit']:hover {
 }
 .orgIndex h2 {
   color:rgb(156, 156, 156);
+}
+
+/* ------------------------------------------------------------- CHAT.EJS  */
+
+.chat-pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+.chat-welcome {
+  display: flex;
+  align-items: center;
+}
+.chat-group {
+  background-color: rgb(255, 255, 255);
+  display: inline-block;
+  padding: 0 10px 0 0;
+  border-radius: 8px;
+  margin: 0 6px;
+  font-weight: 600;
+  font-size: 1.2em;
+  margin-bottom: 0;
+  color: #38605D;
 }
 
 /* ------------------------------------------------------------- MEDIA QUERY: SMALL SCREENS  */

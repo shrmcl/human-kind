@@ -40,7 +40,10 @@
                       <%= matches[ran].gender %><br>
                       <%= matches[ran].ageRange %>
                     </p>
-                    <a class="btn btn-msg-medium" href="/chat" role="button">Message</a>      
+                    <!-- <a class="btn btn-msg-medium" href="/chat" role="button">Message</a>       -->
+                    <form action="/message" method="post" id="message-form">
+                      <button form="message-form" type="submit" class="btn-to-chat" formaction="/message?friend=<%= matches[ran].username %>&friendpic=<%= matches[ran].pic %>">message</button>
+                    </form>
                   </div>
                 </div> 
             </div>
@@ -48,7 +51,7 @@
         <% } %>
       </div>
       <!-- formaction="" only works with button type="submit" -->
-      <button type="submit" class="btn btn-primary btn-md results-save" formaction="/results">Save matches</button>
+      <button form="savedMatches" type="submit" class="btn btn-primary btn-md results-save" formaction="/results">Save matches</button>
       
       <!-- <a class="btn btn-info btn-lg" href="/dashboard" role="button">Back to my Dashboard</a>
       <a class="btn btn-warning btn-lg" href="/logout" role="button">Logout</a> -->
