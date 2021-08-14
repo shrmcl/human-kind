@@ -234,7 +234,15 @@ app.get("/orgThanks", isLoggedIn, function(req, res) { //brings us to thank you 
 // });
 
 app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room 
-  res.render("chat");
+  const userPic = req.user.pic;
+  const userName = req.user.firstName;
+  User.find()
+  .then(chatMessages => {
+    res.render("chat", {data:{
+      displayImg: userPic,
+      displayName: userName,
+    }})
+  })
 });
 
 // post route that handles logic for registering user & adding their info to database
@@ -411,7 +419,7 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
       const user = userLeave(socket.id);
 
-      socket.emit('message', formatMessage(botName, `${user.username} has left the chat`));
+      // socket.emit('message', formatMessage(botName, `${user.username} has left the chat`));
 
       // Send users and room info
       // socket.emit('roomUser', {
