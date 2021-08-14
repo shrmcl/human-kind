@@ -26,6 +26,17 @@ body {
 .centered {
   text-align: center;
 }
+.centered-vert { /*  homepage centering */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+.centered-vert h3 { /*  homepage centering */
+  margin-bottom: 40px;
+}
+
 
 /* ------------------------------------------------------------- GENERAL TYPOGRAPHY */
 
@@ -90,7 +101,13 @@ h4 {
 
 .logo {
   width: 80%;
+  max-width: 600px;
+  height: auto;
   color: #38605D;
+}
+.navLogo {
+  height: 50px;
+  width: auto;
 }
 .profile-icon {
   width: 40px;
@@ -467,7 +484,6 @@ color: #212121;
     margin: 20px auto;
     padding: 0 auto;
   }
-}
 
   .card-img-top {
     width: 100%;
@@ -481,14 +497,9 @@ color: #212121;
     border-radius: 100%;
   }
 
-.navLogo {
-  width: 120px;
-  height: 40px;
-}
-
-.navbar-brand {
-  padding: 0;
-}
+  .navbar-brand {
+    padding: 0;
+  }
 
 .navbar-nav .nav-link {
   padding: 0;
@@ -496,9 +507,9 @@ color: #212121;
   line-height: 40px;
 }
 
-.profile-icon {
-  width: 35px;
-  height: 35px;
+.far fa-user-circle {
+  width: 50px;
+  height: 50px;
 }
 
   #dashboard-welcome {
@@ -526,4 +537,4 @@ color: #212121;
     width: 50%;
     margin: 40px auto 0;
   }
- 
+}
