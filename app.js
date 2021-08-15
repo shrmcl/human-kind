@@ -104,47 +104,17 @@ function getOrganizations(commonInterests) {
   return Org.find({interests: {$in: commonInterests}})
 } // end getOrganizations
 
-app.get('/results', isLoggedIn, async (req, res) => {
-
-  // let filterGender = await User.find(
-  //   {$or: [{gender: 'nonbinary'}, {gender: 'other'}]},
-  //   function (err, matches) {
-  //     if (err) {
-  //       console.log(err)
-  //     } else {
-  //       return matches
-  //     }
-  //   }
-  // )
-
-    
-
-  // console.log('filter gender: ', filterGender)
-
-  User.find({$or: [{gender: 'nonbinary'}, {gender: 'other'}]}, function(err, matches){
+app.get('/results', isLoggedIn, (req, res) => {
+  // filter matches by gender or all genders as default
+  let genderFilter = req.query.gender ? req.query.gender : ["male", "female", "nonbinary", "other"]
+  User.find({ gender: { $in: genderFilter} }, function(err, matches){
     if(err) {
       console.log(err);
   } else {
-      console.log('first match', matches[0].username);
       res.render("results", {matches: matches})
   }
   });
 
-  // var obj = {};
-  // var intersection = interestsArray.filter(x => elem.interests.includes(x));
-  // if (intersection.length === 0)
-  //   return;
-  // // console.log("Intersection array:  ", intersection);
-  // obj.firstName = elem.firstName;
-  // obj.lastName = elem.lastName;
-  // obj.username = elem.username;
-  // obj.gender = elem.gender;
-  // obj.ageRange = elem.ageRange;
-  // obj.pic = (elem.pic.length > 10) ? elem.pic : "/assets/images/Avatar1.png"; // show uploaded img if exists; else avatar
-  // obj.bio = elem.bio;
-  // obj.interests = intersection;
-  // obj._id = elem._id; // adding access to unique id
-  // matches.push(obj);
 })
 // END APP.GET('RESULTS')
 
