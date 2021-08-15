@@ -105,13 +105,19 @@ function getOrganizations(commonInterests) {
 } // end getOrganizations
 
 app.get('/results', isLoggedIn, (req, res) => {
+  
   // filter matches by gender or all genders as default
   let genderFilter = req.query.gender ? req.query.gender : ["male", "female", "nonbinary", "other"]
+
   User.find({ gender: { $in: genderFilter} }, function(err, matches){
     if(err) {
       console.log(err);
   } else {
-      res.render("results", {matches: matches})
+      let displayData = {
+        matches: matches, 
+        filters: {gen: genderFilter}
+      }
+      res.render("results", {data: displayData})
   }
   });
 
