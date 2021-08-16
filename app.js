@@ -79,17 +79,13 @@ const cloudinary = require('cloudinary').v2
 const {CloudinaryStorage} = require('multer-storage-cloudinary')
 const {Z_DEFAULT_STRATEGY} = require('zlib')
 
-// this requires you to have '.env' file in root folder with API info
 cloudinary.config({
-  API_Environment_variable: process.env.CLOUDINARY_URL,
+  API_Environment_variable: process.env.CLOUDINARY_URL, // requires you have '.env' file in root folder with API info
 })
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    // name of folder images will be stored in our Cloudinary account
-    folder: 'demo',
-  },
+  params: {folder: 'demo'}, // name of folder images will be stored in our Cloudinary account
 })
 
 const parser = multer({storage: storage})
@@ -100,27 +96,39 @@ app.get('/', function (req, res) {
   res.render('home') //displays home.ejs file
 })
 
-function getOrganizations(commonInterests) {
-  return Org.find({interests: {$in: commonInterests}})
-} // end getOrganizations
-
 app.get('/results', isLoggedIn, (req, res) => {
+
+  let userInterests = req.user.interests
   
-  // filter matches by gender or all genders as default
-  let genderFilter = req.query.gender ? req.query.gender : ["male", "female", "nonbinary", "other"]
+  // DEFAULT - all filters off / query all ages & genders
 
-  User.find({ gender: { $in: genderFilter} }, function(err, matches){
-    if(err) {
-      console.log(err);
+  // set a variable to hold any filters: (gender / age / interests)
+  // pass that variable to User.find
+    
+  // filter matches by gender (or all genders as default)
+  // let genderFilter = req.query.gender ? req.query.gender : ['noFilters']
+  console.log("req gender", req.query.gender)
+  // if req.query.gender only includes "male", it must be converted to array to avoid confusion with "female"
+  let genderFilter;
+  if (req.query.gender && typeof req.query.gender === 'string') {
+    genderFilter = req.query.gender.split(" ")
   } else {
-      let displayData = {
-        matches: matches, 
-        filters: {gen: genderFilter}
-      }
-      res.render("results", {data: displayData})
+    genderFilter = req.query.gender ? req.query.gender : ['female', 'male', 'nonbinary', 'other']
   }
-  });
-
+ 
+  console.log("gf", genderFilter, typeof genderFilter)
+  //db.inventory.find( { interests: { $in: userInterests } } )
+  User.find({ $and: [ { gender: {$in: genderFilter} }, { interests: { $in: userInterests } }]}, function (err, matches) {
+    if (err) {
+      console.log(err)
+    } else {
+      let displayData = {
+        matches: matches,
+        filters: {gen: genderFilter},
+      }
+      res.render('results', {data: displayData})
+    }
+  })
 })
 // END APP.GET('RESULTS')
 
@@ -171,22 +179,6 @@ app.get('/orgThanks', isLoggedIn, function (req, res) {
   //brings us to thank you page where they can logout (unless I can get submit button to logout at same time)
   res.render('orgThanks')
 })
-
-// app.get("/matchroom", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room
-//   res.render("matchroom");
-// });
-
-// app.get("/chat", isLoggedIn, function(req, res) { //brings us to sign in as user in a org chat room
-//   const userPic = req.user.pic;
-//   const userName = req.user.firstName;
-//   User.find()
-//   .then(chatMessages => {
-//     res.render("chat", {data:{
-//       displayImg: userPic,
-//       displayName: userName,
-//     }})
-//   })
-// });
 
 app.post('/message', isLoggedIn, function (req, res) {
   //brings us to sign in as user in a org chat room
