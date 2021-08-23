@@ -260,6 +260,19 @@ app.post("/message", isLoggedIn, function(req, res) { //brings us to sign in as 
     )
   })
 
+  //deleting saved match in dashboard
+  app.post("/delete", isLoggedIn, function(req, res) {
+    User.updateOne
+  ({_id: req.user._id},
+    { $pull: {savedMatches: req.body.matchId}},
+    function(error) {
+      if (error) {
+        console.log("deleting matches: ", error);
+      } else {
+        res.redirect("/dashboard");
+      }
+    })
+  });
 
 // post route that handles logic for registering user & adding their info to database
 // parser handles image upload to Cloudinary
