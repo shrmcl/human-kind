@@ -1,2 +1,3 @@
-# voluntender
-Final project repo for the volunteer and friends app
+# human:kind
+
+Bootcamp Final Group Project that connects people to vounteer together based on shared social interests  
