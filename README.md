@@ -2,4 +2,4 @@
 
 Bootcamp final group project 
 
-Human:kind is a social app that connects people to based on shared social interests 
+human:kind is a social app that connects people to based on shared social interests 
