@@ -1,3 +1,5 @@
 # human:kind
 
-Bootcamp Final Group Project that connects people to vounteer together based on shared social interests  
+Bootcamp final group project 
+
+Human:kind is a social app that connects people to based on shared social interests 
