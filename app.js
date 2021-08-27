@@ -193,6 +193,7 @@ app.post('/message', isLoggedIn, function (req, res) {
       displayName: userName,
     },
   })
+})
 
   //deleting saved match in dashboard
   app.post("/delete", isLoggedIn, function(req, res) {
