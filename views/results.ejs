@@ -5,13 +5,13 @@
 <div class="container">
   <div class="col">
     <div class="row results-top">
-      <h2 class="text-center">These are your matches!</h2>
+      <!-- <h2 class="text-center">These are your matches!</h2> -->
 
       <!-- determine which checkboxes to load as "checked" -->
       <% let filterGender = data.filters.gen %>
       
       <!-- filter results by gender -->
-      <form action="/results" method="get" id="getMatches">
+      <!-- <form action="/results" method="get" id="getMatches">
         <input type="checkbox" id="female" name="gender" value="female" <%= filterGender.includes('female') ? "checked" : "" %>>
         <label for="female">Female</label><br>  
         <input type="checkbox" id="male" name="gender" value="male" <%= filterGender.includes('male') ? "checked" : "" %>>
@@ -22,7 +22,7 @@
         <label for="other">Other</label><br>  
        
         <button form="getMatches" type="submit" class="btn-to-chat" formaction="/results">see more</button>
-      </form>
+      </form> -->
 
       <!-- <a class="btn btn-info btn-md" href="/results" role="button">See More</a> -->
     </div>

@@ -8,7 +8,7 @@
 /* ------------------------------------------------------------- GENERAL CONTAINERS, DIVS, SPACING  */
 
 body {
-  background-color: #E0E9E8;
+  background-color: #272727;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px; /* base font size */
   color: #212121;
@@ -94,7 +94,7 @@ h4 {
   margin: 0;
 }
 .navbar, .navbar-light .bg-light {
-  background-color: white !important;
+  background-color: transparent !important;
 }
 
 /* ------------------------------------------------------------- UNIQUE ELEMENTS */
