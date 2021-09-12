@@ -1,3 +1,6 @@
+/* font-family: 'IBM Plex Mono', monospace;
+font-family: 'IBM Plex Sans', sans-serif; */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,15 +12,22 @@
 
 body {
   background-color: #272727;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px; /* base font size */
-  color: #212121;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; /* base font size */
+  color: #525252;
+}
+.navbar-logo-centered {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 32px 0 0;
 }
 .container,
 .container-md {
-  margin: 40px auto;
-  /* text-align: center; */
-  padding: 25px auto;
+  margin: 127px auto;
+}
+.signup {
+  width: 332px;
 }
 .padright {
   /* for radio buttons and checkboxes */
@@ -41,81 +51,39 @@ body {
 /* ------------------------------------------------------------- GENERAL TYPOGRAPHY */
 
 p {
-  font-family: 'Recursive', sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.01rem;
-  line-height: 1.1rem;
-  margin-bottom: 15px;
-  color: #212121;
+   font-size: 12px;
+   letter-spacing: 0.1em;
+   color: #656565;
 }
-a {
-  font-family: 'Recursive', sans-serif;
-  font-weight: 400;
-  color: #38605D;
-}
-h1 {
-  font-size: 2em;
-  font-weight: 600;
-  color: #38605D;
-}
-h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #38605D;
-  letter-spacing: 0.06rem;
-}
-h3 {
-  /* username on results matches cards */
-  font-weight: 600;
-  font-size: 1.2em;
-  margin-bottom: 0;
-  color: #38605D;
-}
-h4 {
-  /* username on dashboard saved matches cards */
-  font-weight: 600;
-  font-size: 1.2em;
-  margin-bottom: 0;
-  color: #38605D;
-}
-.info {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  color: #38605D;
-  margin-bottom: 0;
-}
-.info-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 400;
+p.label, p.instruction, label {
   text-transform: uppercase;
-  color: #38605D;
   letter-spacing: 0.1em;
-  margin: 0;
+  color: #656565;
 }
-.navbar, .navbar-light .bg-light {
-  background-color: transparent !important;
+p.instruction {
+  font-style: italic;
 }
+a, a:hover {
+  text-decoration: none;
+  color: #e3e3e3;
+}
+
 
 /* ------------------------------------------------------------- UNIQUE ELEMENTS */
 
-.logo {
-  width: 80%;
-  max-width: 600px;
-  height: auto;
-  color: #38605D;
-}
-.navLogo {
-  height: 50px;
-  width: auto;
+.logo-small {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: 0.2%;
+  color: #e3e3e3;
 }
 .profile-icon {
   width: 40px;
   height: 40px;
-  background-color: #38605D;
+  background-color: #3E3E3E;
   border-radius: 100%;
   margin-left: 20px;
-
 }
 .navbar-nav {
   display: flex;
@@ -124,36 +92,26 @@ h4 {
 
 /* ------------------------------------------------------------- FORM & INPUT ELEMENTS */
 
-span {
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-label {
-  font-family: 'Recursive', sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.01rem;
-  line-height: 1.1rem;
-  margin-bottom: 5px;
-  color: #212121;
-}
 input[type='text'],
 input[type='password'] {
   width: 100%;
+  height: 40px;
   padding: 8px 15px;
-  margin: 0 0 30px 0;
+  margin: 0 0 16px 0;
   display: inline-block;
-  border: 1px solid #E8E8E8;
-  background: #ffffff;
-  border-radius: 2px;
+  background: #353535;
+  border-radius: 0;
+  color: #9A9A9A;
+  letter-spacing: 0.1em;
 }
 input[type='text']:focus,
 input[type='password']:focus {
-  background-color: #ddd;
+  background-color: #353535;
   outline: none;
 }
 /* img upload button input container */
 input#pic {
-  background-color: #38605d21;
+  background-color: #3E3E3E;
   padding: 20px;
   border-radius: 8px;
 }
@@ -168,8 +126,20 @@ input[type='file']::file-selector-button {
   cursor: pointer;
 }
 textarea {
-  padding: 15px;
-  border-radius: 3px;
+  width: 100%;
+  width: 100%;
+  height: 60px;
+  padding: 8px 15px;
+  margin: 0 0 16px 0;
+  display: inline-block;
+  background: #353535;
+  border-radius: 0;
+  color: #9A9A9A;
+  letter-spacing: 0.1em;
+}
+textarea:focus {
+  background-color: #353535;
+  outline: none;
 }
 /* bubble boxes */
 .bubbles label {
@@ -186,7 +156,7 @@ textarea {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: all 0.2s;
-  padding: 12px 16px 10px 16px;
+  padding: 0 8px 0 0;
   cursor: pointer;
 }
 .bubbles input[type='radio'] {
@@ -212,31 +182,35 @@ textarea {
 
 /* ------------------------------------------------------------- BUTTONS */
 
-.btn:active, .btn:focus, .btn-md:focus, btn-sm:active, .btn.md:active, .btn-primary:active, .btn-info:active, button:active, input[type='submit']:active {
-  background-color: #38605D !important;
-  border: none !important;
-  box-shadow: none !important;
-  background-image: none !important;
-}
 button,
+.button,
 input[type='submit'] {
-  background-color: #38605D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #232323;
   color: white;
-  padding: 14px 20px;
-  margin:  0;
+  letter-spacing: 7.5%;
   border: none;
   cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
+  width: 170px;
+  height: 42px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 6px;
+  transition: all 0.2s linear;
 }
 button:hover,
+.button:hover,
 input[type='submit']:hover {
-  opacity: 1;
+  background-color: #323232;
+  color: white;
+  text-decoration: none;
 }
 
 .btn-msg-medium {
   font-size: 0.8rem;
-  color: #38605D;
+  color: #3E3E3E;
   line-height: 1;
   padding: 8px 16px;
   /* margin-left: 10px; */
@@ -244,11 +218,7 @@ input[type='submit']:hover {
   background-color: rgb(228, 228, 228);
 }
 .btn-tiny, .btn-to-chat {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 400;
   color: #ffffff;
-  line-height: 1;
   padding: 8px 16px;
   margin: 0 0 0 5px;
   width: auto;
@@ -259,7 +229,7 @@ input[type='submit']:hover {
 }
 .btn-tiny {
   background-color: #e6e6e6;
-  color: #38605D;
+  color: #3E3E3E;
   opacity: 0.9;
 }
 .btn-tiny:hover {
@@ -267,7 +237,6 @@ opacity: 1;
 text-decoration: none;
 color: #212121;
 }
-
 .results-save {
   width: auto;
   margin-left: 50%;
@@ -275,26 +244,6 @@ color: #212121;
   padding-right: 40px;
   transform: translateX(-50%);
 }
-.btn-primary, .btn-info, .btn-md, .btn {
-  background-color: #38605D;
-  border: none;
-  opacity: 0.9;
-  color: white;
-}
-.btn-alt {
-  background-color: #B6CBC9;
-}
-.btn-primary:hover, .btn-info:hover, .btn-md:hover, button:hover, input[type='submit']:hover, .btn:hover {
-  background-color: #38605D;
-  border: none;
-  color: white;
-  opacity: 1;
-  text-decoration: none;
-}
-/* .cancelbtn {  /* is this being used? */
-/* padding: 14px 20px; */
-/* background-color: #f44336; */
-/* } */
 
 /* ------------------------------------------------------------- EDIT.EJS  */
 
@@ -369,8 +318,7 @@ color: #212121;
   font-weight: 400;
   text-transform: capitalize;
   background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(214, 214, 255);
-  color: #38605D;
+  color: #3E3E3E;
   padding: 4px 8px;
   border-radius: 4px;
   margin: 0 1px 4px;
@@ -473,7 +421,7 @@ color: #212121;
   font-weight: 600;
   font-size: 1.2em;
   margin-bottom: 0;
-  color: #38605D;
+  color: #3E3E3E;
 }
 
 /* ------------------------------------------------------------- MEDIA QUERY: SMALL SCREENS  */
@@ -495,10 +443,6 @@ color: #212121;
     width: 40px;
     height: 40px;
     border-radius: 100%;
-  }
-
-  .navbar-brand {
-    padding: 0;
   }
 
 .navbar-nav .nav-link {

@@ -1,26 +1,24 @@
 <%- include("partials/header") %>
 <%- include("partials/outNavbar") %>
   
-    <div class="container">
-      
+    <div class="container signup">
+      <p class="instruction">All fields required</p>
       <form action="/signup" method="post" enctype="multipart/form-data">
-        <h1>Sign up</h1>
-        <br><br>
         <label for="fname">First name:</label>
-        <input type="text" placeholder="first" id="fname" name="fname" required>
+        <input type="text" id="fname" name="fname" required>
         <label for="lname">Last name:</label>
-        <input type="text" placeholder="last" id="lname" name="lname" required>
+        <input type="text" id="lname" name="lname" required>
         <label for="email">Email</label>
-        <input type="text" placeholder="email" id="email" name="email" required>
-        <label for="pw">Password:</label>
-        <input type="password" placeholder="password" id="pw" name="password" required>
+        <input type="text" id="email" name="email" required>
+        <label for="pw">create a password (min. 6 chars):</label>
+        <input type="password" id="pw" name="password" required>
         <label for="uname">Create a username:</label>
-        <input type="text" placeholder="username" id="uname" name="username" required>
+        <input type="text" id="uname" name="username" required>
         
-        <label for="bio">Brief description of yourself: <span>60 character max</span></label><br>
+        <label for="bio">Describe yourself (max. 60 chars):</span></label><br>
         <textarea id="bio" name="bio" cols="80" rows="1" maxlength="60" placeholder="type here"></textarea><br><br>
 
-        <p>Age:</p>
+        <p class="label">Age:</p>
         <div class="bubbles">
           <input type="radio" name="age" id="0-20" value="0-20">
           <label for="0-20">Under 20</label>
@@ -37,9 +35,8 @@
           <input type="radio" name="age" id="70+" value="70+">
           <label for="70+">70+</label>
         </div>
-        <br><br>
         
-        <p>Gender:</p>
+        <p class="label">Gender:</p>
         <div class="bubbles">
           <input type="radio" name="gender" id="female" value="female">
           <label class="padright" for="female">Female</label>
@@ -50,9 +47,8 @@
           <input type="radio" name="gender" id="other" value="other">
           <label class="padright" for="other">Other</label>
         </div>
-        <br><br>
-
-        <p>What social issues are you interested in? <span>Select all that apply.</span></p>
+        
+        <p class="label">What social issues are you interested in? <span>Select all that apply.</span></p>
         <div class="bubbles">
           <input type="checkbox" id="animals" name="interests" value="animals">
           <label class="padright" for="animals">Animals</label>
@@ -71,12 +67,10 @@
           <input type="checkbox" id="incarceration" name="interests" value="incarceration">
           <label class="padright" for="incarceration">Incarceration</label>
         </div>
-        <br><br>
 
         <label for="fname">Add a profile image:</label><br>
         <input type='file' name='image' id='pic' required/>
-        <br><br>
-
+        
         <input type="submit" class="btn btn-info btn-lg" value="Submit Profile">
 
     </form>
