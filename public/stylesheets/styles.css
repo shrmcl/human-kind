@@ -27,11 +27,8 @@ body {
   margin: 127px auto;
 }
 .signup {
-  width: 332px;
-}
-.padright {
-  /* for radio buttons and checkboxes */
-  margin-right: 10px;
+  width: 360px;
+  padding: 0;
 }
 .centered {
   text-align: center;
@@ -55,13 +52,18 @@ p {
    letter-spacing: 0.1em;
    color: #656565;
 }
-p.label, p.instruction, label {
+p.label, label {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #656565;
+  margin-top: 1px;
 }
 p.instruction {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #656565;
   font-style: italic;
+  margin-bottom: 30px;
 }
 a, a:hover {
   text-decoration: none;
@@ -102,7 +104,8 @@ input[type='password'] {
   background: #353535;
   border-radius: 0;
   color: #9A9A9A;
-  letter-spacing: 0.1em;
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
 }
 input[type='text']:focus,
 input[type='password']:focus {
@@ -110,27 +113,51 @@ input[type='password']:focus {
   outline: none;
 }
 /* img upload button input container */
-input#pic {
+/* input#pic {
   background-color: #3E3E3E;
   padding: 20px;
   border-radius: 8px;
-}
+} */
 /* img upload button */
+input[type='file'] {
+  height: 40px;
+  margin: 0 0 16px 0;
+  background: #323232;
+  border-radius: 6px;
+  color: red;
+  /* color: rgba(0, 0, 0, 0); */
+  width: 100%;
+  cursor: pointer;
+}
+input[type='file']::before {
+  content: "+ ADD PHOTO";
+  color: #9a9a9a;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 11px;
+}
+input[type='file']:hover::before {
+  color: white;
+ }
 input[type='file']::file-selector-button {
-  border: 1px solid #38605D;
-  color: #38605D;
+  border: none;
+  color: #353535;
   border-radius: 0.2em;
   padding: 0.4em 0.8em;
   margin: 0 20px 0 0;
-  background-color: white;
+  background-color: transparent;
   cursor: pointer;
+  display: none;
+}
+input[type='file']::file-selector-button::after {
+  display: none;
 }
 textarea {
   width: 100%;
   width: 100%;
   height: 60px;
   padding: 8px 15px;
-  margin: 0 0 16px 0;
   display: inline-block;
   background: #353535;
   border-radius: 0;
@@ -141,14 +168,21 @@ textarea:focus {
   background-color: #353535;
   outline: none;
 }
+#bio {
+  margin-bottom: 40px;
+}
 /* bubble boxes */
-.bubbles label {
+.bubbles {
+  margin-bottom: 32px;
+}
+.radio-only label, .check-only label {
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #38605D;
-  border-radius: 25px;
+  background-color: transparent;
+  border: 1px solid #525252;
+  color: #9A9A9A;
+  border-radius: 2px;
   white-space: nowrap;
-  margin: 0px 2px 12px;
+  margin: 0px 4px 8px 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -156,8 +190,13 @@ textarea:focus {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: all 0.2s;
-  padding: 0 8px 0 0;
+  padding: 1px 5px 0;
   cursor: pointer;
+  text-align: center;
+}
+.bubbles p.label {
+  padding: 0;
+  margin: 0 0 8px 0;
 }
 .bubbles input[type='radio'] {
   display: absolute;
@@ -165,8 +204,8 @@ textarea:focus {
   opacity: 0;
 }
 .bubbles input[type='radio']:checked + label {
-  background-color: #38605D;
-  color: #fff;
+  background-color: #9a9a9a;
+  color: #232323;
   transition: all 0.2s;
 }
 .bubbles input[type='checkbox'] {
@@ -175,9 +214,18 @@ textarea:focus {
   opacity: 0;
 }
 .bubbles input[type='checkbox']:checked + label {
-  background-color: #38605D;
-  color: #fff;
+  background-color: #9a9a9a;
+  color: #232323;
   transition: all 0.2s;
+}
+.radio-only label:hover, .check-only label:hover {
+  color: white;
+}
+.signup .label {
+  display: inline-block;
+}
+.signup #pic {
+  margin-bottom: 16px;
 }
 
 /* ------------------------------------------------------------- BUTTONS */
@@ -253,6 +301,9 @@ color: #212121;
   height: 100px;
   border-radius: 100%;
   object-fit: cover;
+  margin-bottom: 40px;
+  position: relative;
+  right: 0;
 }
 
 /* ------------------------------------------------------------- RESULTS.EJS  */
