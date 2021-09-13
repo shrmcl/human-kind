@@ -73,17 +73,17 @@
 
         <!-- <label for="pic">Add a profile image:</label><br>
         <input type='file' name='image' id='pic' required/> -->
-
-        <label for="pic">Add a profile image:</label>
-        <input
-          type="file"
-          name="image"
-          id="pic"
-          onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"
-        />
-        <img id="preview" src="https://images.unsplash.com/photo-1608159477376-e92fe7f2b282?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bm8lMjBpbWFnZSUyMGhlcmV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=60" alt="">
-        
-        <input type="submit" class="button" value="Sign Up">
+      <img id="preview" src="/assets/images/guy.jpeg" alt="">
+      <label for="pic">Add a profile image:</label>
+      
+      <input
+        type="file"
+        name="image"
+        id="pic"
+        onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('preview').style = 'height:315px;margin-bottom:40px';"
+      />
+      
+       <input type="submit" class="button" value="Sign Up">
 
     </form>
     </div>
