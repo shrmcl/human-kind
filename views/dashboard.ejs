@@ -6,14 +6,11 @@
     
     <div class="row mb-md-5 mb-0">
         <div id="dashboard-welcome" class="col">
-            <a class="logo-small" href="/">human:kind</a>
+            <a class="logo-small" href="/dashboard">human:kind</a>
             <h2>Your Collection</h2>
             <a class="button" href="/results" role="button">Find folks</a>
-           
         </div>
     </div>
-  
-    
 
     <div class="row  card-grid">
             <!-- show each saved match -->
@@ -31,18 +28,8 @@
                                     <%= el.ageRange %><br/>
                                     <%= el.gender %>
                                 </p> 
-                                <!-- <p>< %= el.interests.join(', ') %></p>  -->
-                                <!-- <div class="links">
-                                  <form action="/delete" method="post">
-                                    <button type="submit" class="btn-tiny" name="matchId" value=<%= el._id %> formaction="/delete">Remove</button>
-                                  </form>
-                                  <form action="/message" method="post">
-                                    <button type="submit" class="btn-to-chat" formaction="/message?friend=<%= el.username %>&friendpic=<%= el.pic %>">message</button>
-                                  </form>
-                                </div> -->
                             </div> 
                         </div>
-                        
                         <form class="dashboard-deletion" action="/delete" method="post">
                             <button type="submit" class="button-close-x" name="matchId" value=<%= el._id %> formaction="/delete">
                                 <img src="/assets/images/close-x2.svg" alt="">
@@ -53,7 +40,6 @@
                                 <img src="/assets/images/chat1.svg" alt="">
                             </button>
                         </form>
-
                     </div>
                 </div>
             <% }) %>

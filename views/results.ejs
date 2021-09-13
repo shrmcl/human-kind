@@ -2,9 +2,14 @@
 <%- include("partials/header") %>
 <%- include("partials/inNavbar") %>
 
-<div class="container">
+<div class="container container-md">
   <div class="col">
     <div class="row results-top">
+      <div id="dashboard-welcome" class="col">
+        <a class="logo-small" href="/dashboard">human:kind</a>
+        <h2>(filters to be here))</h2>
+        <a class="button" href="/results" role="button">Find folks</a>
+    </div>
       <!-- <h2 class="text-center">These are your matches!</h2> -->
 
       <!-- determine which checkboxes to load as "checked" -->
@@ -26,6 +31,7 @@
 
       <!-- <a class="btn btn-info btn-md" href="/results" role="button">See More</a> -->
     </div>
+
     <form action="/results" method="POST" id="savedMatches">
       <div class="row row-cols-1 row-cols-md-3">
         <%# store random numbers to prevent duplicates %>
@@ -38,19 +44,28 @@
         <% ranNumbers.push(ran) %>
           <div class="col mb-4">
             <div class="card results-card">
-              <div class="card-header">
-                <h3 class="card-title"><%= data.matches[ran].username %></h3>
-                <input type="checkbox" name="username" value=<%=data.matches[ran]._id %>>
+              <img src=<%= data.matches[ran].pic %> alt="profile photo">
+              <h3 class="card-title"><%= data.matches[ran].username %></h3>
+              <p class="results-bio"><%= data.matches[ran].bio %></p>
+              <div class="common-int">
+                <% data.matches[ran].interests.forEach(el => { %>
+                  <a class="results-interests" href="/orgIndex#<%= el %>"><%= el %></a> 
+                <% }) %>
               </div>
-                <img src=<%= data.matches[ran].pic %> alt="profile photo">
+             
+              <!-- <div class="card-header">
+                
+                <input type="checkbox" name="username" value=<%=data.matches[ran]._id %>>
+              </div> -->
+                
                 <div class="card-body">
-                  <p class="bio"><%= data.matches[ran].bio %></p>
-                  <div class="common-interests">
+                  <!-- <p class="bio"><%= data.matches[ran].bio %></p> -->
+                  <!-- <div class="common-interests">
                     <p class="info-label">Common Interests:</p>
                     <% data.matches[ran].interests.forEach(el => { %>
                     <a class="results-interests" href="/orgIndex#<%= el %>"><%= el %></a> 
                     <% }) %>
-                  </div>
+                  </div> -->
                   <div class="card-bottom">
                     <p class="age-gender">
                       <%= data.matches[ran].gender %><br>
