@@ -107,7 +107,7 @@ app.get('/results', isLoggedIn, (req, res) => {
     
   // filter matches by gender (or all genders as default)
   // let genderFilter = req.query.gender ? req.query.gender : ['noFilters']
-  console.log("req gender", req.query.gender)
+  // console.log("req gender", req.query.gender)
   // if req.query.gender only includes "male", it must be converted to array to avoid confusion with "female"
   let genderFilter;
   if (req.query.gender && typeof req.query.gender === 'string') {
@@ -115,8 +115,17 @@ app.get('/results', isLoggedIn, (req, res) => {
   } else {
     genderFilter = req.query.gender ? req.query.gender : ['female', 'male', 'nonbinary', 'other']
   }
+
+  // age filter
+  // let ageFilter;
+  // if (req.query.age && typeof req.query.gender === 'string') {
+  //   console.log('agefilter', req.query.age)
+  //   ageFilter = req.query.age.split(" ")
+  // } else {
+  //   ageFilter = req.query.age ? req.query.age : ['0-20', '20-30', '30-40', '40-50', '50-60', '70+']
+  // }
  
-  console.log("gf", genderFilter, typeof genderFilter)
+  // console.log("age filter: ", ageFilter, typeof ageFilter)
   //db.inventory.find( { interests: { $in: userInterests } } )
   User.find({ $and: [ { gender: {$in: genderFilter} }, { interests: { $in: userInterests } }]}, function (err, matches) {
     if (err) {
@@ -124,7 +133,7 @@ app.get('/results', isLoggedIn, (req, res) => {
     } else {
       let displayData = {
         matches: matches,
-        filters: {gen: genderFilter},
+        filters: {gen: genderFilter}
       }
       res.render('results', {data: displayData})
     }

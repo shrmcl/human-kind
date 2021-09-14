@@ -10,19 +10,31 @@
         <!-- <h2>(filters to be here))</h2> -->
         <!-- determine which checkboxes to load as "checked" -->
         <% let filterGender = data.filters.gen %>
+        <% let filterAge = data.filters.age %>
         <!-- filter results by gender -->
         <form action="/results" method="get" id="getMatches">
           <a class="logo-small" href="/dashboard">human:kind</a>
           <div class="filter-center">
             <p class="label">Gender:</p>
-            <input type="checkbox" id="female" name="gender" value="female" <%= filterGender.includes('female') ? "checked" : "" %>>
+            <input type="checkbox" id="female" name="gender" value="female" <%= filterGender.includes('female') && !(filterGender.includes('male') && filterGender.includes('other') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
             <label for="female">Female</label>
-            <input type="checkbox" id="male" name="gender" value="male" <%= filterGender.includes('male') ? "checked" : "" %>>
+            <input type="checkbox" id="male" name="gender" value="male" <%= filterGender.includes('male') && !(filterGender.includes('female') && filterGender.includes('other') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
             <label for="male">Male</label>
-            <input type="checkbox" id="nonbinary" name="gender" value="nonbinary" <%= filterGender.includes('nonbinary') ? "checked" : "" %>>
+            <input type="checkbox" id="nonbinary" name="gender" value="nonbinary" <%= filterGender.includes('nonbinary') && !(filterGender.includes('male') && filterGender.includes('other') && filterGender.includes('female')) ? "checked" : "" %>>
             <label for="nonbinary">Nonbinary</label>
-            <input type="checkbox" id="other" name="gender" value="other" <%= filterGender.includes('other') ? "checked" : "" %>>
+            <input type="checkbox" id="other" name="gender" value="other" <%= filterGender.includes('other') && !(filterGender.includes('male') && filterGender.includes('female') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
             <label for="other">Other</label>
+
+            <!-- <p class="label">Age:</p>
+            <input type="checkbox" id="0-20" name="age" value="0-20" < %= filterAge.includes('0-20') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <label for="0-20">0-20</label>
+            <input type="checkbox" id="20-30" name="age" value="20-30" < %= filterAge.includes('20-30') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <label for="20-30">20-30</label>
+            <input type="checkbox" id="30-40" name="age" value="30-40" < %= filterAge.includes('30-40') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <label for="30-40">30-40</label>
+            <input type="checkbox" id="40-50" name="age" value="40-50" < %= filterAge.includes('40-50') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <label for="40-50">40-50</label> -->
+            
           </div>
           <button form="getMatches" type="submit" class="button" formaction="/results">find folks</button>
         </form>
