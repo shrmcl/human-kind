@@ -6,8 +6,7 @@
   <div class="col">
     <div class="row mb-md-5 mb-0">
       <div id="dashboard-welcome" class="col">
-        <!-- <a class="logo-small" href="/dashboard">human:kind</a> -->
-        <!-- <h2>(filters to be here))</h2> -->
+        <% console.log('data to display results #', data.matches.length) %>
         <!-- determine which checkboxes to load as "checked" -->
         <% let filterGender = data.filters.gen %>
         <% let filterAge = data.filters.age %>
@@ -25,38 +24,94 @@
             <input type="checkbox" id="other" name="gender" value="other" <%= filterGender.includes('other') && !(filterGender.includes('male') && filterGender.includes('female') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
             <label for="other">Other</label>
 
-            <!-- <p class="label">Age:</p>
-            <input type="checkbox" id="0-20" name="age" value="0-20" < %= filterAge.includes('0-20') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <p class="label">Age:</p>
+            <input 
+              type="checkbox" 
+              id="0-20" 
+              name="age" 
+              value="0-20" 
+              <%= filterAge.includes('0-20') && !(filterAge.includes('20-30') && filterAge.includes('30-40') && filterAge.includes('40-50') && filterAge.includes('50-60') && filterAge.includes('60-70') && filterAge.includes('70+')) ? "checked" : "" %>
+            >
             <label for="0-20">0-20</label>
-            <input type="checkbox" id="20-30" name="age" value="20-30" < %= filterAge.includes('20-30') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <input 
+              type="checkbox" 
+              id="20-30" 
+              name="age" 
+              value="20-30" 
+              <%= filterAge.includes('20-30') && !(filterAge.includes('0-20') && filterAge.includes('30-40') && filterAge.includes('40-50') && filterAge.includes('50-60') && filterAge.includes('60-70') && filterAge.includes('70+')) ? "checked" : "" %>
+            >
             <label for="20-30">20-30</label>
-            <input type="checkbox" id="30-40" name="age" value="30-40" < %= filterAge.includes('30-40') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
+            <input 
+              type="checkbox" 
+              id="30-40" 
+              name="age" 
+              value="30-40" 
+              <%= filterAge.includes('30-40') && !(filterAge.includes('0-20') && filterAge.includes('20-30') && filterAge.includes('40-50') && filterAge.includes('50-60') && filterAge.includes('60-70') && filterAge.includes('70+')) ? "checked" : "" %>
+            >
             <label for="30-40">30-40</label>
-            <input type="checkbox" id="40-50" name="age" value="40-50" < %= filterAge.includes('40-50') && !filterAge.includes('0-20', '20-30', '30-40', '40-50', '50-60', '70+') ? "checked" : "" %>>
-            <label for="40-50">40-50</label> -->
+            <input 
+              type="checkbox" 
+              id="40-50" 
+              name="age" 
+              value="40-50" 
+              <%= filterAge.includes('40-50') && !(filterAge.includes('0-20') && filterAge.includes('20-30') && filterAge.includes('30-40') && filterAge.includes('50-60') && filterAge.includes('60-70') && filterAge.includes('70+')) ? "checked" : "" %>
+            >
+            <label for="40-50">40-50</label>
+            <input 
+              type="checkbox" 
+              id="50-60" 
+              name="age" 
+              value="50-60" 
+              <%= filterAge.includes('50-60') && !(filterAge.includes('0-20') && filterAge.includes('20-30') && filterAge.includes('30-40') && filterAge.includes('40-50') && filterAge.includes('60-70') && filterAge.includes('70+')) ? "checked" : "" %>
+            >
+            <label for="50-60">50-60</label>
+            <input 
+              type="checkbox" 
+              id="60-70" 
+              name="age" 
+              value="60-70"" 
+              <%= filterAge.includes('60-70') && !(filterAge.includes('0-20') && filterAge.includes('20-30') && filterAge.includes('30-40') && filterAge.includes('40-50') && filterAge.includes('50-60') && filterAge.includes('70+')) ? "checked" : "" %>
+            >
+            <label for="60-70">60-70</label>
+            <input 
+            type="checkbox" 
+            id="70+" 
+            name="age" 
+            value="70+"" 
+            <%= filterAge.includes('70+') && !(filterAge.includes('0-20') && filterAge.includes('20-30') && filterAge.includes('30-40') && filterAge.includes('40-50') && filterAge.includes('50-60') && filterAge.includes('60-70')) ? "checked" : "" %>
+          >
+          <label for="70+">70+</label>
+
+          
+
+            
+
+            
+            
             
           </div>
           <button form="getMatches" type="submit" class="button" formaction="/results">find folks</button>
         </form>
-        <!-- <a class="button" href="/results" role="button">Find folks</a> -->
     </div>
-      
-      
-      <!-- <a class="button" href="/results" role="button">Find folks</a> -->
-      <!-- <a class="btn btn-info btn-md" href="/results" role="button">See More</a> -->
     </div>
 
     <form action="/results" method="POST" id="savedMatches">
       <div class="row card-grid">
+        <% if (!data.matches.length) { %>
+          <p>no results</p>
+          <% } else { %>
+
         <%# store random numbers to prevent duplicates %>
         <% let ranNumbers = []; %>
         <% for(let i = 0;  i < 3; i++) { %>
-          <% let ran = Math.floor((Math.random() * data.matches.length -1) + 1); %>
+          <% let ran = data.matches.length > 1 ? Math.floor((Math.random() * data.matches.length -1) + 1) : 0; %>
           <% if (ranNumbers.includes(ran)) { %>
             <% ran = Math.floor((Math.random() * (data.matches.length -1)) + 1); %>
           <% } %>
-        <% ranNumbers.push(ran) %>
+        <% if (data.matches.length > 3) {ranNumbers.push(ran)} %>
             <div class="card results-card">
+              <% console.log('data match zero ',data.matches[0]) %>
+              <% console.log('what is random num: ', ran) %>
               <p class="results-age"><%= data.matches[ran].ageRange %><br/><%= data.matches[ran].gender[0]%></p>
               <img class="results-profile" src=<%= data.matches[ran].pic %> alt="profile photo">
               <div class="results-mid">
@@ -78,6 +133,7 @@
                 </form>
               </div>
             </div>
+        <% } %>
         <% } %>
       </div>
       <!-- formaction="" only works with button type="submit" -->
