@@ -14,7 +14,8 @@
         <form action="/results" method="get" id="getMatches">
           <a class="logo-small" href="/dashboard">human:kind</a>
           <div class="filter-center">
-            <p class="label">Gender:</p>
+            <div class="genders">
+              <p class="label">Gender:</p>
             <input type="checkbox" id="female" name="gender" value="female" <%= filterGender.includes('female') && !(filterGender.includes('male') && filterGender.includes('other') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
             <label for="female">Female</label>
             <input type="checkbox" id="male" name="gender" value="male" <%= filterGender.includes('male') && !(filterGender.includes('female') && filterGender.includes('other') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
@@ -23,8 +24,9 @@
             <label for="nonbinary">Nonbinary</label>
             <input type="checkbox" id="other" name="gender" value="other" <%= filterGender.includes('other') && !(filterGender.includes('male') && filterGender.includes('female') && filterGender.includes('nonbinary')) ? "checked" : "" %>>
             <label for="other">Other</label>
-
-            <p class="label">Age:</p>
+            </div>
+            <div class="ages">
+              <p class="label">Age:</p>
             <input 
               type="checkbox" 
               id="0-20" 
@@ -81,13 +83,7 @@
             <%= filterAge.includes('70+') && !(filterAge.includes('0-20') && filterAge.includes('20-30') && filterAge.includes('30-40') && filterAge.includes('40-50') && filterAge.includes('50-60') && filterAge.includes('60-70')) ? "checked" : "" %>
           >
           <label for="70+">70+</label>
-
-          
-
-            
-
-            
-            
+            </div>
             
           </div>
           <button form="getMatches" type="submit" class="button" formaction="/results">find folks</button>
@@ -110,8 +106,6 @@
           <% } %>
         <% if (data.matches.length > 3) {ranNumbers.push(ran)} %>
             <div class="card results-card">
-              <% console.log('data match zero ',data.matches[0]) %>
-              <% console.log('what is random num: ', ran) %>
               <p class="results-age"><%= data.matches[ran].ageRange %><br/><%= data.matches[ran].gender[0]%></p>
               <img class="results-profile" src=<%= data.matches[ran].pic %> alt="profile photo">
               <div class="results-mid">

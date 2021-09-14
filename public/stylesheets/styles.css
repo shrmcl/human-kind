@@ -1,6 +1,9 @@
 /* font-family: 'IBM Plex Mono', monospace;
 font-family: 'IBM Plex Sans', sans-serif; */
 
+/* font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Mono', monospace; */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,7 +15,7 @@ font-family: 'IBM Plex Sans', sans-serif; */
 
 body {
   background-color: #272727;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 12px; /* base font size */
   color: #525252;
 }
@@ -60,13 +63,13 @@ h2 {
   color: white;
 }
 h3 {
-  font-family: 'IBM Plex Sans', sans-serif; 
+  font-family: 'Roboto', sans-serif; 
   color: #e3e3e3;
   letter-spacing: 0.03em;
   font-size: 20px;
 }
 h4 {
-  font-family: 'IBM Plex Sans', sans-serif; 
+  font-family: 'Roboto', sans-serif; 
   font-size: 14px;
   letter-spacing: 0.02em;
   color: #C4C4C4;
@@ -77,6 +80,8 @@ p {
    color: #656565;
 }
 p.label, label {
+  font-size: 11px;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #656565;
@@ -126,7 +131,7 @@ a, a:hover {
 /* ------------------------------------------------------------- UNIQUE ELEMENTS */
 
 .logo-small {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 30px;
   letter-spacing: 0.2%;
@@ -306,7 +311,8 @@ textarea:focus {
 .filter-center {
   width: 100%;
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 .filter-center .label {
