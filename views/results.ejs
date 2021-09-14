@@ -4,36 +4,38 @@
 
 <div class="container container-md">
   <div class="col">
-    <div class="row results-top">
+    <div class="row mb-md-5 mb-0">
       <div id="dashboard-welcome" class="col">
-        <a class="logo-small" href="/dashboard">human:kind</a>
-        <h2>(filters to be here))</h2>
-        <a class="button" href="/results" role="button">Find folks</a>
+        <!-- <a class="logo-small" href="/dashboard">human:kind</a> -->
+        <!-- <h2>(filters to be here))</h2> -->
+        <!-- determine which checkboxes to load as "checked" -->
+        <% let filterGender = data.filters.gen %>
+        <!-- filter results by gender -->
+        <form action="/results" method="get" id="getMatches">
+          <a class="logo-small" href="/dashboard">human:kind</a>
+          <div class="filter-center">
+            <p class="label">Gender:</p>
+            <input type="checkbox" id="female" name="gender" value="female" <%= filterGender.includes('female') ? "checked" : "" %>>
+            <label for="female">Female</label>
+            <input type="checkbox" id="male" name="gender" value="male" <%= filterGender.includes('male') ? "checked" : "" %>>
+            <label for="male">Male</label>
+            <input type="checkbox" id="nonbinary" name="gender" value="nonbinary" <%= filterGender.includes('nonbinary') ? "checked" : "" %>>
+            <label for="nonbinary">Nonbinary</label>
+            <input type="checkbox" id="other" name="gender" value="other" <%= filterGender.includes('other') ? "checked" : "" %>>
+            <label for="other">Other</label>
+          </div>
+          <button form="getMatches" type="submit" class="button" formaction="/results">find folks</button>
+        </form>
+        <!-- <a class="button" href="/results" role="button">Find folks</a> -->
     </div>
-      <!-- <h2 class="text-center">These are your matches!</h2> -->
-
-      <!-- determine which checkboxes to load as "checked" -->
-      <% let filterGender = data.filters.gen %>
       
-      <!-- filter results by gender -->
-      <!-- <form action="/results" method="get" id="getMatches">
-        <input type="checkbox" id="female" name="gender" value="female" <%= filterGender.includes('female') ? "checked" : "" %>>
-        <label for="female">Female</label><br>  
-        <input type="checkbox" id="male" name="gender" value="male" <%= filterGender.includes('male') ? "checked" : "" %>>
-        <label for="male">Male</label><br> 
-        <input type="checkbox" id="nonbinary" name="gender" value="nonbinary" <%= filterGender.includes('nonbinary') ? "checked" : "" %>>
-        <label for="nonbinary">Nonbinary</label><br> 
-        <input type="checkbox" id="other" name="gender" value="other" <%= filterGender.includes('other') ? "checked" : "" %>>
-        <label for="other">Other</label><br>  
-       
-        <button form="getMatches" type="submit" class="btn-to-chat" formaction="/results">see more</button>
-      </form> -->
-
+      
+      <!-- <a class="button" href="/results" role="button">Find folks</a> -->
       <!-- <a class="btn btn-info btn-md" href="/results" role="button">See More</a> -->
     </div>
 
     <form action="/results" method="POST" id="savedMatches">
-      <div class="row row-cols-1 row-cols-md-3">
+      <div class="row card-grid">
         <%# store random numbers to prevent duplicates %>
         <% let ranNumbers = []; %>
         <% for(let i = 0;  i < 3; i++) { %>
@@ -42,46 +44,32 @@
             <% ran = Math.floor((Math.random() * (data.matches.length -1)) + 1); %>
           <% } %>
         <% ranNumbers.push(ran) %>
-          <div class="col mb-4">
             <div class="card results-card">
-              <img src=<%= data.matches[ran].pic %> alt="profile photo">
-              <h3 class="card-title"><%= data.matches[ran].username %></h3>
-              <p class="results-bio"><%= data.matches[ran].bio %></p>
-              <div class="common-int">
-                <% data.matches[ran].interests.forEach(el => { %>
-                  <a class="results-interests" href="/orgIndex#<%= el %>"><%= el %></a> 
-                <% }) %>
-              </div>
-             
-              <!-- <div class="card-header">
-                
-                <input type="checkbox" name="username" value=<%=data.matches[ran]._id %>>
-              </div> -->
-                
-                <div class="card-body">
-                  <!-- <p class="bio"><%= data.matches[ran].bio %></p> -->
-                  <!-- <div class="common-interests">
-                    <p class="info-label">Common Interests:</p>
-                    <% data.matches[ran].interests.forEach(el => { %>
+              <p class="results-age"><%= data.matches[ran].ageRange %><br/><%= data.matches[ran].gender[0]%></p>
+              <img class="results-profile" src=<%= data.matches[ran].pic %> alt="profile photo">
+              <div class="results-mid">
+                <h3 class="card-title"><%= data.matches[ran].username %></h3>
+                <p class="results-bio"><%= data.matches[ran].bio %></p>
+                <div class="common-int">
+                  <% data.matches[ran].interests.forEach(el => { %>
                     <a class="results-interests" href="/orgIndex#<%= el %>"><%= el %></a> 
-                    <% }) %>
-                  </div> -->
-                  <div class="card-bottom">
-                    <p class="age-gender">
-                      <%= data.matches[ran].gender %><br>
-                      <%= data.matches[ran].ageRange %>
-                    </p>
-                    <form action="/message" method="post" id="message-form">
-                      <button form="message-form" type="submit" class="btn-to-chat" formaction="/message?friend=<%= data.matches[ran].username %>&friendpic=<%= data.matches[ran].pic %>">message</button>
-                    </form>
-                  </div>
-                </div> 
+                  <% }) %>
+                </div>
+             </div>
+              <div class="results-low">
+                <input type="checkbox" id="<%=data.matches[ran]._id %>" name="username" value=<%=data.matches[ran]._id %>>
+                <label for="<%=data.matches[ran]._id %>">select</label>
+                <form action="/message" method="post" id="message-form">
+                  <button form="message-form" type="submit" class="button-dash-msg" formaction="/message?friend=<%= data.matches[ran].username %>&friendpic=<%= data.matches[ran].pic %>">
+                    <img src="/assets/images/chat1.svg" alt="">
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>    
         <% } %>
       </div>
       <!-- formaction="" only works with button type="submit" -->
-      <button form="savedMatches" type="submit" class="btn btn-primary btn-md results-save" formaction="/results">Save matches</button>
+      <button id="save-selection" form="savedMatches" type="submit" class="button" formaction="/results">Save selection</button>
     </form>
   </div>
 </div> 

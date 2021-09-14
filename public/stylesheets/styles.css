@@ -24,7 +24,7 @@ body {
 }
 .container,
 .container-md {
-  margin: 76px auto;
+  margin: 32px auto;
 }
 .container-md {
   width: 100%;
@@ -96,10 +96,19 @@ p.small-bio {
 }
 p.results-bio {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.02em;
-  color: #c4c4c4;
-  height: 66px;
+  color: #C4C4C4;
+  margin: 0;
+}
+p.results-age {
+  color: #525252;
+  line-height: 1;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  position: absolute;
+  top: 12px;
+  left: 12px;
 }
 p.small-details {
   font-size: 11.5px;
@@ -155,6 +164,36 @@ a, a:hover {
 .nav-profile:hover {
   background-color: #3D3D3D;
 }
+#empty-collection {
+  background-color: #232323;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60vh;;
+}
+#empty-hello {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#empty-collection h3 {
+  color: #525252;
+}
+#empty-collection img {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  margin-bottom: 16px;
+}
+
+
 /* ------------------------------------------------------------- FORM & INPUT ELEMENTS */
 
 input[type='text'],
@@ -241,7 +280,7 @@ textarea:focus {
 .bubbles {
   margin-bottom: 32px;
 }
-.radio-only label, .check-only label {
+.radio-only label, .check-only label, #savedMatches label, #getMatches label {
   display: inline-block;
   background-color: transparent;
   border: 1px solid #525252;
@@ -260,6 +299,25 @@ textarea:focus {
   cursor: pointer;
   text-align: center;
 }
+#savedMatches label {
+  width: min-content;
+  margin: 0;
+}
+.filter-center {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+.filter-center .label {
+  display: inline-block;
+  width: min-content;
+  margin: 0;
+  padding: 0;
+}
+#savedMatches .button {
+  margin: 16px auto;
+}
 .bubbles p.label {
   padding: 0;
   margin: 0 0 8px 0;
@@ -274,17 +332,18 @@ textarea:focus {
   color: #232323;
   transition: all 0.2s;
 }
-.bubbles input[type='checkbox'] {
+.bubbles input[type='checkbox'], #savedMatches input[type='checkbox'], #getMatches input[type='checkbox'] {
   display: absolute;
   position: absolute;
   opacity: 0;
 }
-.bubbles input[type='checkbox']:checked + label {
+.bubbles input[type='checkbox']:checked + label, #savedMatches input[type='checkbox']:checked + label, #getMatches input[type='checkbox']:checked + label {
   background-color: #C4C4C4;
   color: #232323;
   transition: all 0.2s;
 }
-.radio-only label:hover, .check-only label:hover {
+
+.radio-only label:hover, .check-only label:hover, #savedMatches label:hover {
   color: white;
 }
 .signup .label {
@@ -322,7 +381,7 @@ textarea:focus {
   right:10px;
   bottom: 10px;
 }
-.dashboard-message img {
+.dashboard-message img, .button-dash-msg img {
   width: 100%;
   height: auto;
 }
@@ -390,6 +449,9 @@ color: #212121;
   padding-right: 40px;
   transform: translateX(-50%);
 }
+#save-selection {
+  margin: 40px auto;
+}
 
 /* ------------------------------------------------------------- EDIT.EJS  */
 
@@ -424,13 +486,26 @@ color: #212121;
   padding-right: 0;
 }
 .results-card {
-  height: 500px;
+  height: 466px;
   padding: 0 12px 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
-.results-card img {
+.results-mid {
+  margin-bottom: 40px;
+  height: 124px;
+}
+.results-low {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.results-card img.results-profile {
   width: 210px;
   height: 210px;
-  margin: 10px auto 32px;
+  margin: 16px auto 32px;
   object-fit: cover;
   border-radius: 100%;
 }
@@ -474,7 +549,7 @@ color: #212121;
 }
 .common-int {
   padding: 0;
-  margin: 0;
+  margin: 16px 0;
 }
 .common-int a {
   display: inline;
@@ -489,6 +564,16 @@ color: #212121;
   padding: 0;
   margin: 0;
 }
+#getMatches {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+
 /* ------------------------------------------------------------- DASHBOARD.EJS  */
 
 #dashboard-welcome {
@@ -496,7 +581,7 @@ color: #212121;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 /* .welcome-left {
   display: flex;
@@ -636,7 +721,7 @@ color: #212121;
     align-items: center;
     justify-content: space-between;
   }
-  .welcome-left {
+  /* .welcome-left {
     width: 100%;
     align-items: flex-start;
   }
@@ -654,5 +739,5 @@ color: #212121;
   .welcome-right .btn {
     width: 50%;
     margin: 40px auto 0;
-  }
+  } */
 }

@@ -12,6 +12,19 @@
         </div>
     </div>
 
+    <!-- empty state: -->
+    <% if (data.savedMatches.length < 1) { %>
+        <div class="row mb-md-5 mb-0">
+            <div id="empty-collection" class="col">
+                <div id="empty-hello">
+                    <h4>Hello, <%= data.displayName %></h4>
+                </div>
+                <img src=<%= data.displayImg %> alt=""> 
+                <p>Find folks to add to your collection</p>
+            </div>
+        </div>
+     <% } %>
+
     <div class="row  card-grid">
             <!-- show each saved match -->
             <% data.savedMatches.forEach((el) => { %>
