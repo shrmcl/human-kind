@@ -2,36 +2,42 @@
 <%- include("partials/header") %>
 <%- include("partials/inNavbar") %>
 
-<div class="container">
-  <div class="row">
-    <a href="/dashboard" class="btn">Leave Room</a>
-  </div>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <header class="chat-header">
-          <div class="chat-welcome">
-            <h3>Conversation between</h3>
-            <div class="chat-group"><img class="chat-pic" src=<%= data.friendpic %> alt=""> <%= data.friend %></div> 
-            <h3>&</h3> 
-            <div class="chat-group"><img class="chat-pic" src=<%= data.displayImg %> alt=""> <%= data.displayName %></div>
-          </div>
-      </header>
-      <main class="chat-main">
-        <div class="chat-messages"></div>
-      </main>
-      <div class="chat-form-container">
-        <form id="chat-form">
-          <input
-            id="msg"
-            type="text"
-            placeholder="Enter Message"
-            required
-            autocomplete="off"
-          />
-          <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
-        </form>
+
+
+
+<div class="container-md">
+
+  <div class="row mb-md-5 mb-0">
+    <div id="dashboard-welcome" class="col">
+      <a class="logo-small" href="/dashboard">human:kind</a>
+      <!-- <a href="/dashboard" class="button">Leave Room</a> -->
+      <div id="chat-users">
+        <div class="chat-group"><img class="chat-pic" src=<%= data.friendpic %> alt=""> <h4><%= data.friend %></h4></div> 
+        <div class="chat-group"><img class="chat-pic" src=<%= data.displayImg %> alt=""> <h4><%= data.displayName %></h4></div>
       </div>
     </div>
   </div>
+
+  
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <main class="chat-main">
+        <div class="chat-messages"></div>
+      </main>
+    </div>
+  </div>
 </div>
+
+<form id="chat-form">
+  <input
+    id="msg"
+    type="text"
+    placeholder="Enter Message"
+    required
+    autocomplete="off"
+  />
+  <button class="button">Send</button>
+</form>
+
 <%- include("partials/footer") %>

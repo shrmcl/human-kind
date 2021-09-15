@@ -15,7 +15,7 @@ font-family: 'Roboto Mono', monospace; */
 
 body {
   background-color: #272727;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 12px; /* base font size */
   color: #525252;
 }
@@ -53,6 +53,7 @@ body {
 
 
 /* ------------------------------------------------------------- GENERAL TYPOGRAPHY */
+
 h2 {
   font-size: 16px;
   font-weight: 400;
@@ -63,13 +64,13 @@ h2 {
   color: white;
 }
 h3 {
-  font-family: 'Roboto', sans-serif; 
+  font-family: 'IBM Plex Sans', sans-serif; 
   color: #e3e3e3;
   letter-spacing: 0.03em;
   font-size: 20px;
 }
 h4 {
-  font-family: 'Roboto', sans-serif; 
+  font-family: 'IBM Plex Sans', sans-serif; 
   font-size: 14px;
   letter-spacing: 0.02em;
   color: #C4C4C4;
@@ -102,7 +103,7 @@ p.small-bio {
 p.results-bio {
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   color: #C4C4C4;
   margin: 0;
 }
@@ -126,16 +127,40 @@ a, a:hover {
   text-decoration: none;
   color: #e3e3e3;
 }
+.orgIndex h4 {
+  margin-bottom: 16px;
+}
+.orgIndex h4::after {
+  content:' ';
+  margin-top: 8px;
+  display:block;
+  border: 1px solid #3E3E3E;
+  transform: scaleY(0.5);
+}
+.orgIndex li a {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #3E3E3E;
+}
+.orgIndex li a:hover {
+  color: #9a9a9a;
+}
 
 
 /* ------------------------------------------------------------- UNIQUE ELEMENTS */
-
-.logo-small {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 30px;
-  letter-spacing: 0.2%;
+.logo-small, .logo-small-centered  {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 29px;
+  letter-spacing: 0.01em;
   color: #e3e3e3;
+}
+.logo-small-centered {
+  top: 0;
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translate(-50%);
 }
 .profile-icon {
   width: 40px;
@@ -178,7 +203,7 @@ a, a:hover {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 60vh;;
+  height: 60vh;
 }
 #empty-hello {
   position: absolute;
@@ -475,6 +500,19 @@ color: #212121;
   opacity: 0.8;
   transition: all 0.6s ease-in-out;
 }
+#preview-edit {
+  width: 100%;
+  height: 350px;
+  border-radius: 6px;
+  object-fit: cover;
+  display:block;
+  margin-bottom: 40px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.8;
+  transition: all 0.6s ease-in-out;
+}
 
 /* ------------------------------------------------------------- RESULTS.EJS  */
 
@@ -652,20 +690,50 @@ color: #212121;
 .orgs-list {
   list-style: none;
 }
-.orgIndex li {
-  font-size: 2rem;
-}
 .orgIndex li:last-child {
-  margin-bottom: 100px;
+  margin-bottom: 40px;
 }
 
 /* ------------------------------------------------------------- CHAT.EJS  */
+/* hide chat meta messages */
+
+#chat-form {
+  position: fixed;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  flex: row;
+  width: 100%;
+  padding: 0 25vw;
+}
+#chat-form input {
+  width: 100%;
+  margin-right: 8px;
+}
+#chat-users {
+  position:relative;
+  
+  display: flex;
+  width: auto;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+.chat-messages p.meta:first-of-type {
+  display: none;
+}
+.message:first-child .text {
+  display: none;
+}
+.chat-messages p {
+  font-size: 2em;
+}
 
 .chat-pic {
-  width: 60px;
-  height: 60px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
   object-fit: cover;
+  margin-right: 8px;
 }
 .chat-header {
   display: flex;
@@ -678,16 +746,23 @@ color: #212121;
   align-items: center;
 }
 .chat-group {
-  background-color: rgb(255, 255, 255);
-  display: inline-block;
-  padding: 0 10px 0 0;
-  border-radius: 8px;
-  margin: 0 6px;
-  font-weight: 600;
-  font-size: 1.2em;
-  margin-bottom: 0;
+  background-color: #232323;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 6px;
   color: #3E3E3E;
+  margin-right: 8px;
 }
+.chat-group h4 {
+  padding: 0 8px;
+  color: #9a9a9a;
+  margin: 0;
+  line-height: 1;
+}
+
 
 /* ------------------------------------------------------------- MEDIA QUERY: SMALL SCREENS  */
 
