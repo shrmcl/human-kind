@@ -115,10 +115,10 @@ app.get('/results', isLoggedIn, (req, res) => {
   } else {
     genderFilter = req.query.gender ? req.query.gender : ['female', 'male', 'nonbinary', 'other']
   }
-
+console.log('req query:', req.query, 'age data:', typeof req.query.age)
   // age filter
   let ageFilter;
-  if (req.query.age && typeof req.query.gender === 'string') {
+  if (req.query.age && typeof req.query.age === 'string') {
     // console.log('agefilter', req.query.age)
     ageFilter = req.query.age.split(" ")
   } else {
