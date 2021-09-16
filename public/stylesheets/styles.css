@@ -25,6 +25,12 @@ body {
   justify-content: center;
   padding: 32px 0 0;
 }
+.navbar-logo-offset-8 {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 32px 0 0 16px;
+}
 .container,
 .container-md {
   margin: 32px auto;
@@ -36,6 +42,15 @@ body {
 .signup {
   width: 360px;
   padding: 0;
+  transform: translateX(8px);
+}
+.login{
+  width: 360px;
+  padding: 0;
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
 }
 .centered {
   text-align: center;
@@ -53,7 +68,13 @@ body {
 
 
 /* ------------------------------------------------------------- GENERAL TYPOGRAPHY */
-
+h1 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 4vw;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+}
 h2 {
   font-size: 16px;
   font-weight: 400;
@@ -148,6 +169,80 @@ a, a:hover {
 
 
 /* ------------------------------------------------------------- UNIQUE ELEMENTS */
+.splash-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding: 32px 24px;
+}
+.logo-splash {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 29px;
+  letter-spacing: 0.01em;
+  color: #e3e3e3;
+  position: fixed;
+  left: 50%;
+  top: 32px;
+  transform: translateX(-50%);
+  z-index: 100;;
+}
+.splash-logo p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 29px;
+  letter-spacing: 0.01em;
+  color: #535353;
+}
+#splash-tagline {
+  position: fixed;
+  bottom: 24px;
+  line-height: 1;
+  left: 0;
+  width: 100vw;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: white;
+  background-image: linear-gradient(45deg, #5e5e5e, #333333);
+  background-size: 100%;
+  background-repeat: repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+.splash-images {
+  position: absolute;
+  top: 50vh;
+  transform: translateY(-50%);
+  display: flex;
+  width: 100vw;
+  height: 600px;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 24px;
+  /* background-color:pink; */
+}
+.splash-images img {
+  width: 18.5vw;
+  height: 359px;
+  object-fit: cover;
+}
+.splash-buttons {
+  position: absolute;
+  top: 68vh;
+  display: flex;
+  width: 100vw;
+  padding: 0 11vw;
+  justify-content: space-around;
+}
+.align-top {
+  align-self: flex-start;
+}
 .logo-small, .logo-small-centered  {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
@@ -334,7 +429,7 @@ textarea:focus {
   margin: 0;
 }
 .filter-center {
-  width: 100%;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -626,6 +721,7 @@ color: #212121;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
+  height: 54px;
 }
 /* .welcome-left {
   display: flex;
@@ -797,6 +893,7 @@ color: #212121;
 }
 
   #dashboard-welcome {
+    height: 54px;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,11 +1,25 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
 
-<div class="container centered centered-vert">
+<div class="splash-logo">
+    <p>find human</p>
+    <p>be kind</p>
+</div>
+<a class="logo-splash" href="/dashboard">human:kind</a>
+<div class="splash-images">
+    <img src="assets/images/people/sofa2.jpg" alt="">
+    <img class="align-top" src="assets/images/people/laugh.jpg" alt="">
+    <img src="assets/images/people/hat.jpg" alt="">
+    <img class="align-top" src="assets/images/people/denim.jpg" alt="">
+    <img src="assets/images/people/blonde.jpg" alt="">
+</div>
+
+<div class="splash-buttons">
     <a class="button" href="/signup" role="button">Sign Up</a>
     <a class="button" href="/login" role="button">Enter</a>
-    <!-- <a class="btn btn-warning btn-lg" href="/orgSignup" role="button">I'm a NonProfit</a> -->
 </div>
+
+<h1 id="splash-tagline">make a friend while making a difference.</h1>
 
 <!-- adds footer.ejs -->
 <%- include("partials/footer") %>
