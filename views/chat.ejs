@@ -1,39 +1,29 @@
 <!-- adds header.ejs -->
 <%- include("partials/header") %>
-<%- include("partials/inNavbar") %>
 
-
-
-
-<div class="container-md">
-
-  <div class="row mb-md-5 mb-0">
-    <div id="dashboard-welcome" class="col">
-      <a class="logo-small" href="/dashboard">human:kind</a>
-      <!-- <a href="/dashboard" class="button">Leave Room</a> -->
-      <div id="chat-users">
-        <div class="chat-group"><img class="chat-pic" src=<%= data.friendpic %> alt=""> <h4><%= data.friend %></h4></div> 
-        <div class="chat-group"><img class="chat-pic" src=<%= data.displayImg %> alt=""> <h4><%= data.displayName %></h4></div>
-      </div>
+<!-- navbar for chat only -->
+<div class="navbar-chat">
+    <div>
+      <p><%= data.displayName %></p>
+      <p><%= data.friend %></p>
     </div>
-  </div>
-
-  
-
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <main class="chat-main">
-        <div class="chat-messages"></div>
-      </main>
-    </div>
-  </div>
+    <a class="button" href="/dashboard">close</a>
 </div>
+
+<div class="chat-bg">
+  <img class="chat-pic" src=<%= data.displayImg %> alt="">
+  <img class="chat-pic" src=<%= data.friendpic %> alt="">
+</div>
+
+<main class="chat-main">
+  <div class="chat-messages"></div>
+</main>
 
 <form id="chat-form">
   <input
     id="msg"
     type="text"
-    placeholder="Enter Message"
+    placeholder="| Type Something"
     required
     autocomplete="off"
   />

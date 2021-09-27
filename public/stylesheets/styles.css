@@ -462,6 +462,36 @@ animation-duration: 20s;
 .navbar {
   padding: 24px 72px;
 }
+.navbar-chat {
+  padding: 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #272727;
+  z-index: 10;
+}
+.navbar-chat div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.navbar-chat p {
+  font-family: 'IBM plex sans', sans-serif;
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+.navbar-chat div p:first-child {
+  margin-right: 16px;
+}
+.navbar-chat div p:nth-child(2) {
+  color: #e3e3e3;
+} 
 .navbar-nav {
   display: flex;
   align-items: center;
@@ -509,6 +539,7 @@ animation-duration: 20s;
 #empty-collection img {
   width: 100px;
   height: 100px;
+  object-fit: cover;
   border-radius: 100%;
   margin-bottom: 16px;
 }
@@ -987,19 +1018,60 @@ color: #212121;
 
 /* ------------------------------------------------------------- CHAT.EJS  */
 /* hide chat meta messages */
-
+.chat-top {
+  display: flex;
+  justify-content: space-between;
+}
+.chat-top p {
+  display: inline-block;
+  margin-right: 16px;
+  font-size: 12px;
+  font-family: 'IBM Plex Sans', sans-serif; 
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.chat-bg {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 420px;
+  height: 200px;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+}
+.chat-main {
+  position: relative;
+  width: 100%;
+  top: 90px;
+  padding: 0 24px;
+  color: #7a7a7a;
+  padding-bottom: 160px;
+}
+.chat-main p, #msg {
+  font-family: 'ibm plex sans', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.message p {
+  margin-bottom: 0;
+}
 #chat-form {
   position: fixed;
-  bottom: 40px;
+  bottom: 0;
   display: flex;
-  justify-content: center;
   flex: row;
   width: 100%;
-  padding: 0 25vw;
+  padding: 24px;
+  background-color: #272727;
+  z-index: 10;
 }
+
 #chat-form input {
   width: 100%;
-  margin-right: 8px;
+  background-color: transparent;
+  color: #525252;
 }
 #chat-users {
   position:relative;
@@ -1020,11 +1092,10 @@ color: #212121;
 }
 
 .chat-pic {
-  width: 32px;
-  height: 32px;
+  width: 200px;
+  height: 200px;
   border-radius: 100%;
   object-fit: cover;
-  margin-right: 8px;
 }
 .chat-header {
   display: flex;
